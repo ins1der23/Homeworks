@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+    <script>
+        var n = window.prompt("Введите число n и покажу произведение чисел до него");
+        var i=n;
+        var factorial=1;
+        document.write("n="+n);
+        if(i<0){
+            document.write("Факториал " + n + "=0");
+        }
+        else {
+            while (i>1){
+                factorial=factorial*i;
+                i--;
+            }
+            window.alert("Факториал " + n + "=" + factorial);
+        }
+        document.write("<br> Факториал " + n + "=" + factorial);
+    </script>
+<style>
+    body {
+        font-size: 60px;
+    }
+</style>
+<body>
+    
+</body>
+</html>
