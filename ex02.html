@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+</head>
+
     <script>
         var n = window.prompt("Введите число n и покажу произведение чисел до него");
-        var m=n
+        var i=n;
         var factorial=1;
-        window.alert("n="+n);
-        if(n<0){
-            window.alert("Факториал " + m + "=0");
+        document.write("n="+n);
+        if(i<0){
+            document.write("Факториал " + n + "=0");
         }
         else {
-            while (n>1){
-                factorial=factorial*n;
-                n=n-1;
+            while (i>1){
+                factorial=factorial*i;
+                i--;
             }
         }
-        window.alert("Факториал " + m + "=" + factorial);
+        document.write("<br> Факториал " + n + "=" + factorial);
     </script>
-</head>
+<style>
+    body {
+        font-size: 60px;
+    }
+</style>
 <body>
     
 </body>
