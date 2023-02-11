@@ -1,4 +1,4 @@
-﻿Console.WriteLine("Введите два числа, я подумаю и скажу,какое больше");
+﻿Console.WriteLine("Введите два числа, я подумаю и скажу, какое больше");
 double a = double.Parse(Console.ReadLine());
 double b = double.Parse(Console.ReadLine());
 if (a != b)
