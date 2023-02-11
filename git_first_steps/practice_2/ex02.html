@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+    <script>
+        var n = window.prompt("Введите число n и я покажу произведение чисел от 1 до него");
+        var i=n;
+        var product=1;
+        document.write("n="+n);
+        if(n<1){
+            document.write("<br> Произведение чисел от 1 до " + n + "=0");
+        }
+        else {
+            while (i>1){
+                product=product*i;
+                i--;
+            }
+            document.write("<br> Произведение чисел от 1 до " + n + "=" + product);
+        }
+        
+    </script>
+<style>
+    body {
+        font-size: 60px;
+    }
+</style>
+<body>
+    
+</body>
+</html>
