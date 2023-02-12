@@ -5,7 +5,7 @@ if (a != b)
 {
     if (a > b)
     {
-        Console.WriteLine("Первое число больше второго ");
+        Console.WriteLine("Первое число больше второго");
     }
     else
     {
