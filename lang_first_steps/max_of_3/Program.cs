@@ -1,7 +1,7 @@
 ﻿Random rnd = new Random();
-double a = rnd.Next(1,100);
-double b = rnd.Next(1,100);
-double c = rnd.Next(1,100);
+int a = rnd.Next(1,100);
+int b = rnd.Next(1,100);
+int c = rnd.Next(1,100);
 Console.WriteLine("A={0}, B={1}, C={2}.", a, b, c);
 if (a == b)
 {
