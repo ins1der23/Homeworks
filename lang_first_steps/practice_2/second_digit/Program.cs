@@ -3,14 +3,15 @@
 // 782 -> 8
 // 918 -> 1
 
-int SecondDigit (int Any3DgNumber)
+int SecondDigit(int Any3DgNumber)
 {
     return Any3DgNumber / 10 % 10;
 }
+
 Console.WriteLine("Введите трехзначноечисло, увидите чудо");
 Console.Write("Число = ");
 int SomeNumber = int.Parse(Console.ReadLine());
-while(SomeNumber<100 || SomeNumber>1000)
+while (SomeNumber < 100 || SomeNumber > 999)
 {
     Console.WriteLine("Так вы чуда не увидите. Введите ТРЕХЗНАЧНОЕ число");
     Console.Write("Число = ");
