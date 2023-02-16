@@ -8,7 +8,7 @@ int SecondDigit(int Any3DgNumber)
     return Any3DgNumber / 10 % 10;
 }
 
-Console.WriteLine("Введите трехзначноечисло, увидите чудо");
+Console.WriteLine("Введите трехзначное число, увидите чудо");
 Console.Write("Число = ");
 int SomeNumber = int.Parse(Console.ReadLine());
 while (SomeNumber < 100 || SomeNumber > 999)

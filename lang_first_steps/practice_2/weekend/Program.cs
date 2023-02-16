@@ -1,6 +1,4 @@
-﻿
-
-// **Задача 15:** Напишите программу, которая принимает на вход цифру, обозначающую день недели, и проверяет, является ли этот день выходным.
+﻿// **Задача 15:** Напишите программу, которая принимает на вход цифру, обозначающую день недели, и проверяет, является ли этот день выходным.
 
 // 6 -> да
 // 7 -> да
@@ -11,7 +9,7 @@ bool WeekendCheck(int DayNumber)
     return DayNumber > 5;
 }
 
-Console.WriteLine("Введите число, обозначающие день недели");
+Console.Write ("Введите число, обозначающие день недели ");
 int CheckedNumber = int.Parse(Console.ReadLine());
 while (CheckedNumber < 1 || CheckedNumber > 7)
 {
@@ -20,6 +18,5 @@ while (CheckedNumber < 1 || CheckedNumber > 7)
     CheckedNumber = int.Parse(Console.ReadLine());
 }
 
-if (WeekendCheck(CheckedNumber)) Console.WriteLine("Выходной");
-else Console.WriteLine("Не выходной");
-
+if (WeekendCheck(CheckedNumber)) Console.WriteLine("Выходной день");
+else Console.WriteLine("Рабочий день");
