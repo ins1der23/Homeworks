@@ -9,8 +9,13 @@ bool WeekendCheck(int DayNumber)
     return DayNumber > 5;
 }
 
-Console.Write ("Введите число, обозначающие день недели ");
-int CheckedNumber = int.Parse(Console.ReadLine());
+int ToNumber(string message)
+{
+Console.Write(message);
+int result = int.Parse(Console.ReadLine());
+return result;
+}
+int CheckedNumber = ToNumber("Введите число, обозначающие день недели ");
 while (CheckedNumber < 1 || CheckedNumber > 7)
 {
     Console.WriteLine("Не является днем недели");
