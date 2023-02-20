@@ -8,8 +8,8 @@ bool TenetChecking(int AnyNumber)
 int ToNumber(string message)
 {
 Console.Write(message);
-int result = int.Parse(Console.ReadLine());
-return result;
+return int.Parse(Console.ReadLine());
+ 
 }
 
 int SomeNumber = ToNumber("Введите пятизначное число для проверки: ");
