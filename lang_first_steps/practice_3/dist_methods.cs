@@ -1,6 +1,6 @@
 public class DistMethods
 {
-    public static double[] CreateArray(int size)
+    public static double[] CreateDblArray(int size)
     {
         return new double[size];
     }
@@ -22,7 +22,7 @@ public class DistMethods
         }
     }
 
-    public static string PrintArray(double[] AnyArray)
+    public static string PrintDblArray(double[] AnyArray)
     {
         string output = String.Empty;
         int size = AnyArray.Length;
