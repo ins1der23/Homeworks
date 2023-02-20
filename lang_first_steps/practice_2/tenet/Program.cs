@@ -9,7 +9,6 @@ int ToNumber(string message)
 {
 Console.Write(message);
 return int.Parse(Console.ReadLine());
- 
 }
 
 int SomeNumber = ToNumber("Введите пятизначное число для проверки: ");
