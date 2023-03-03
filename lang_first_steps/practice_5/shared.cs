@@ -1,3 +1,4 @@
+using System;
 public class Shared
 {
     public static string Task(string message)
@@ -5,19 +6,31 @@ public class Shared
         string output = String.Empty;
         return output + Environment.NewLine + message.ToUpper() + ".";
     }
- 
-    public static int GetInteger(string text)
-  {
-    int num = 0;
-    bool flag = true;
-    do
-    {
-      Console.Write($"{text}: ");
-      flag = int.TryParse(Console.ReadLine(), out num);
-    } while (!flag);
-    return num;
-  }
 
+    public static int GetInteger(string text)
+    {
+        int num = 0;
+        bool flag = true;
+        do
+        {
+            Console.Write($"{text}: ");
+            flag = int.TryParse(Console.ReadLine(), out num);
+        } while (!flag);
+        return num;
+    }
+
+    public static int ArraySize(string text)
+    {
+        int size = 0;
+        bool flag = true;
+        do
+        {
+            size = GetInteger(text);
+            flag = size > 0;
+            if(!flag) Console.WriteLine($" Размер массива не может быть меньше 1 {Environment.NewLine} Давайте еще раз");
+        } while (!flag);
+        return size;
+    }
     public static bool CompareLess(int anyNumber, int bound)
     {
         return anyNumber < bound;
@@ -46,7 +59,7 @@ public class Shared
     }
     public static string PrintArray(int[] someArray)
     {
-         
-    return $"[{String.Join(' ', someArray)}]";
+
+        return $"[{String.Join(' ', someArray)}]";
     }
 }

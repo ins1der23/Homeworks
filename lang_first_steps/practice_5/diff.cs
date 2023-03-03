@@ -19,10 +19,10 @@ public static double[] CreateDblArray(int size)
     {
         int minI = 0;
         int maxI = 0;
-        for (int i = 0; i < anyArray.Length; i++)
+        for (int i = 1; i < anyArray.Length; i++)
         {
             if (anyArray[i] > anyArray[maxI]) maxI = i;
-            if (anyArray[i] < anyArray[minI]) minI = i;
+            else if (anyArray[i] < anyArray[minI]) minI = i;
         }
         return anyArray[maxI] - anyArray[minI];
     }
