@@ -10,9 +10,9 @@ int size = GetInteger("Введите общее количество чисел
 size = RangeForNumber(size, 1, 20, "Слишком малое или большое количество чисел");
 int[] someArray = CreateArray(size);
 Console.WriteLine($"Введите {size} чисел");
-FillArrayRecursive(someArray, 0);
+FillArrayRecursive(someArray);
 Console.WriteLine(ArrayToString(someArray));
-Console.WriteLine(CountPositiveRecursive(someArray, 0, 0));
+Console.WriteLine(CountPositiveRecursive(someArray));
 
 
 // Задача 43: Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями y = k1 * x + b1, y = k2 * x + b2; значения b1, k1, b2 и k2 задаются пользователем.

@@ -27,19 +27,11 @@ public class Count
         }
         return check;
     }
-    public static void FillArrayRecursive(int[] anyArray, int i)
+    public static void FillArrayRecursive(int[] anyArray, int i = 0)
     {
-        if (i == anyArray.Length - 1)
-            anyArray[i] = GetInteger($"Введите {i + 1}-е число");
-        else
-        {
-            if (anyArray[i] == 0)
-            {
-                anyArray[i] = GetInteger($"Введите {i + 1}-е число");
-                FillArrayRecursive(anyArray, i + 1);
-            }
-
-        }
+        if (i >= anyArray.Length) return;
+        anyArray[i] = GetInteger($"Введите {i + 1}-е число");
+        FillArrayRecursive(anyArray, i + 1);
     }
     public static string ArrayToString(int[] anyArray)
     {
@@ -51,15 +43,12 @@ public class Count
         return output;
     }
 
-    public static int CountPositiveRecursive(int[] anyArray, int i, int counter)
+    public static int CountPositiveRecursive(int[] anyArray, int i = 0, int counter = 0)
     {
-        if (i == (anyArray.Length - 1))
-            if (anyArray[i] > 0) return counter + 1;
-            else return counter;
-        else
+        if (i >= (anyArray.Length)) return counter;
+        if (anyArray[i] > 0)
         {
-            if((anyArray[i] > 0)) counter = counter + CountPositiveRecursive(anyArray, i + 1, counter) + 1;
-            else counter = counter + CountPositiveRecursive(anyArray, i + 1, counter);
+            counter = counter + CountPositiveRecursive(anyArray, i + 1, counter) + 1;
         }
         return counter;
 
