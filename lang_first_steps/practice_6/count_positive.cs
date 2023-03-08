@@ -46,23 +46,10 @@ public class Count
     public static int CountPositiveRecursive(int[] anyArray, int i = 0, int counter = 0)
     {
         if (i >= (anyArray.Length)) return counter;
-        if (anyArray[i] > 0)
-        {
-            counter = counter + CountPositiveRecursive(anyArray, i + 1, counter) + 1;
-        }
+        if (anyArray[i] > 0) counter++;
+        counter = CountPositiveRecursive(anyArray, i+1, counter);
         return counter;
-
-        // {
-        //     counter++;
-        //     counter += 
-        //     return counter;
-        // }
-
-
-
     }
-
-
 }
 
 

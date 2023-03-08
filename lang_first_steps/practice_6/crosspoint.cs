@@ -27,7 +27,6 @@ public class Point
     public static double RoundTo2(double num)
     {
         return Math.Round(num, 2);
-
     }
     public static string ShowMatrix(double[,] anyMatrix)
     {
