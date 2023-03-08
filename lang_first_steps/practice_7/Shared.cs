@@ -56,8 +56,38 @@ public class Shared
         return someMatrix;
     }
 
+    // заполнение int массива случаныйми числами
+    public static void FillIntMatrixRandom(int[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
+    {
+        int rows = anyMatrix.GetLength(0);
+        int columns = anyMatrix.GetLength(1);
+        if (i >= rows || j >= columns) return;
+        {
+            anyMatrix[i, j] = new Random().Next(numberFrom, numberTo);
+            FillIntMatrixRandom(anyMatrix, numberFrom, numberTo, i, j + 1);
+            FillIntMatrixRandom(anyMatrix, numberFrom, numberTo, i + 1, j);
+        }
+    }
 
-
-
-
+    // возврат в строку значений double двумерного массива
+    public static string MatrixIntToString(int[,] anyMatrix)
+    {
+        string output = String.Empty;
+        int rows = anyMatrix.GetLength(0);
+        int columns = anyMatrix.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                output += anyMatrix[i, j] + " ";
+            }
+            output += Environment.NewLine;
+        }
+        return output;
+    }
 }
+
+
+
+
+

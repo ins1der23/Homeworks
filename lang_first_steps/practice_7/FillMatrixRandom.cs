@@ -1,6 +1,3 @@
-
-
-
 public static class FillMatrixRandom
 {
     // создание double двумерного массива
@@ -11,20 +8,20 @@ public static class FillMatrixRandom
     }
 
     // рекурсивное заполнение двумерного массива случайными вещественными числами
-    public static void FillMatrixRandomRecurs(double[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
+    public static void FillMatrixDblRandom(double[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
     {
         int rows = anyMatrix.GetLength(0);
         int columns = anyMatrix.GetLength(1);
         if (i >= rows || j >= columns) return;
         {
             anyMatrix[i, j] = new Random().Next(numberFrom * 10, numberTo * 10) / 10.0;
-            FillMatrixRandomRecurs(anyMatrix, numberFrom, numberTo, i, j + 1);
-            FillMatrixRandomRecurs(anyMatrix, numberFrom, numberTo, i + 1, j);
+            FillMatrixDblRandom(anyMatrix, numberFrom, numberTo, i, j + 1);
+            FillMatrixDblRandom(anyMatrix, numberFrom, numberTo, i + 1, j);
         }
     }
-   
+
     // возврат в строку значений double двумерного массива
-    public static string MatrixToString(double[,] anyMatrix)
+    public static string MatrixDblToString(double[,] anyMatrix)
     {
         string output = String.Empty;
         int rows = anyMatrix.GetLength(0);
@@ -33,9 +30,9 @@ public static class FillMatrixRandom
         {
             for (int j = 0; j < columns; j++)
             {
-                output = output + anyMatrix[i, j] + " ";
+                output += anyMatrix[i, j] + " ";
             }
-            output = output + Environment.NewLine;
+            output += Environment.NewLine;
         }
         return output;
     }
