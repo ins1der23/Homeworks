@@ -4,3 +4,4 @@ choice = Shared.BoundInput(choice, "У нас три задачи, введит�
 
 if (choice == 1) Client.RunFillMatrix();
 else if (choice == 2) Client.RunElementPosition();
+else Client.RunMeanColumn();

@@ -1,6 +1,7 @@
 using static Shared;
 using static FillMatrixRandom;
 using static ElementPosition;
+using static ColumnMean;
 
 public static class Client
 {
@@ -29,7 +30,7 @@ public static class Client
         int colNum = position.Item2;
         Console.WriteLine("Число в строке {0}, столбце {1} = {2}", rowNum, colNum, someMatrix[NumToIndex(rowNum), NumToIndex(colNum)]);
     }
-    public static void MeanColumn()
+    public static void RunMeanColumn()
     {
         Console.WriteLine(Task("Посчитаем среднее арифметическое столбцов массива"));
         Console.WriteLine();
@@ -37,6 +38,9 @@ public static class Client
         int columns = new Random().Next(2, 10);
         int[,] someMatrix = CreateIntMatrix(rows, columns);
         FillIntMatrixRandom(someMatrix, 1, 100);
+        Console.WriteLine(MatrixIntToString(someMatrix));
+        double[] means = MeanOfColumns(someMatrix);
+        System.Console.WriteLine ($"{means[0]}, {means[1]}");
 
 
 

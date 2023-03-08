@@ -1,5 +1,5 @@
 using System;
-public class Shared
+public static class Shared
 {
     // офрмление текста задания
     public static string Task(string message)
