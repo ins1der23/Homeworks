@@ -1,5 +1,7 @@
 public static class ColumnMean
 {
+
+    // вывод средних значений колонок в одномерный массив
     public static double[] MeanOfColumns(int[,] anyMatrix)
     {
         int sum = 0;
@@ -12,12 +14,15 @@ public static class ColumnMean
             {
                 sum += anyMatrix[i, j];
             }
-            result[j] = (double)sum / rows;
+            result[j] = Math.Round((double)sum / rows, 1, MidpointRounding.ToZero);
             sum = 0;
         }
         return result;
     }
 
-
-
+    // вывод в строку одномерного массива
+    public static string ArrayJoinToString(double[] array)
+    {
+        return $"{String.Join("; ", array)}";
+    }
 }

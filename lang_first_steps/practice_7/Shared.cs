@@ -35,7 +35,7 @@ public static class Shared
         return check;
     }
 
-    //  число от ...
+    //  перегрузка BoundInput число от ...
     public static int BoundInput(int check, string message, int startBound)
     {
         bool flag = true;
@@ -69,7 +69,7 @@ public static class Shared
         }
     }
 
-    // возврат в строку значений double двумерного массива
+    // возврат в строку значений int двумерного массива
     public static string MatrixIntToString(int[,] anyMatrix)
     {
         string output = String.Empty;

@@ -37,16 +37,9 @@ public static class Client
         int rows = new Random().Next(2, 10);
         int columns = new Random().Next(2, 10);
         int[,] someMatrix = CreateIntMatrix(rows, columns);
-        FillIntMatrixRandom(someMatrix, 1, 100);
+        FillIntMatrixRandom(someMatrix, 1, 10);
         Console.WriteLine(MatrixIntToString(someMatrix));
         double[] means = MeanOfColumns(someMatrix);
-        System.Console.WriteLine ($"{means[0]}, {means[1]}");
-
-
-
-
+        System.Console.WriteLine("Среднее арифметическое каждого столбца: " + Environment.NewLine + ArrayJoinToString(means) + ".");
     }
-
-
-
 }
