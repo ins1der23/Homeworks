@@ -22,5 +22,22 @@ public static class FillMatrixRandom
             FillMatrixRandomRecurs(anyMatrix, numberFrom, numberTo, i + 1, j);
         }
     }
+   
+    // возврат в строку значений double двумерного массива
+    public static string MatrixToString(double[,] anyMatrix)
+    {
+        string output = String.Empty;
+        int rows = anyMatrix.GetLength(0);
+        int columns = anyMatrix.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                output = output + anyMatrix[i, j] + " ";
+            }
+            output = output + Environment.NewLine;
+        }
+        return output;
+    }
 }
 
