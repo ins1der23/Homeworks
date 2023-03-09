@@ -25,9 +25,9 @@ public static class Client
         int[,] someMatrix = CreateIntMatrix(rows, columns);
         FillIntMatrixRandom(someMatrix, 1, 100);
         Console.WriteLine(MatrixIntToString(someMatrix));
-        var position = PositionCheck(rows, columns);
-        int rowNum = position.Item1;
-        int colNum = position.Item2;
+        int[] position = StringToArray(PositionCheck(rows, columns));
+        int rowNum = position[0];
+        int colNum = position[1];
         Console.WriteLine("Число в строке {0}, столбце {1} = {2}", rowNum, colNum, someMatrix[NumToIndex(rowNum), NumToIndex(colNum)]);
     }
     public static void RunMeanColumn()

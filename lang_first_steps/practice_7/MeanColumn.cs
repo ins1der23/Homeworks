@@ -2,6 +2,7 @@ public static class ColumnMean
 {
 
     // вывод средних значений колонок в одномерный массив
+    
     public static double[] MeanOfColumns(int[,] anyMatrix)
     {
         int sum = 0;
