@@ -3,7 +3,7 @@ using System.Linq;
 public static class ElementPosition
 {
 // проверка позиции с возвратом значений в int
-    public static (int, int) PositionCheck(int rows, int columns)
+    public static (int, int) PositionCheckToInt(int rows, int columns)
     {
         string input = Console.ReadLine();
         int input1 = Shared.GetInteger("Введите номер строки искомой позиции");
