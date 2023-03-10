@@ -8,15 +8,29 @@ public static class FillMatrixRandom
     }
 
     // рекурсивное заполнение двумерного массива случайными вещественными числами
-    public static void FillMatrixDblRandom(double[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
+    public static void FillMatrixDblRandomRecursive(double[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
     {
         int rows = anyMatrix.GetLength(0);
         int columns = anyMatrix.GetLength(1);
         if (i >= rows || j >= columns) return;
         {
             anyMatrix[i, j] = new Random().Next(numberFrom * 10, numberTo * 10) / 10.0;
-            FillMatrixDblRandom(anyMatrix, numberFrom, numberTo, i, j + 1);
-            FillMatrixDblRandom(anyMatrix, numberFrom, numberTo, i + 1, j);
+            FillMatrixDblRandomRecursive(anyMatrix, numberFrom, numberTo, i, j + 1);
+            FillMatrixDblRandomRecursive(anyMatrix, numberFrom, numberTo, i + 1, j);
+        }
+    }
+    // итерационное заполнение двумерноо массива случайными вещественными числами
+    public static void FillMatrixDblRandom(double[,] anyMatrix, int numberFrom, int numberTo)
+    {
+        int rows = anyMatrix.GetLength(0);
+        int columns = anyMatrix.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                anyMatrix[i, j] = new Random().Next(numberFrom * 10, numberTo * 10) / 10.0;
+            }
+           
         }
     }
 
