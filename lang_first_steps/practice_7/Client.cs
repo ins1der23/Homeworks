@@ -9,11 +9,13 @@ public static class Client
     {
         Console.WriteLine(Task("Заполним массив случайными вещественными числами"));
         int rows = GetInteger("Введите количество строк");
-        rows = BoundInput(rows, "Число строк не может быть меньше 1", 1);
+        int startBound = 1;
+        rows = BoundInput(rows, "Число строк не может быть меньше 1", startBound);
         int columns = GetInteger("Введите число столбцов");
-        columns = BoundInput(columns, "Число столбцов не может быть меньше 1", 1);
+        columns = BoundInput(columns, "Число столбцов не может быть меньше 1", startBound);
         double[,] someMatrix = CreateDoubleMatrix(rows, columns);
-        FillMatrixDblRandom(someMatrix, -10, 10);
+        int numberFrom = -9; int numberTo = 10;
+        FillMatrixDblRandom(someMatrix, numberFrom, numberTo);
         Console.WriteLine(MatrixDblToString(someMatrix));
     }
     public static void RunElementPosition()
@@ -23,7 +25,8 @@ public static class Client
         int rows = new Random().Next(2, 10);
         int columns = new Random().Next(2, 10);
         int[,] someMatrix = CreateIntMatrix(rows, columns);
-        FillIntMatrixRandom(someMatrix, 1, 100);
+        int numberFrom = 1; int numberTo = 100;
+        FillIntMatrixRandom(someMatrix, numberFrom, numberTo);
         Console.WriteLine(MatrixIntToString(someMatrix));
         int[] position = StringToArray(PositionCheck(rows, columns));
         int rowNum = position[0];
@@ -37,8 +40,8 @@ public static class Client
         int rows = new Random().Next(2, 10);
         int columns = new Random().Next(2, 10);
         int[,] someMatrix = CreateIntMatrix(rows, columns);
-        FillIntMatrixRandom(someMatrix, 1, 10);
-        Console.WriteLine(MatrixIntToString(someMatrix));
+        int numberFrom = 1; int numberTo = 10;
+        FillIntMatrixRandom(someMatrix, numberFrom, numberTo);        Console.WriteLine(MatrixIntToString(someMatrix));
         double[] means = MeanOfColumns(someMatrix);
         System.Console.WriteLine("Среднее арифметическое каждого столбца: " + Environment.NewLine + ArrayJoinToString(means) + ".");
     }

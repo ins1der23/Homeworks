@@ -5,7 +5,7 @@ public static class ColumnMean
     
     public static double[] MeanOfColumns(int[,] anyMatrix)
     {
-        int sum = 0;
+        double sum = 0;
         int rows = anyMatrix.GetLength(0);
         int columns = anyMatrix.GetLength(1);
         double[] result = new double[columns];
@@ -15,7 +15,7 @@ public static class ColumnMean
             {
                 sum += anyMatrix[i, j];
             }
-            result[j] = Math.Round((double)sum / rows, 1, MidpointRounding.ToZero);
+            result[j] = Math.Round(sum / rows, 1, MidpointRounding.ToZero);
             sum = 0;
         }
         return result;
