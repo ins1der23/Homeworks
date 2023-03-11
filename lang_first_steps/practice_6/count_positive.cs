@@ -47,7 +47,7 @@ public class Count
     {
         if (i >= (anyArray.Length)) return counter;
         if (anyArray[i] > 0) counter++;
-        counter = CountPositiveRecursive(anyArray, i+1, counter);
+        counter = CountPositiveRecursive(anyArray, i + 1, counter);
         return counter;
     }
 }
