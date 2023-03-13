@@ -22,10 +22,7 @@ public static class DecreasingSort
     // Qsort сортировкa строки
     public static void SortLineDecrease(int[] anyArray, int start, int end)
     {
-        if (start >= end)
-        {
-            return;
-        }
+        if (start >= end) return;
         int pivot = Partition(anyArray, start, end);
         SortLineDecrease(anyArray, start, pivot - 1);
         SortLineDecrease(anyArray, pivot + 1, end);
@@ -39,17 +36,11 @@ public static class DecreasingSort
         int[] tempLine = new int[columns];
         for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < columns; j++)
-            {
-                tempLine[j] = anyMatrix[i, j];
-            }
+            for (int j = 0; j < columns; j++) tempLine[j] = anyMatrix[i, j];
             int start = 0;
             int end = columns - 1;
             SortLineDecrease(tempLine, start, end);
-            for (int j = 0; j < columns; j++)
-            {
-                anyMatrix[i, j] = tempLine[j];
-            }
+            for (int j = 0; j < columns; j++) anyMatrix[i, j] = tempLine[j];
         }
     }
 }

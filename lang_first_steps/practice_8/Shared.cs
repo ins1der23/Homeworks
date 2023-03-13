@@ -48,34 +48,29 @@ public static class Shared
         return number + 1;
     }
 
-    // заполнение int массива случаныйми числами
-    public static void FillMatrixRandom(int[,] anyMatrix, int numberFrom, int numberTo)
-    {
-        string output = String.Empty;
-        int rows = anyMatrix.GetLength(0);
-        int columns = anyMatrix.GetLength(1);
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                anyMatrix[i, j] = new Random().Next(numberFrom, numberTo);
-            }
-        }
-
-    }
-
-    // заполнение int массива случаныйми числами рекурсивно
-    public static void FillMatrixRandomRecursive(int[,] anyMatrix, int numberFrom, int numberTo, int i = 0, int j = 0)
+    // заполнение строки int массива случайными числами рекурсивно
+    public static void LineFillRandomRecursive(int[,] anyMatrix, int numberFrom, int numberTo, int i, int j = 0)
     {
         int rows = anyMatrix.GetLength(0);
         int columns = anyMatrix.GetLength(1);
         if (i >= rows || j >= columns) return;
         {
             anyMatrix[i, j] = new Random().Next(numberFrom, numberTo);
-            FillMatrixRandomRecursive(anyMatrix, numberFrom, numberTo, i, j + 1);
-            FillMatrixRandomRecursive(anyMatrix, numberFrom, numberTo, i + 1, j);
+            LineFillRandomRecursive(anyMatrix, numberFrom, numberTo, i, j + 1);
         }
     }
+
+    // заполнение int массива случанйыйм числами
+    public static void FillMatrixRandom(int[,] anyMatrix, int numberFrom, int numberTo)
+    {
+        int rows = anyMatrix.GetLength(0);
+        int columns = anyMatrix.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            LineFillRandomRecursive(anyMatrix, numberFrom, numberTo, i);
+        }
+    }
+
     // возврат в строку значений int двумерного массива
     public static string MatrixToString(int[,] anyMatrix)
     {
