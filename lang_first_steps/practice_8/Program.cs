@@ -4,6 +4,7 @@ Console.WriteLine("2. Найти в таблице строку с наимен�
 Console.WriteLine("3. Посчитать среднее арифметическое столбцов массива.");
 int choice = Shared.GetInteger("Введите номер задачи");
 choice = Shared.BoundInput(choice, "Введите число от одного до трех", 1, 3);
+Console.WriteLine();
 
 if (choice == 1) Client.RunDecreasingSort();
 else if (choice == 2) Client.RunMinLine();

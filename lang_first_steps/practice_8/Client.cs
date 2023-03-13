@@ -21,16 +21,16 @@ public static class Client
     }
     public static void RunMinLine()
     {
-        
         int rows = NotEqualRandoms().Item1;
         int columns = NotEqualRandoms().Item2;
         int[,] someChart = CreateIntMatrix(rows, columns);
         FillMatrixRandom(someChart, 1, 5);
         Console.WriteLine(MatrixToString(someChart));
         int[] sums = SumOfLines(someChart);
-        Console.WriteLine($"[{String.Join(' ', sums)}]");
-        int minLineIndex = MinIndex(sums);
-        Console.WriteLine(minLineIndex);
+        Console.WriteLine($"Суммы строк в таблице: {String.Join(' ', sums)}");
+        int min = MinInArray(sums);
+        bool[] countMinimal = FindNumberInArray(sums, min);
+        Console.WriteLine(ConditionToString(countMinimal, "Строки с минимальной суммой: ")); 
 
 
 

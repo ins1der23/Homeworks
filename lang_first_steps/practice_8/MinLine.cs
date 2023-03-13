@@ -1,3 +1,4 @@
+using System.Data;
 public static class MinLine
 {
     // получение двух разных случайных чисел
@@ -37,14 +38,31 @@ public static class MinLine
             sum[i] = LineSum(anyChart, i);
         return sum;
     }
-    // поиск индексов строк с минимальной суммой
-    public static int MinIndex(int[] anyArray)
+    // поиск минимальной суммы
+    public static int MinInArray(int[] anyArray)
     {
         int size = anyArray.Length;
         int minI = 0;
         for (int i = 1; i < size; i++)
             if (anyArray[i] < anyArray[minI]) minI = i;
-        return minI;
+        return anyArray[minI];
     }
-
+    //  поиск индексов строк с минимальными суммами 
+    public static bool[] FindNumberInArray(int[] anyArray, int someNumber)
+    {
+        int size = anyArray.Length;
+        bool[] found = new bool[size];
+        for (int i = 0; i < size; i++)
+            if (anyArray[i] == someNumber)
+                found[i] = true;
+        return found;
+    }
+    // вывод в string индексов строк с минимальными суммами
+    public static string ConditionToString(bool[] check, string message)
+    {
+        string result = message + Environment.NewLine;
+        for (int i = 0; i < check.Length; i++)
+            if (check[i]) result += $"{i} строка" + Environment.NewLine;
+        return result;
+    }
 }
