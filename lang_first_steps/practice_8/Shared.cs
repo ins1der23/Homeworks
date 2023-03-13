@@ -60,7 +60,7 @@ public static class Shared
         }
     }
 
-    // заполнение int массива случанйыйм числами
+    // заполнение int массива случайными числами
     public static void FillMatrixRandom(int[,] anyMatrix, int numberFrom, int numberTo)
     {
         int rows = anyMatrix.GetLength(0);
@@ -70,7 +70,6 @@ public static class Shared
             LineFillRandomRecursive(anyMatrix, numberFrom, numberTo, i);
         }
     }
-
     // возврат в строку значений int двумерного массива
     public static string MatrixToString(int[,] anyMatrix)
     {

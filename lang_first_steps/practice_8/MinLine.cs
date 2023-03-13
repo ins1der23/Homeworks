@@ -2,7 +2,7 @@ using System.Data;
 public static class MinLine
 {
     // получение двух разных случайных чисел
-    public static (int, int) NotEqualRandoms()
+    public static (int, int) NotEqualRandoms(int numberFrom = 2, int numberTo = 5)
     {
         int firstNum = 0;
         int secondNum = 0;
@@ -10,8 +10,8 @@ public static class MinLine
         flag = (firstNum == secondNum);
         do
         {
-            firstNum = new Random().Next(2, 21);
-            secondNum = new Random().Next(2, 21);
+            firstNum = new Random().Next(numberFrom, numberTo + 1);
+            secondNum = new Random().Next(numberFrom, numberTo + 1);
             flag = (firstNum == secondNum);
             return (firstNum, secondNum);
         } while (true);

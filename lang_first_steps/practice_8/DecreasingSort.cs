@@ -1,12 +1,11 @@
 public static class DecreasingSort
 {
-    // получение двух разных случайных чисел
-    public static (int, int) TwoRandoms()
+    // получение двух случайных чисел 
+    public static (int, int) GetTwoRandoms(int numberFrom = 2, int numberTo = 5)
     {
-        int firstNum = new Random().Next(2, 21);
-        int secondNum = new Random().Next(2, 21);
+        int firstNum = new Random().Next(numberFrom, numberTo + 1);
+        int secondNum = new Random().Next(numberFrom, numberTo + 1);
         return (firstNum, secondNum);
-
     }
 
     //  метод для Qsort сортировки строки
