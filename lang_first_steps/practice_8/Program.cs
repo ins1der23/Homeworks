@@ -6,5 +6,5 @@ int choice = Shared.GetInteger("Введите номер задачи");
 choice = Shared.BoundInput(choice, "Введите число от одного до трех", 1, 3);
 
 if (choice == 1) Client.RunDecreasingSort();
-// else if (choice == 2) Client.RunElementPosition();
+else if (choice == 2) Client.RunMinLine();
 // else Client.RunMeanColumn();

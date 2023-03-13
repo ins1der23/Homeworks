@@ -86,7 +86,7 @@ public static class Shared
         {
             for (int j = 0; j < columns; j++)
             {
-                output += $"{anyMatrix[i, j],7}";
+                output += $"{anyMatrix[i, j],4}";
             }
             output += Environment.NewLine;
         }
