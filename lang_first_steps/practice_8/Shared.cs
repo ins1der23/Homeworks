@@ -86,10 +86,10 @@ public static class Shared
         }
         return output;
     }
-
+    // возврат в строку значений int массива
     public static string ArrayJoinToString(int[] array)
     {
-        return $"[{String.Join(' ', array)}]";
+        return $"{String.Join(' ', array)}";
     }
 }
 

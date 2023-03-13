@@ -28,19 +28,18 @@ public static class Client
         FillMatrixRandom(someChart, 1, 5);
         Console.WriteLine(MatrixToString(someChart));
         int[] sums = SumOfLines(someChart);
-        Console.WriteLine($"Суммы строк в таблице: {String.Join(' ', sums)}");
+        Console.WriteLine("Суммы строк в таблице: " + ArrayJoinToString(sums));
         int min = MinInArray(sums);
         bool[] countMinimal = FindNumberInArray(sums, min);
         Console.WriteLine(ConditionToString(countMinimal, "Строки с минимальной суммой: "));
     }
     public static void RunShow3DArray()
     {
-        int height = GetThreeRandoms(2,3).Item1;
-        int width = GetThreeRandoms(2,3).Item2;
-        int depth = GetThreeRandoms(2,3).Item3;
+        int height = GetThreeRandoms(2, 3).Item1;
+        int width = GetThreeRandoms(2, 3).Item2;
+        int depth = GetThreeRandoms(2, 3).Item3;
         int[,,] someCubeArray = new int[height, width, depth];
         Fill3DArrayUnique(someCubeArray);
-
-
+        Console.WriteLine(CubeArrayToString(someCubeArray));
     }
 }

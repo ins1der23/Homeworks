@@ -15,26 +15,12 @@ public static class Show3DArray
         int[,,] some3DArray = new int[height, width, depth];
         return some3DArray;
     }
-    // заполнение строки уникальными числами
-
-    public static void UniqueLine(int[] anyArray)
+    // заполнение массива  уникальными случайными числами
+    public static void Fill3DArrayUnique(int[,,] any3dArray)
     {
-        int size = anyArray.Length;
-        bool uniqueCheck = true;
-        for (int i = 0; i < size; i++)
-        {
-            anyArray[i] = new Random().Next(10, 20);
-            for (int j = i - 1; j >= 0; j--)
-                if (anyArray[i] == anyArray[j]) uniqueCheck = false;
-            if (!uniqueCheck) i = i - 1;
-            uniqueCheck = true;
-        }
-    }
-    public static void Fill3DArrayUnique(int[,,] any3DArray)
-    {
-        int height = any3DArray.GetLength(0);
-        int width = any3DArray.GetLength(1);
-        int depth = any3DArray.GetLength(2);
+        int height = any3dArray.GetLength(0);
+        int width = any3dArray.GetLength(1);
+        int depth = any3dArray.GetLength(2);
         var uniques = new HashSet<int>();
         for (int i = 0; i < height; i++)
         {
@@ -45,12 +31,32 @@ public static class Show3DArray
                     int someRandom;
                     do
                     {
-                        someRandom = new Random().Next(10,100);
+                        someRandom = new Random().Next(10, 100);
                     } while (uniques.Contains(someRandom));
                     uniques.Add(someRandom);
-                    any3DArray[i, j, k] = someRandom;
+                    any3dArray[i, j, k] = someRandom;
                 }
             }
         }
+    }
+    // возврат в строку 3D массива
+    public static string CubeArrayToString(int[,,] any3dArray)
+    {
+        int height = any3dArray.GetLength(0);
+        int width = any3dArray.GetLength(1);
+        int depth = any3dArray.GetLength(2);
+        string output = String.Empty;
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                for (int k = 0; k < depth; k++)
+                {
+                    output += $"{any3dArray[i, j, k]} ({i},{j},{k}) ";
+                }
+                output += Environment.NewLine;
+            }
+        }
+        return output;
     }
 }
