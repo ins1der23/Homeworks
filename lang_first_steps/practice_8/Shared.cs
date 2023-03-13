@@ -88,5 +88,9 @@ public static class Shared
         return output;
     }
 
+    public static string ArrayJoinToString(int[] array)
+    {
+        return $"[{String.Join(' ', array)}]";
+    }
 }
 

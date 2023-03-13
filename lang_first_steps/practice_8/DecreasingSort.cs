@@ -1,5 +1,14 @@
 public static class DecreasingSort
 {
+    // получение двух разных случайных чисел
+    public static (int, int) TwoRandoms()
+    {
+        int firstNum = new Random().Next(2, 21);
+        int secondNum = new Random().Next(2, 21);
+        return (firstNum, secondNum);
+
+    }
+
     //  метод для Qsort сортировки строки
     static int Partition(int[] anyArray, int start, int end)
     {

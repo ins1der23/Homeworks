@@ -1,13 +1,15 @@
+using System.Runtime.InteropServices;
 using System;
 using static Shared;
 using static DecreasingSort;
 using static MinLine;
 public static class Client
+
 {
     public static void RunDecreasingSort()
     {
-        int rows = new Random().Next(5, 20);
-        int columns = new Random().Next(5, 20);
+        int rows = TwoRandoms().Item1;
+        int columns = TwoRandoms().Item2;
         int[,] someChart = CreateIntMatrix(rows, columns);
         int numberFrom = GetInteger("Введите минимально возможное значение числа в таблице");
         int numberTo = GetInteger("Введите максимально возможное значение числа в таблице");
@@ -19,10 +21,16 @@ public static class Client
     }
     public static void RunMinLine()
     {
-        var sizes = NotEqualRandoms();
-        int[,] someChart = CreateIntMatrix(sizes.Item1, sizes.Item2);
-        FillMatrixRandom(someChart, -99, 100);
+        
+        int rows = NotEqualRandoms().Item1;
+        int columns = NotEqualRandoms().Item2;
+        int[,] someChart = CreateIntMatrix(rows, columns);
+        FillMatrixRandom(someChart, 1, 5);
         Console.WriteLine(MatrixToString(someChart));
+        int[] sums = SumOfLines(someChart);
+        Console.WriteLine($"[{String.Join(' ', sums)}]");
+        int minLineIndex = MinIndex(sums);
+        Console.WriteLine(minLineIndex);
 
 
 
