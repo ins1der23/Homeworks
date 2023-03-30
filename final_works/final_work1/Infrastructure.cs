@@ -1,3 +1,4 @@
+using System;
 public static class Infrastructure
 {
     /// <summary>
@@ -7,6 +8,7 @@ public static class Infrastructure
     /// <param name="endBound"> Верхняя граница диапазона </param>
     /// <param name="message"> Приглашение пользователя к вводу числа </param>
     /// <returns> int число </returns>
+
     public static int BoundInput(this string message, int startBound = 1, int endBound = 10)
     {
         int num = 0;
@@ -23,26 +25,75 @@ public static class Infrastructure
     }
 
     /// <summary>
-    /// Метод создания массива строк заданного размера
+    /// Метод создания string массива заданного размера
     /// </summary>
     /// <param name="size">Размер нового массива</param>
-    /// <returns>Новый str массив</returns>
+    /// <returns> Новый string массив </returns>
     public static string[] CreateStringArray(this int size)
     {
         return new string[size];
     }
+    /// <summary>
+    /// Оформление строки в кавычки
+    /// </summary>
+    /// <param name="word"> Строка </param>
+    /// <returns> Строка в кавычках </returns>
+    static string QuoteString(this string word)
+    {
+        return $"\"{word}\"";
+    }
+
+    /// <summary> Метод получения string от пользователя </summary>
+    /// <param name="i"> Число, для отображения номера ввода </param>
+    /// <returns> Заданную строку </returns> 
+    public static string GetString(int i = 1)
+    {
+        string word = String.Empty;
+        bool flag = true;
+        do
+        {
+            Console.WriteLine($"Введите {i}-е символы");
+            word = (Console.ReadLine());
+            flag = !string.IsNullOrWhiteSpace(word);
+        } while (!flag);
+        return word;
+    }
 
     /// <summary>
-    /// Заполнение str массива 
+    /// Метод заполнение string массива 
     /// </summary>
     /// <param name="anyArray"> Массив для заполнения </param>
-    /// <returns> void </returns>
-
-    public static void FillStringArray(this string[] anyArray)
+    /// <returns> Заполненный string массив </returns>
+    public static string[] FillStringArray(this string[] anyArray)
     {
         int size = anyArray.Length;
+        Console.WriteLine($"Введите любые символы {size} раз(а)");
         for (int i = 0; i < size; i++)
-            anyArray[i] = Console.ReadLine();
+            anyArray[i] = GetString(i + 1);
+        return anyArray;
+    }
+
+    /// <summary>
+    /// Метод оформления и вывода в строку значений string массива
+    /// </summary>
+    /// <param name="anyArray"> Массив для вывода в строку </param>
+    /// <param name="separator"> Символ разделяющий элиементы массива </param>
+    /// <returns> Заполнееный массив </returns>
+
+    public static string ArrayToString(this string[] anyArray, char separator)
+    {
+        string word = String.Empty;
+        string result = String.Empty;
+        int size = anyArray.Length;
+        for (int i = 0; i < size; i++)
+        {
+            if (i != size - 1) word = QuoteString(anyArray[i]) + separator;
+            else word = QuoteString(anyArray[i]);
+            result += word;
+        }
+        result = ($"[{result}]");
+        return result;
     }
 }
+
 
