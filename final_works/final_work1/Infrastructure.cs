@@ -78,7 +78,7 @@ public static class Infrastructure
     /// </summary>
     /// <param name="anyArray"> Массив для вывода в строку </param>
     /// <param name="separator"> Символ разделяющий элиементы массива </param>
-    /// <returns> Заполнееный массив </returns>
+    /// <returns> Оформленная строка с элементами массива </returns>
 
     public static string ArrayToString(this string[] anyArray, char separator)
     {
