@@ -17,17 +17,36 @@ public static class StringsFromArray
         int size = anyArray.Length;
         bool[] suitableI = new bool[size];
         for (int i = 0; i < size; i++)
-        {
             if (anyArray[i].Length <= symbolsNum)
             {
                 counter++;
                 suitableI[i] = true;
             }
-        }
         string[] result = new string[counter];
         counter = 0;
         for (int i = 0; i < size; i++)
             if (suitableI[i])
+            {
+                result[counter] = anyArray[i];
+                counter++;
+                if (counter == size - 1) break;
+            }
+        return result;
+    }
+
+    public static string[] GetWordsBad(this string[] anyArray, int symbolsNum = 3)
+    {
+        int counter = 0;
+        int size = anyArray.Length;
+        int i = 0;
+        bool flag = anyArray[i].Length <= symbolsNum;
+        for (i = 0; i < size; i++)
+            if (anyArray[i].Length <= symbolsNum)
+                counter++;
+        string[] result = new string[counter];
+        counter = 0;
+        for (i = 0; i < size; i++)
+            if (anyArray[i].Length <= symbolsNum)
             {
                 result[counter] = anyArray[i];
                 counter++;
