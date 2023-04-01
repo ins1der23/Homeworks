@@ -11,7 +11,7 @@ public static class StringsFromArray
     /// <param name="anyArray"> Исходный массив </param>
     /// <param name="symbolsNum"> Длина элемента </param>
     /// <returns> Результирующий массив </returns>
-    public static string[] GetWords(this string[] anyArray, int symbolsNum = 100000)
+    public static string[] GetWords(this string[] anyArray, int symbolsNum = 3)
     {
         int counter = 0;
         int size = anyArray.Length;
@@ -39,7 +39,6 @@ public static class StringsFromArray
         int counter = 0;
         int size = anyArray.Length;
         int i = 0;
-        bool flag = anyArray[i].Length <= symbolsNum;
         for (i = 0; i < size; i++)
             if (anyArray[i].Length <= symbolsNum)
                 counter++;
