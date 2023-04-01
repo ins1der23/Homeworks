@@ -8,16 +8,21 @@ using System.Diagnostics;
 // int sizeIn = invite.BoundInput(1, 10);
 // string[] wordsArray = sizeIn.CreateStringArray()
 //                             .FillStringArray();
-int sizeIn = 10;
+int sizeIn = 10000000;
 string[] wordsArray = sizeIn.GetRandomWordArray();
-Console.WriteLine(wordsArray.ArrayToString(','));
+// Console.WriteLine(wordsArray.ArrayToString(','));
 Stopwatch sw = new Stopwatch();
 sw.Start();
-string[] outArray = wordsArray.GetWords(10);
-Console.WriteLine(outArray.ArrayToString(','));
-
+string[] outArray = wordsArray.GetWords();
+// Console.WriteLine(outArray.ArrayToString(','));
+sw.Stop();
+Console.WriteLine($"Getwords: => {sw.ElapsedMilliseconds}");
+sw.Reset();
+sw.Start();
 string[] outArrayBad = wordsArray.GetWordsBad();
-Console.WriteLine(outArrayBad.ArrayToString(','));
+// Console.WriteLine(outArrayBad.ArrayToString(','));
+sw.Stop();
+Console.WriteLine($"GetwordsBad: => {sw.ElapsedMilliseconds}");
 
 
 
