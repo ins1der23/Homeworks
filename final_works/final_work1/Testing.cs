@@ -20,7 +20,6 @@ public static class Testing
         }
         return new string(word);
     }
-
     public static string[] GetRandomWordArray(this int size)
     {
         string[] wordArray = new string[size];

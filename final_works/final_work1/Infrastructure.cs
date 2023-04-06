@@ -60,7 +60,7 @@ public static class Infrastructure
     }
 
     /// <summary>
-    /// Метод заполнение string массива 
+    /// Метод заполнения string массива 
     /// </summary>
     /// <param name="anyArray"> Массив для заполнения </param>
     /// <returns> Заполненный string массив </returns>
