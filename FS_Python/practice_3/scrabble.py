@@ -22,3 +22,5 @@ for char in some_word:
         if char in letters_dict[i]["letters"]:
             points += letters_dict[i]["points"]
 print(f'У вас {points} очков!')
+
+
