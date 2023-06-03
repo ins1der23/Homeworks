@@ -5,8 +5,7 @@ def random_int(lower_bound: int, upper_bound: int):
     return int(some_number)
 
 
-'''Функция ввода с клавиатуры целого числа от lower_bound до upper_bound. Нижняя граница по умолчанию  = -1000,
- верхняя = 1000'''
+'''Функция ввода с клавиатуры целого числа от lower_bound до upper_bound.'''
 def input_int(lower_bound: int = -1000, upper_bound: int = 1000):
     some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
     while not some_number.isdigit() or (int(some_number) < lower_bound or int(some_number) > upper_bound):
