@@ -9,10 +9,9 @@ def random_int(lower_bound: int, upper_bound: int):
  верхняя = 1000'''
 def input_int(lower_bound: int = -1000, upper_bound: int = 1000):
     some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
-    while not some_number.isdigit() or int(some_number) < lower_bound or int(some_number) > upper_bound:
+    while not some_number.isdigit() or (int(some_number) < lower_bound or int(some_number) > upper_bound):
         print("Все криво!")
-        some_number = input(
-            f"Введите число от {lower_bound} до {upper_bound}\n")
+        some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
     return int(some_number)
 
 
@@ -30,4 +29,4 @@ def degree_recursive(basis: int, degree: int, result=1):
 basis = random_int(1, 10)
 print(f"Сейчас мы будем возводить число {basis} в степень\nНужно будет ввести степень руками")
 degree = input_int(0, 998)
-print(f"Результат вычисления = {degree_recursive(basis, degree)}")
+print(f"{basis} в степени {degree} = {degree_recursive(basis, degree)}")
