@@ -15,5 +15,4 @@ def fibo(fibo_num: int) -> list:
     ''' Получение ряда чисел Фибоначчи и НегаФибоначчи'''
 
 
-result = fibo(9)
-print(result)
+print(result := fibo(8))

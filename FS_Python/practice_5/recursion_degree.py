@@ -6,7 +6,7 @@ def random_int(lower_bound: int, upper_bound: int):
     '''Функция получения случайного целого числа от lower_bound до upper_bound.'''
 
 
-def input_int(lower_bound: int = -1000, upper_bound: int = 1000):
+def input_int(lower_bound: int = -1000, upper_bound: int = 1000) -> int:
     some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
     while not some_number.isdigit() or (int(some_number) < lower_bound or int(some_number) > upper_bound):
         print("Все криво!")
