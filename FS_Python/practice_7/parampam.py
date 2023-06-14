@@ -7,7 +7,7 @@ def get_string() -> str:
 
 
 def find_rhythm(any_string: str) -> bool:
-    vowels = 'уеыаоэяию'
+    vowels = 'ауоыиэяюёе'
     vowel_count = list(map(lambda x: sum(x.count(vowel) for vowel in vowels), any_string.lower().split()))
     return  vowel_count.count(vowel_count[0]) == len(vowel_count)
     '''Проверка слов в строке на одинаковое количество гласных'''
