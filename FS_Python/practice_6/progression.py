@@ -2,8 +2,7 @@ def input_integer(lower_bound: int, upper_bound: int) -> int:
     some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
     while not some_number.isdigit() or (int(some_number) < lower_bound or int(some_number) > upper_bound):
         print("Все криво!")
-        some_number = input(
-            f"Введите число от {lower_bound} до {upper_bound} ")
+        some_number = input(f"Введите число от {lower_bound} до {upper_bound} ")
     return int(some_number)
 
 
