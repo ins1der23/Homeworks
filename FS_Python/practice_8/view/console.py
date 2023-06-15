@@ -1,6 +1,4 @@
 from .text import *
-from model import get_max_id
-
 
 def menu() -> int:
     print(main_menu)
@@ -44,8 +42,7 @@ def input_return(message: str) -> str:
     return input(message)
 
 
-def input_return_int(message: str) -> int:
-    upper = get_max_id()
+def input_return_int(message: str, upper: int) -> int:
     while True:
         uid = input(message)
         if uid.isdigit and 0 < int(uid) <= upper:
