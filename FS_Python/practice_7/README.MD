@@ -13,6 +13,7 @@
 
 **Ввод:** `print_operation_table(lambda x, y: x * y) ` 
 **Вывод:**
+
 1 2 3 4 5 6
 2 4 6 8 10 12
 3 6 9 12 15 18

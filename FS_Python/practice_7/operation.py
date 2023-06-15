@@ -1,6 +1,6 @@
-import typing
+from typing import Callable
 
-def print_operation_table(operation: callable, num_rows: int = 6, num_columns: int = 6) -> None:
+def print_operation_table(operation: Callable, num_rows: int = 6, num_columns: int = 6) -> None:
     table = [[f'{operation(x,y)} ' for x in range(1, num_columns+1)]
            for y in range(1, num_rows+1)]
     res = ''
