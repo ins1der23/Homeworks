@@ -40,7 +40,7 @@ def start():
                 result = model.search(word)
                 show_contacts(result)
                 upper = model.get_max_id()
-                index = input_return_int(text.input_index, upper)
+                index = input_return_int(text.delete_index, upper)
                 name = model.phone_book[int(index)-1].get('name')
                 model.delete(index)
                 model.reassign_id()

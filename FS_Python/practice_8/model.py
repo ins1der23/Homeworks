@@ -30,7 +30,7 @@ def add_contact(new: dict):
 def search(word: str) -> list[dict]:
     result = []
     for contact in phone_book:
-        for key, value in contact.items():
+        for value in contact.values():
             if word.lower() in value.lower():
                 result.append(contact)
                 break
