@@ -45,4 +45,20 @@ public interface iUiText {
       * @return Текст для паузы
       */
      String pause();
+
+     /**
+      * @return Заголовок списка разыгрываемых игрушек
+      */
+     String toysHeader();
+
+     /**
+      * 
+      * @return Заголовок списка результатов
+      */
+     String resultsHeader();
+
+     /**
+      * @return Заголовок списка выданных призов
+      */
+     String prizesHeader();
 }

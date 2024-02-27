@@ -3,7 +3,6 @@ package View;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
 import Model.Core.Toys.BronzeToy;
 import Model.Core.Toys.GoldToy;
 import Model.Core.Toys.PlatinumToy;
@@ -14,20 +13,51 @@ import View.Interfaces.iView;
 
 public class ConsoleView implements iView {
 
+    /**
+     * Переменная для ввода с клавиатуры
+     */
     Scanner scanner;
+
+    /**
+     * Переменная для текста UI
+     */
     iUiText uiText;
 
+    /**
+     * Конструктор view, устанавливающий тект интерфейса и кодовую страницу для
+     * ввода с клавиатуры
+     * 
+     * @param uiText Текст интерфейса
+     */
     public ConsoleView(iUiText uiText) {
         scanner = new Scanner(System.in, "CP866");
         this.uiText = uiText;
     }
 
-    // очистка консоли
+    /**
+     * Очистка консоли
+     */
     private static void clearConsole() {
         System.out.print("\033[H\033[2J");
     }
 
-    // получение int с клавиатуры в заданном диапазоне
+    /**
+     * Вывод строки в консоль
+     * 
+     * @param someString строка для вывода
+     */
+    private void showMessage(String someString) {
+        System.out.println(someString);
+    }
+
+    /**
+     * Получение int с клавиатуры в заданном диапазоне
+     * 
+     * @param invite строка-приглашение к вводу числа
+     * @param min    нижняя граница вводимого числа
+     * @param max    верхняя граница вводимого числа
+     * @return введенное число
+     */
     private int getInteger(String invite, int min, int max) {
         int output = 0;
         boolean flag = true;
@@ -46,19 +76,56 @@ public class ConsoleView implements iView {
         return output;
     }
 
-    // получение String с клавиатуры
+    /**
+     * получение String с клавиатуры
+     * 
+     * @param invite строка-приглашение к вводу
+     * @return ввдеенную строку
+     */
     private String getString(String invite) {
         showMessage(invite);
         String output = scanner.nextLine();
         return output;
     }
 
+    /**
+     * Метод для вывода в конcоль String[]
+     * 
+     * @param someArray String[] для вывода
+     */
     private void showStrings(String[] someArray) {
         int i = 1;
         for (String string : someArray) {
             System.out.println(i + ". " + string);
             i++;
         }
+    }
+
+    /**
+     * Нажмите Enter для продолжения
+     */
+    private void pressEnter() {
+        System.out.println("------------------------------------");
+        showMessage(uiText.pause());
+        scanner.nextLine();
+        return;
+    }
+
+    /**
+     * Метод для получения числового значения выбора варианта из отображаемого меню
+     * 
+     * @param menu   меню для обображения
+     * @param invite строка-прилашение к выбору варианта
+     * @param clear  переключатель очистки консоли
+     * @return числовое значение выбора варианта
+     */
+    private int menuToChoice(String[] menu, String invite, Boolean clear) {
+        if (clear)
+            clearConsole();
+        showStrings(menu);
+        int size = menu.length;
+        int choice = getInteger(invite, 1, size);
+        return choice;
     }
 
     @Override
@@ -93,26 +160,6 @@ public class ConsoleView implements iView {
         pressEnter();
     }
 
-    // @Override
-    // public void showToys(String header, Toy[] someList) {
-    // clearConsole();
-    // System.out.println(header);
-    // System.out.println("------------------------------------");
-    // int i = 1;
-    // for (Toy toy : someList) {
-    // if (toy.getName().equals("Empty"))
-    // System.out.println(i + ". " + "Не повезло!");
-    // else
-    // System.out.println(i + ". " + toy);
-    // i++;
-    // }
-    // pressEnter();
-    // }
-
-    private void showMessage(String someString) {
-        System.out.println(someString);
-    }
-
     @Override
     public void showError(String someString) {
         System.out.println(someString);
@@ -145,28 +192,12 @@ public class ConsoleView implements iView {
         }
     }
 
-    // пауза
-    private void pressEnter() {
-        System.out.println("------------------------------------");
-        showMessage(uiText.pause());
-        scanner.nextLine();
-        return;
-    }
-
-    private int menuToChoice(String[] menu, String invite, Boolean clear) {
-        if (clear)
-            clearConsole();
-        showStrings(menu);
-        int size = menu.length;
-        int choice = getInteger(invite, 1, size);
-        return choice;
-    }
-
     @Override
     public Toy getToy() {
         while (true) {
             clearConsole();
             showMessage(uiText.chooseType());
+            clearConsole();
             int choice = menuToChoice(uiText.prizeTypes(), uiText.chooseOption(), false);
             String name = getString(uiText.toyName());
             switch (choice) {
@@ -201,5 +232,10 @@ public class ConsoleView implements iView {
     public int getToysCount() {
         clearConsole();
         return getInteger(uiText.toysCount(), 1, 1000000);
+    }
+
+    @Override
+    public iUiText getUiText() {
+        return uiText;
     }
 }

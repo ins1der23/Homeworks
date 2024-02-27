@@ -12,7 +12,6 @@ import View.Interfaces.iView;
  */
 public class MainControl {
 
-
     iView view;
     iModel model;
     iStorage storage;
@@ -38,7 +37,7 @@ public class MainControl {
                     break;
                 case "SHOWTOYS":
                     List<Toy> toys = model.getGambledToys();
-                    view.showToys("Разыгрываемые игрушки", toys);
+                    view.showToys(view.getUiText().toysHeader(), toys);
                     break;
                 case "ADD":
                     Toy toy = view.getToy();
@@ -63,13 +62,13 @@ public class MainControl {
                     break;
                 case "SHOWRESULT":
                     PriorityQueue<Toy> gambleResults = model.getGambleResult();
-                    view.showToys("Призы к выдаче", gambleResults);
+                    view.showToys(view.getUiText().resultsHeader(), gambleResults);
                     break;
                 case "REWARD":
                     int prizeCount = view.getPrizeCount();
                     try {
                         List<Toy> prizes = model.getPrizes(prizeCount);
-                        view.showToys("Выданные призы", prizes);
+                        view.showToys(view.getUiText().prizesHeader(), prizes);
                         storage.updateResults(model.getGambleResult());
                         storage.savePrizes(prizes);
                     } catch (Exception e) {

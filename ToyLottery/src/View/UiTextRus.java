@@ -17,8 +17,10 @@ public class UiTextRus implements iUiText {
     private String pause;
     private String prizeCount;
     private String toysCount;
+    private String toysHeader;
+    private String resultsHeader;
+    private String prizesHeader;
     
-
     public UiTextRus() {
 
         mainMenu = new String[] { "Загрузить список игрушек для розыгрыша из файла",
@@ -35,11 +37,14 @@ public class UiTextRus implements iUiText {
         toyName = "Введите название игрушки";
         participants = "Введите количество участников";
         pause = "Нажмите ENTER для продолжения";
-        prizeCount = "Введите число призов для выдачи";
-        toysCount = "Введите игрушек для розырыша";
+        prizeCount = "Введите количество призов для выдачи";
+        toysCount = "Введите количество игрушек для розырыша";
+        toysHeader = "Разыгрываемые игрушки";
+        resultsHeader ="Призы к выдаче";
+        prizesHeader = "Выданные призы";
     }
 
-
+    //Геттеры переменных текста UI
 
     public String[] mainMenu() {
         return mainMenu;
@@ -52,7 +57,7 @@ public class UiTextRus implements iUiText {
     public String chooseType() {
         return chooseType;
     }
-    
+
     public String[] prizeTypes() {
         return prizeTypes;
     }
@@ -75,6 +80,18 @@ public class UiTextRus implements iUiText {
 
        public String toysCount() {
         return toysCount;
+    }
+
+    public String toysHeader() {
+        return toysHeader;
+    }
+
+    public String resultsHeader() {
+        return resultsHeader;
+    }
+
+    public String prizesHeader() {
+        return prizesHeader;
     }
 
 }
