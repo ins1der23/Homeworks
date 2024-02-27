@@ -1,57 +1,33 @@
 package View;
 
 import View.Interfaces.iUiText;
-
+/**
+ * Класс для текста интерефейса
+ */
 public class UiTextRus implements iUiText {
+
+    // Перемнные для текстового оформления
+
     private String[] mainMenu;
-
-    public String[] mainMenu() {
-        return mainMenu;
-    }
-
     private String chooseOption;
-    public String chooseOption() {
-        return chooseOption;
-    }
-
     private String chooseType;
-    public String chooseType() {
-        return chooseType;
-    }
-
     private String[] prizeTypes;
-    public String[] prizeTypes() {
-        return prizeTypes;
-    }
-
     private String toyName;
-    public String toyName() {
-        return toyName;
-    };
-
     private String participants;
-    public String participants() {
-        return participants;
-    }
-
     private String pause;
-    public String pause() {
-        return pause;
-    }
-
     private String prizeCount;
-    public String prizeCount(){
-        return prizeCount;
-    }
+    private String toysCount;
+    
 
     public UiTextRus() {
+
         mainMenu = new String[] { "Загрузить список игрушек для розыгрыша из файла",
-                "Посмотреть список игрушек для розыгрыша",
-                "Добавить игрушку",
-                "Разыграть игрушки",
-                "Посмотрtть результаты розыгрыша / список призов для выдачи",
-                "Выдать призы ",
-                "Выход" };
+                                  "Посмотреть список игрушек для розыгрыша",
+                                  "Добавить игрушку",
+                                  "Разыграть игрушки",
+                                  "Посмотреть результаты розыгрыша / список призов для выдачи",
+                                  "Выдать призы",
+                                  "Выход" };
 
         chooseOption = "Выберете пункт меню";
         chooseType = "Выберите тип приза";
@@ -60,6 +36,45 @@ public class UiTextRus implements iUiText {
         participants = "Введите количество участников";
         pause = "Нажмите ENTER для продолжения";
         prizeCount = "Введите число призов для выдачи";
+        toysCount = "Введите игрушек для розырыша";
+    }
+
+
+
+    public String[] mainMenu() {
+        return mainMenu;
+    }
+
+    public String chooseOption() {
+        return chooseOption;
+    }
+
+    public String chooseType() {
+        return chooseType;
+    }
+    
+    public String[] prizeTypes() {
+        return prizeTypes;
+    }
+
+    public String toyName() {
+        return toyName;
+    }
+
+    public String participants() {
+        return participants;
+    }
+
+    public String pause() {
+        return pause;
+    }
+
+    public String prizeCount(){
+        return prizeCount;
+    }
+
+       public String toysCount() {
+        return toysCount;
     }
 
 }

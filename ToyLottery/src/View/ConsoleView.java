@@ -23,12 +23,12 @@ public class ConsoleView implements iView {
     }
 
     // очистка консоли
-    public static void clearConsole() {
+    private static void clearConsole() {
         System.out.print("\033[H\033[2J");
     }
 
     // получение int с клавиатуры в заданном диапазоне
-    public int getInteger(String invite, int min, int max) {
+    private int getInteger(String invite, int min, int max) {
         int output = 0;
         boolean flag = true;
         do {
@@ -47,14 +47,13 @@ public class ConsoleView implements iView {
     }
 
     // получение String с клавиатуры
-    public String getString(String invite) {
+    private String getString(String invite) {
         showMessage(invite);
         String output = scanner.nextLine();
         return output;
     }
 
-    @Override
-    public void showStrings(String[] someArray) {
+    private void showStrings(String[] someArray) {
         int i = 1;
         for (String string : someArray) {
             System.out.println(i + ". " + string);
@@ -96,22 +95,21 @@ public class ConsoleView implements iView {
 
     // @Override
     // public void showToys(String header, Toy[] someList) {
-    //     clearConsole();
-    //     System.out.println(header);
-    //     System.out.println("------------------------------------");
-    //     int i = 1;
-    //     for (Toy toy : someList) {
-    //         if (toy.getName().equals("Empty"))
-    //             System.out.println(i + ". " + "Не повезло!");
-    //         else
-    //             System.out.println(i + ". " + toy);
-    //         i++;
-    //     }
-    //     pressEnter();
+    // clearConsole();
+    // System.out.println(header);
+    // System.out.println("------------------------------------");
+    // int i = 1;
+    // for (Toy toy : someList) {
+    // if (toy.getName().equals("Empty"))
+    // System.out.println(i + ". " + "Не повезло!");
+    // else
+    // System.out.println(i + ". " + toy);
+    // i++;
+    // }
+    // pressEnter();
     // }
 
-    @Override
-    public void showMessage(String someString) {
+    private void showMessage(String someString) {
         System.out.println(someString);
     }
 
@@ -197,5 +195,11 @@ public class ConsoleView implements iView {
     public int getPrizeCount() {
         clearConsole();
         return getInteger(uiText.prizeCount(), 1, 1000000);
+    }
+
+    @Override
+    public int getToysCount() {
+        clearConsole();
+        return getInteger(uiText.toysCount(), 1, 1000000);
     }
 }
