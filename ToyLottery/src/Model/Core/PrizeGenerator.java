@@ -128,14 +128,13 @@ public class PrizeGenerator implements iModel {
      * @param count количество призов к получению
      * @return массив с заданным количеством результатов лоттерии
      */
-    public Toy[] getPrizes(int count) {
+    public List<Toy> getPrizes(int count) {
         if (count > gambleResult.size())
             throw new NotEnoughException();
-        Toy[] prizes = new Toy[count];
         for (int i = 0; i < count; i++) {
-            prizes[i] = getPrize();
+            getPrize();
         }
-        return prizes;
+        return prizeGiven;
     }
 
     /**
@@ -147,7 +146,7 @@ public class PrizeGenerator implements iModel {
      */
     private Toy getPrize() {
         Toy prize = gambleResult.poll();
-        if (prize.getName() != "Empty")
+        if (!prize.getName().equals("Empty"))
             prizeGiven.add(prize);
         return prize;
     }

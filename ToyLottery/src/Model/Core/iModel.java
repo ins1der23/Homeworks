@@ -19,6 +19,6 @@ public interface iModel {
 
     void setParticipants(int participants);
     
-    Toy[] getPrizes(int count);
+    List<Toy> getPrizes(int count);
 
 }

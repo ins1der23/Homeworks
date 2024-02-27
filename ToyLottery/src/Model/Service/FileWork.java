@@ -2,12 +2,16 @@ package Model.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import Model.Core.Toys.BronzeToy;
 import Model.Core.Toys.GoldToy;
@@ -24,7 +28,7 @@ public class FileWork implements iStorage {
 
     public FileWork() {
         toysFile = "gambledToys.csv";
-        toysFileOld = "gambledToys.csv";
+        toysFileOld = "gambledToysOld.csv";
         gambleResult = "gambleResult.csv";
         prizeGiven = "prizeGiven.csv";
     }
@@ -62,7 +66,7 @@ public class FileWork implements iStorage {
     }
 
     @Override
-    public List<Toy> getToys() {
+    public List<Toy> getToys() throws Exception {
         List<Toy> toys = new LinkedList<Toy>();
         String line;
         File file = new File(toysFile);
@@ -79,52 +83,53 @@ public class FileWork implements iStorage {
                     case "Platinum":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new PlatinumToy(name, chance);
+                            toys.add(toy);
                         }
                         break;
                     case "Gold":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new GoldToy(name, chance);
+                            toys.add(toy);
                         }
                         break;
                     case "Silver":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new SilverToy(name, chance);
+                            toys.add(toy);
                         }
                         break;
                     case "Bronze":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new BronzeToy(name, chance);
+                            toys.add(toy);
                         }
                         break;
                     default:
                         for (int i = 0; i < toyCount; i++) {
                             toy = new Toy(name, chance);
+                            toys.add(toy);
                         }
                         break;
                 }
-                toys.add(toy);
+                ;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw e;
         }
         return toys;
     }
 
-    @Override
-    public void saveToys(List<Toy> toys) {
-        HashMap<String, Integer> toysDict = toysToDict(toys);
-
-        try (FileWriter fw = new FileWriter(toysFile, false)) {
+    private void saveToFile(HashMap<String, Integer> toysDict, String filename) throws IOException {
+        try (FileWriter fw = new FileWriter(filename, false)) {
             for (Map.Entry<String, Integer> entry : toysDict.entrySet()) {
-
                 fw.write(entry.getKey());
                 fw.append(';');
                 fw.append(entry.getValue().toString());
                 fw.append("\n");
             }
             fw.flush();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw e;
         }
     }
 
@@ -138,20 +143,49 @@ public class FileWork implements iStorage {
     private HashMap<String, Integer> toysToDict(List<Toy> toys) {
         HashMap<String, Integer> output = new HashMap<>();
         for (Toy toy : toys) {
-            int count = 0;
-            for (int i = 0; i < toys.size(); i++) {
-                if (toys.get(i).equals(toy))
-                    ++count;
-            }
+            int count = Collections.frequency(toys, toy);
+            output.put(toy.shortString(), count);
+            // int count = 0;
+            // for (int i = 0; i < toys.size(); i++) {
+            // if (toys.get(i).equals(toy))
+            // ++count;
+            // }
+            output.put(toy.shortString(), count);
+        }
+        return output;
+    }
+
+    private HashMap<String, Integer> toysToDict(PriorityQueue<Toy> toys) {
+        HashMap<String, Integer> output = new HashMap<>();
+        for (Toy toy : toys) {
+            int count = Collections.frequency(toys, toy);
             output.put(toy.shortString(), count);
         }
         return output;
     }
 
     @Override
-    public void saveResults(List<Toy> results) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveResults'");
+    public void saveResults(PriorityQueue<Toy> toys) throws IOException {
+        HashMap<String, Integer> toysDict = toysToDict(toys);
+        saveToFile(toysDict, gambleResult);
+    }
+
+    @Override
+    public void backupToys(List<Toy> toys) throws IOException {
+        HashMap<String, Integer> toysDict = toysToDict(toys);
+        saveToFile(toysDict, toysFileOld);
+    }
+
+    @Override
+    public void updateToys(List<Toy> toys) throws IOException {
+        HashMap<String, Integer> toysDict = toysToDict(toys);
+        saveToFile(toysDict, toysFile);
+    }
+
+    @Override
+    public void savePrizes(List<Toy> toys) throws IOException {
+        HashMap<String, Integer> toysDict = toysToDict(toys);
+        saveToFile(toysDict, prizeGiven);
     }
 
 }

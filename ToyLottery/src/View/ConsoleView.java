@@ -69,7 +69,11 @@ public class ConsoleView implements iView {
         System.out.println("------------------------------------");
         int i = 1;
         for (Toy toy : someList) {
-            System.out.println(i + ". " + toy);
+            if (toy.getName().equals("Empty"))
+                System.out.println(i + ". " + "Не повезло!");
+            else
+                System.out.println(i + ". " + toy);
+            i++;
         }
         pressEnter();
     }
@@ -81,7 +85,11 @@ public class ConsoleView implements iView {
         System.out.println("------------------------------------");
         int i = 1;
         for (Toy toy : someList) {
-            System.out.println(i + ". " + toy);
+            if (toy.getName().equals("Empty"))
+                System.out.println(i + ". " + "Не повезло!");
+            else
+                System.out.println(i + ". " + toy);
+            i++;
         }
         pressEnter();
     }
@@ -93,7 +101,11 @@ public class ConsoleView implements iView {
         System.out.println("------------------------------------");
         int i = 1;
         for (Toy toy : someList) {
-            System.out.println(i + ". " + toy);
+            if (toy.getName().equals("Empty"))
+                System.out.println(i + ". " + "Не повезло!");
+            else
+                System.out.println(i + ". " + toy);
+            i++;
         }
         pressEnter();
     }
@@ -177,11 +189,13 @@ public class ConsoleView implements iView {
 
     @Override
     public int getParticipants() {
-        return getInteger(uiText.participants(), 1, 100);
+        clearConsole();
+        return getInteger(uiText.participants(), 1, 1000000);
     }
 
     @Override
     public int getPrizeCount() {
-        return getInteger(uiText.prizeCount(), 1, 20);
+        clearConsole();
+        return getInteger(uiText.prizeCount(), 1, 1000000);
     }
 }
