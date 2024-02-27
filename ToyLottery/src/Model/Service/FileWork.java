@@ -2,7 +2,6 @@ package Model.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -80,25 +79,25 @@ public class FileWork implements iStorage {
                     chance = Integer.parseInt(param[2]);
                 int toyCount = Integer.parseInt(param[3]);
                 switch (param[0]) {
-                    case "Platinum":
+                    case "PlatinumToy":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new PlatinumToy(name, chance);
                             toys.add(toy);
                         }
                         break;
-                    case "Gold":
+                    case "GoldToy":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new GoldToy(name, chance);
                             toys.add(toy);
                         }
                         break;
-                    case "Silver":
+                    case "SilverToy":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new SilverToy(name, chance);
                             toys.add(toy);
                         }
                         break;
-                    case "Bronze":
+                    case "BronzeToy":
                         for (int i = 0; i < toyCount; i++) {
                             toy = new BronzeToy(name, chance);
                             toys.add(toy);
@@ -111,7 +110,6 @@ public class FileWork implements iStorage {
                         }
                         break;
                 }
-                ;
             }
         } catch (Exception e) {
             throw e;
@@ -145,11 +143,6 @@ public class FileWork implements iStorage {
         for (Toy toy : toys) {
             int count = Collections.frequency(toys, toy);
             output.put(toy.shortString(), count);
-            // int count = 0;
-            // for (int i = 0; i < toys.size(); i++) {
-            // if (toys.get(i).equals(toy))
-            // ++count;
-            // }
             output.put(toy.shortString(), count);
         }
         return output;

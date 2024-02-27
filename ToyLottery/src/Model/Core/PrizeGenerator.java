@@ -167,26 +167,26 @@ public class PrizeGenerator implements iModel {
         return results.toString();
     }
 
-    /**
-     * Получение списка разыгрываемых игрушек в виде частотного словаря
-     * 
-     * @return Частотный словарь разыгрываемых игрушек
-     */
-    public HashMap<String, Integer> gambledToysDict() {
-        HashMap<String, Integer> output = new HashMap<>();
-        String toyType = "";
-        for (Toy toy : gambledToys) {
-            int count = 0;
-            for (int i = 0; i < gambledToys.size(); i++) {
-                if (gambledToys.get(i).equals(toy))
-                    ++count;
-            }
-            toyType = toy.getClass().toString();
-            String[] temp = toyType.split("\\.");
-            toyType = temp[temp.length - 1];
-            output.put(toyType + ';' + toy.getName() + ';' + toy.getChance(), count);
-        }
-        return output;
-    }
+    // /**
+    //  * Получение списка разыгрываемых игрушек в виде частотного словаря
+    //  * 
+    //  * @return Частотный словарь разыгрываемых игрушек
+    //  */
+    // public HashMap<String, Integer> gambledToysDict() {
+    //     HashMap<String, Integer> output = new HashMap<>();
+    //     String toyType = "";
+    //     for (Toy toy : gambledToys) {
+    //         int count = 0;
+    //         for (int i = 0; i < gambledToys.size(); i++) {
+    //             if (gambledToys.get(i).equals(toy))
+    //                 ++count;
+    //         }
+    //         toyType = toy.getClass().toString();
+    //         String[] temp = toyType.split("\\.");
+    //         toyType = temp[temp.length - 1];
+    //         output.put(toyType + ';' + toy.getName() + ';' + toy.getChance(), count);
+    //     }
+    //     return output;
+    // }
 
 }
