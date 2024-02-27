@@ -15,7 +15,7 @@ public interface iModel {
 
     void gamble();
 
-    void addToy(Toy toy);
+    void addToys(Toy toy, int count);
 
     void setParticipants(int participants);
     

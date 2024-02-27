@@ -7,7 +7,11 @@ import Model.Core.Toys.Toy;
 import Model.Service.iStorage;
 import View.Interfaces.iView;
 
+/**
+ * Класс для основного контроллера
+ */
 public class MainControl {
+
 
     iView view;
     iModel model;
@@ -38,7 +42,8 @@ public class MainControl {
                     break;
                 case "ADD":
                     Toy toy = view.getToy();
-                    model.addToy(toy);
+                    int toysCount = view.getToysCount();
+                    model.addToys(toy, toysCount);
                     try {
                         storage.updateToys(model.getGambledToys());
                     } catch (Exception e) {
@@ -51,7 +56,7 @@ public class MainControl {
                     try {
                         model.gamble();
                         storage.updateToys(model.getGambledToys());
-                        storage.saveResults(model.getGambleResult());
+                        storage.updateResults(model.getGambleResult());
                     } catch (Exception e) {
                         view.showError(e.getMessage());
                     }
@@ -65,7 +70,7 @@ public class MainControl {
                     try {
                         List<Toy> prizes = model.getPrizes(prizeCount);
                         view.showToys("Выданные призы", prizes);
-                        storage.saveResults(model.getGambleResult());
+                        storage.updateResults(model.getGambleResult());
                         storage.savePrizes(prizes);
                     } catch (Exception e) {
                         view.showError(e.getMessage());

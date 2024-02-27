@@ -1,7 +1,12 @@
 package Model.Core.Toys;
-
+/**
+ * Класс, описывающий серебряный приз
+ */
 public class SilverToy extends Toy {
 
+    /**
+     * Базовый шанс на выпадение
+     */
     private static int defaultChance = 30;
 
     public SilverToy(String name) {

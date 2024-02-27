@@ -1,8 +1,13 @@
 package Model.Core.Toys;
 
-
+/**
+ * Класс, описывающий золотой приз
+ */
 public class GoldToy extends Toy {
 
+    /**
+     * Базовый шанс на выпадение
+     */
     private static int defaultChance = 20;
 
     public GoldToy(String name) {
@@ -17,5 +22,5 @@ public class GoldToy extends Toy {
         else
             this.chance = chance;
     }
-    
+
 }

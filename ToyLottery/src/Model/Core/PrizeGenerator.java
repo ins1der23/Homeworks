@@ -1,7 +1,6 @@
 package Model.Core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -29,10 +28,6 @@ public class PrizeGenerator implements iModel {
      * Число участников розыгрыша
      */
     private int participants;
-
-    public void setParticipants(int participants) {
-        this.participants = participants;
-    }
 
     /**
      * Список выданных призов
@@ -65,18 +60,24 @@ public class PrizeGenerator implements iModel {
     }
 
     /**
-     * Геттер списка с результатами лоттерии
+     * Геттер списка с результатами розыгрыша
      * 
-     * @return список с результатами лоттерии
+     * @return список с результатами розыгрыша
      */
     public PriorityQueue<Toy> getGambleResult() {
         return gambleResult;
     }
 
     /**
+     * Сеттер числа участников розыгрыша
+     */
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+
+    /**
      * Метод розыгрыша призов с проверкой соответствия
-     * количества участников
-     * количеству возможных призов
+     * количества участников количеству возможных призов
      */
     public void gamble() {
         if (this.participants > gambledToys.size())
@@ -116,9 +117,12 @@ public class PrizeGenerator implements iModel {
      * Добавление игрушки в список для розыгрыша
      * 
      * @param toy Игрушка для добавления
+     * @param count Количество игрушек  
      */
-    public void addToy(Toy toy) {
-        gambledToys.add(toy);
+    public void addToys(Toy toy, int count) {
+        for (int i = 0; i < count; i++) {
+            gambledToys.add(toy);
+        }
     }
 
     /**
@@ -151,42 +155,42 @@ public class PrizeGenerator implements iModel {
         return prize;
     }
 
-    /**
-     * Получение результатов розыгрыша в виде String
-     * 
-     * @return результаты розыгрыша в виде String
-     */
-    public String resultsToString() {
-        StringBuilder results = new StringBuilder();
-        int i = 1;
-        for (Toy toy : gambleResult) {
-            results.append(i).append('.').append(' ');
-            results.append(toy);
-            results.append('\n');
-        }
-        return results.toString();
-    }
+    // /**
+    //  * Получение результатов розыгрыша в виде String
+    //  * 
+    //  * @return результаты розыгрыша в виде String
+    //  */
+    // public String resultsToString() {
+    //     StringBuilder results = new StringBuilder();
+    //     int i = 1;
+    //     for (Toy toy : gambleResult) {
+    //         results.append(i).append('.').append(' ');
+    //         results.append(toy);
+    //         results.append('\n');
+    //     }
+    //     return results.toString();
+    // }
 
     // /**
-    //  * Получение списка разыгрываемых игрушек в виде частотного словаря
-    //  * 
-    //  * @return Частотный словарь разыгрываемых игрушек
-    //  */
+    // * Получение списка разыгрываемых игрушек в виде частотного словаря
+    // *
+    // * @return Частотный словарь разыгрываемых игрушек
+    // */
     // public HashMap<String, Integer> gambledToysDict() {
-    //     HashMap<String, Integer> output = new HashMap<>();
-    //     String toyType = "";
-    //     for (Toy toy : gambledToys) {
-    //         int count = 0;
-    //         for (int i = 0; i < gambledToys.size(); i++) {
-    //             if (gambledToys.get(i).equals(toy))
-    //                 ++count;
-    //         }
-    //         toyType = toy.getClass().toString();
-    //         String[] temp = toyType.split("\\.");
-    //         toyType = temp[temp.length - 1];
-    //         output.put(toyType + ';' + toy.getName() + ';' + toy.getChance(), count);
-    //     }
-    //     return output;
+    // HashMap<String, Integer> output = new HashMap<>();
+    // String toyType = "";
+    // for (Toy toy : gambledToys) {
+    // int count = 0;
+    // for (int i = 0; i < gambledToys.size(); i++) {
+    // if (gambledToys.get(i).equals(toy))
+    // ++count;
+    // }
+    // toyType = toy.getClass().toString();
+    // String[] temp = toyType.split("\\.");
+    // toyType = temp[temp.length - 1];
+    // output.put(toyType + ';' + toy.getName() + ';' + toy.getChance(), count);
+    // }
+    // return output;
     // }
 
 }

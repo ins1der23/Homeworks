@@ -1,5 +1,9 @@
 package Model.Service;
 
+
+/**
+ * Исключение, выбрасываемое в случае малого количества призов
+ */
 public class NotEnoughException extends RuntimeException {
    
     public NotEnoughException() {

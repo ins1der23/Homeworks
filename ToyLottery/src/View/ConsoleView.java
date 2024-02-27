@@ -94,21 +94,21 @@ public class ConsoleView implements iView {
         pressEnter();
     }
 
-    @Override
-    public void showToys(String header, Toy[] someList) {
-        clearConsole();
-        System.out.println(header);
-        System.out.println("------------------------------------");
-        int i = 1;
-        for (Toy toy : someList) {
-            if (toy.getName().equals("Empty"))
-                System.out.println(i + ". " + "Не повезло!");
-            else
-                System.out.println(i + ". " + toy);
-            i++;
-        }
-        pressEnter();
-    }
+    // @Override
+    // public void showToys(String header, Toy[] someList) {
+    //     clearConsole();
+    //     System.out.println(header);
+    //     System.out.println("------------------------------------");
+    //     int i = 1;
+    //     for (Toy toy : someList) {
+    //         if (toy.getName().equals("Empty"))
+    //             System.out.println(i + ". " + "Не повезло!");
+    //         else
+    //             System.out.println(i + ". " + toy);
+    //         i++;
+    //     }
+    //     pressEnter();
+    // }
 
     @Override
     public void showMessage(String someString) {

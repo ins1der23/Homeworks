@@ -12,12 +12,7 @@ import View.Interfaces.iView;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        // /**
-        // * Переменная для работы с записью
-        // */
-        // private iStorage store;
-
-
+     
         iModel generator = new PrizeGenerator();
         iUiText uiText = new UiTextRus();
         iView view = new ConsoleView(uiText);

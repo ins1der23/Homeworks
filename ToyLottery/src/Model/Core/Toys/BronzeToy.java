@@ -1,7 +1,13 @@
 package Model.Core.Toys;
 
+/**
+ * Класс, описывающий золотой приз
+ */
 public class BronzeToy extends Toy {
 
+    /**
+     * Базовый шанс на выпадение
+     */
     private static int defaultChance = 40;
 
     public BronzeToy(String name) {

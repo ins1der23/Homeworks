@@ -13,8 +13,6 @@ public interface iView {
 
     void showToys(String header, PriorityQueue<Toy> someList);
 
-    void showToys(String header, Toy[] someList);
-
     void showMessage(String someString);
 
     void showError(String someString);
