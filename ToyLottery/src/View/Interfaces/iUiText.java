@@ -61,4 +61,9 @@ public interface iUiText {
       * @return Заголовок списка выданных призов
       */
      String prizesHeader();
+
+     /**
+      * @return Текст ошибки ввода
+      */
+     String inputError();
 }

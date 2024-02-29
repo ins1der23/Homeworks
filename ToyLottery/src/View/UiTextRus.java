@@ -1,6 +1,7 @@
 package View;
 
 import View.Interfaces.iUiText;
+
 /**
  * Класс для текста интерефейса
  */
@@ -20,16 +21,17 @@ public class UiTextRus implements iUiText {
     private String toysHeader;
     private String resultsHeader;
     private String prizesHeader;
-    
+    private String inputError;
+
     public UiTextRus() {
 
         mainMenu = new String[] { "Загрузить список игрушек для розыгрыша из файла",
-                                  "Посмотреть список игрушек для розыгрыша",
-                                  "Добавить игрушку",
-                                  "Разыграть игрушки",
-                                  "Посмотреть результаты розыгрыша / список призов для выдачи",
-                                  "Выдать призы",
-                                  "Выход" };
+                "Посмотреть список игрушек для розыгрыша",
+                "Добавить игрушку",
+                "Разыграть игрушки",
+                "Посмотреть результаты розыгрыша / список призов для выдачи",
+                "Выдать призы",
+                "Выход" };
 
         chooseOption = "Выберете пункт меню";
         chooseType = "Выберите тип приза";
@@ -40,11 +42,12 @@ public class UiTextRus implements iUiText {
         prizeCount = "Введите количество призов для выдачи";
         toysCount = "Введите количество игрушек для розырыша";
         toysHeader = "Разыгрываемые игрушки";
-        resultsHeader ="Призы к выдаче";
+        resultsHeader = "Призы к выдаче";
         prizesHeader = "Выданные призы";
+        inputError = "Ошибка ввода";
     }
 
-    //Геттеры переменных текста UI
+    // Геттеры переменных текста UI
 
     public String[] mainMenu() {
         return mainMenu;
@@ -74,11 +77,11 @@ public class UiTextRus implements iUiText {
         return pause;
     }
 
-    public String prizeCount(){
+    public String prizeCount() {
         return prizeCount;
     }
 
-       public String toysCount() {
+    public String toysCount() {
         return toysCount;
     }
 
@@ -94,4 +97,7 @@ public class UiTextRus implements iUiText {
         return prizesHeader;
     }
 
+    public String inputError() {
+        return inputError;
+    }
 }

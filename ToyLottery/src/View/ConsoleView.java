@@ -70,7 +70,7 @@ public class ConsoleView implements iView {
                 output = Integer.parseInt(temp);
                 flag = false;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(uiText.inputError());
             }
         } while (flag || min > output || max < output);
         return output;

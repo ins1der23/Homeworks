@@ -70,7 +70,9 @@ public interface iView {
 
     /**
      * Метод для доступа к классу текста интерфейса
+     * 
      * @return Класс текста интерфейса
      */
     iUiText getUiText();
-}
+
+    }
