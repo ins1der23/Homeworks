@@ -3,47 +3,30 @@ namespace HumanFriends.Model;
 
 class Counter : IDisposable
 {
-    
-    private bool _disposed;
-    private readonly string _path;
-    private readonly FileInfo _file;
-    private  StreamReader? _reader;
-    private readonly StreamWriter? _writer;
-    private readonly string _temp;
+    private readonly IDataWorker? _dataWorker;
     public static int Id { get; private set; }
-    private FileWorker fileWorker;
+    private bool _disposed;
 
-    public Counter(string path)
+
+    public Counter(string mode = "file") // создание Counter по умолчанию в файловом режиме
     {
-        _file = new FileInfo(path);
-
-        using (fileWorker = new FileWorker(path))
-
-
-
-
-
-
-        _path = path;
-        
-        _temp = string.Empty;
-        if (_file.Exists)
+        string path = Config.counterPath;
+        try
         {
-            using (_reader = new(_path))
-                _temp += _reader.ReadLine();
-            bool check = int.TryParse(_temp, out int res);
+            if (mode == "file") _dataWorker = new FileWorker(path);
+            _dataWorker?.Check();
+            string temp = string.Empty;
+            temp += _dataWorker?.Read();
+            bool check = int.TryParse(temp, out int res);
             if (check) Id = res;
+            Id++;
+            _dataWorker?.Write(Id.ToString());
+            _dataWorker?.Dispose();
         }
-        else
+        catch (System.Exception e)
         {
-            using (_file.Create())
-                Console.WriteLine("Файл счетчика не найден. Нумерация будет начата заново");
-        }
-        Id++;
-        if (_file.Exists)
-        {
-            using (_writer = new(_path, false))
-                _writer.WriteLine(Id);
+            Console.WriteLine(e.Message);
+            Console.WriteLine(e.StackTrace);
         }
     }
 
@@ -61,10 +44,8 @@ class Counter : IDisposable
         }
         if (disposing)
         {
-            _reader?.Close();
-            _writer?.Close();
+            _dataWorker?.Dispose();
         }
-        Console.WriteLine("Counter disposed");
         _disposed = true;
     }
     ~Counter()

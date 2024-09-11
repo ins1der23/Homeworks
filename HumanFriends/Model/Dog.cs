@@ -1,19 +1,11 @@
-
 namespace HumanFriends.Model;
-class Dog : IPet
+
+class Dog : Pet
 {
-    public int Id { get; set; } = Counter.Id;
-    public string Name { get; set; } = String.Empty;
-    public DateTime DoB { get; set; }
-    public bool Vaccination { get; set; }
-    public int FeatureId { get; set; }
-    public List<Command> Commands { get; set; } = [];
-
-    public Dog()
+    public Breeds Breed { get; set; }
+    public Dog(string name, int featureId, int breedId) : base(name, featureId)
     {
-        using Counter cnt = new("counter.txt");
-        Id = Counter.Id;
+        Kind = Kinds.Dog;
+        Breed = (Breeds)breedId;
     }
-
-
 }

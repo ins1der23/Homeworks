@@ -1,24 +1,28 @@
 namespace HumanFriends.Service;
-class FileWorker(string path) : IDisposable
+class FileWorker(string path) : IDataWorker
 {
     private readonly string _path = path;
     private readonly FileInfo _file = new(path);
     private StreamReader? _reader;
     private StreamWriter? _writer;
     private string? _temp;
-    bool _disposed = false;
+    private bool _disposed = false;
 
-
-    public void Create()
+    public void Check() // проверка наличия файла и его создание в случае отстутсвтия
     {
-        if (_file.Exists!)
+        try
         {
-            using (_file.Create())
-                Console.WriteLine("File is created");
+            if (!_file.Exists)
+                using (_file.Create())
+                    Console.WriteLine($"{_path} is created");
+        }
+        catch (System.Exception)
+        {
+            throw;
         }
     }
 
-    public string Read()
+    public string Read() // чтение из файла в string
     {
         _temp = string.Empty;
         if (_file.Exists)
@@ -28,7 +32,7 @@ class FileWorker(string path) : IDisposable
         return _temp;
     }
 
-    public void Write(string text, bool append = false)
+    public void Write(string text, bool append = false) // запись в файл string
     {
         if (_file.Exists)
             using (_writer = new(_path, append))
@@ -37,7 +41,6 @@ class FileWorker(string path) : IDisposable
     }
 
     public void Dispose()
-
     {
         CleanUp(true);
         GC.SuppressFinalize(this);

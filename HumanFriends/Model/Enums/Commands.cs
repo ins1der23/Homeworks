@@ -1,7 +1,7 @@
 namespace HumanFriends.Model;
-enum Command
+enum Commands
 {
-    Sit,
+    Sit = 1,
     Stay,
     Fetch,
     Paw,
