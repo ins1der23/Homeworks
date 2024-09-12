@@ -5,7 +5,6 @@ class FileWorker(string path) : IDataWorker
     private readonly FileInfo _file = new(path);
     private StreamReader? _reader;
     private StreamWriter? _writer;
-    private string? _temp;
     private bool _disposed = false;
 
     public void Check() // проверка наличия файла и его создание в случае отстутсвтия
@@ -24,12 +23,12 @@ class FileWorker(string path) : IDataWorker
 
     public string Read() // чтение из файла в string
     {
-        _temp = string.Empty;
+        string temp = string.Empty;
         if (_file.Exists)
             using (_reader = new(_path))
-                _temp += _reader.ReadLine();
+                temp += _reader.ReadLine();
         else throw new FileNotFoundException();
-        return _temp;
+        return temp;
     }
 
     public void Write(string text, bool append = false) // запись в файл string

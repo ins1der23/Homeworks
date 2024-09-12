@@ -1,6 +1,6 @@
 
 namespace HumanFriends.Model;
-abstract class Pet : IPet
+abstract class Pet :  IPet
 {
     public int Id { get; private set; }
     public Kinds Kind { get; protected set; }
@@ -20,7 +20,7 @@ abstract class Pet : IPet
             else Console.WriteLine("No such feature");
         }
     }
-    public List<Commands> Commands { get; private set; } 
+    public List<Commands> Commands { get; private set; }
     public bool Happy { get; private set; }
 
 
@@ -32,7 +32,7 @@ abstract class Pet : IPet
         Feature = (Features)featureId;
         Commands = [];
     }
-    
+
     public void Caress() => Happy = true;
     public void Unhappy() => Happy = false;
 
@@ -46,4 +46,29 @@ abstract class Pet : IPet
         Vaccination = true;
         Console.WriteLine("Vaccination done");
     }
+
+    public string CommandsToString() => string.Join(",", Commands.Cast<int>().ToList());
+
+    public override string ToString()
+    {
+        
+        return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{Convert.ToInt32(Happy)}";
+    }
+
+    
+    public abstract override bool Equals(object? obj);
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode() +
+        Kind.GetHashCode() +
+        Name.GetHashCode() +
+        DoB.GetHashCode() +
+        Vaccination.GetHashCode() +
+        feature.GetHashCode() +
+        Commands.GetHashCode() +
+        Happy.GetHashCode();
+    }
+
+    
 }

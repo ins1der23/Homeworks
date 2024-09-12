@@ -6,4 +6,14 @@ class Cat : Pet
     {
         Kind = Kinds.Cat;
     }
+
+    public override bool Equals(object? obj)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
+    }
 }

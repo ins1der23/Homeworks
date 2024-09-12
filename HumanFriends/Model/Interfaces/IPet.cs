@@ -5,4 +5,6 @@ interface IPet : IBaseAnimal
     void Caress();
     void Unhappy();
 
+     
+
 }

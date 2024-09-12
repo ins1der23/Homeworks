@@ -12,8 +12,11 @@ interface IBaseAnimal
     
 
     void Vaccinate();
+    string CommandsToString();
     void AddCommand(Commands command) => Commands.Add(command);
     void ShowCommands() => Commands.ForEach(x => Console.WriteLine(x));
+
+    
 
 
 
