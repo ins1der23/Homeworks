@@ -12,10 +12,11 @@ class Dog : Pet
         private set
         {
             if (Enum.IsDefined(typeof(Breeds), value)) breed = value;
-            else Console.WriteLine("No such breed");
+            else throw new EnumException();
         }
     }
-    public Dog(string name, int featureId, int breedId) : base(name, featureId)
+    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int breedId, int id = 0)
+    : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kinds.Dog;
         Breed = (Breeds)breedId;
@@ -49,7 +50,7 @@ class Dog : Pet
 
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
-    
+
 
 
 }

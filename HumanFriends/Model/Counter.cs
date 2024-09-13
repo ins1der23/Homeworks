@@ -15,10 +15,10 @@ class Counter : IDisposable
         {
             if (mode == "file") _dataWorker = new FileWorker(path);
             _dataWorker?.Check();
-            string temp = string.Empty;
-            temp += _dataWorker?.Read();
-            bool check = int.TryParse(temp, out int res);
-            if (check) Id = res;
+            // string temp = string.Empty;
+            // temp += _dataWorker?.Read();
+            // bool check = int.TryParse(temp, out int res);
+            // if (check) Id = res;
             Id++;
             _dataWorker?.Write(Id.ToString());
             _dataWorker?.Dispose();

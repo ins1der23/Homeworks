@@ -1,6 +1,7 @@
 
+using System.Runtime.InteropServices;
 namespace HumanFriends.Model;
-abstract class Pet :  IPet
+abstract class Pet : IPet
 {
     public int Id { get; private set; }
     public Kinds Kind { get; protected set; }
@@ -17,20 +18,23 @@ abstract class Pet :  IPet
         private set
         {
             if (Enum.IsDefined(typeof(Features), value)) feature = value;
-            else Console.WriteLine("No such feature");
+            else throw new EnumException();
         }
     }
     public List<Commands> Commands { get; private set; }
     public bool Happy { get; private set; }
 
 
-    public Pet(string name, int featureId)
+    public Pet(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int id = 0)
     {
         using Counter cnt = new();
-        Id = Counter.Id;
+        if (id == 0) Id = Counter.Id;
         Name = name;
+        DoB = doB;
+        Vaccination = vaccination;
         Feature = (Features)featureId;
-        Commands = [];
+        Commands = commands;
+        Happy = happy;
     }
 
     public void Caress() => Happy = true;
@@ -51,11 +55,11 @@ abstract class Pet :  IPet
 
     public override string ToString()
     {
-        
+
         return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{Convert.ToInt32(Happy)}";
     }
 
-    
+
     public abstract override bool Equals(object? obj);
 
     public override int GetHashCode()
@@ -70,5 +74,5 @@ abstract class Pet :  IPet
         Happy.GetHashCode();
     }
 
-    
+
 }
