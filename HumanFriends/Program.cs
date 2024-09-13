@@ -1,6 +1,8 @@
 ﻿using HumanFriends.Model;
 using HumanFriends.Service;
 
+IDataWorker dataWorker = new FileWorker(Config.counterPath);
+
 List<Commands> commands = [Commands.Sound, Commands.Sit];
 List<Commands> commands2 = [];
 DateTime date = new(2020, 2, 23);
@@ -11,12 +13,16 @@ IBaseAnimal dog1 = new Dog("Bob", date, true, (int)Features.Outdoor, commands2, 
 
 ClassParser parser = new();
 
-parser.GetAnimal(dog1.ToString());
+
+IBaseAnimal dog2 = parser.GetAnimal(dog1.ToString());
 
 // dog1.AddCommand(Commands.Fetch);
 // dog1.AddCommand(Commands.Pounce);
 
 Console.WriteLine(dog1);
+Console.WriteLine(dog2);
+
+dataWorker.Delete();
 
 
 

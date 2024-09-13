@@ -72,7 +72,7 @@ class ClassParser
             {
                 case Kinds.Dog:
                     int breedId = Convert.ToInt32(_parameters[5]);
-                    return new Dog(name, dob, vaccination, featureId, commands, happy, breedId, id);
+                    return new Dog(name, dob, vaccination, featureId, commands, happy, breedId);
             }
         }
         catch (System.Exception)

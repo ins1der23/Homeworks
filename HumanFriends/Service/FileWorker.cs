@@ -39,6 +39,11 @@ class FileWorker(string path) : IDataWorker
         else throw new FileNotFoundException();
     }
 
+    public void Delete() // удаление файла
+    {
+        if (_file.Exists) _file.Delete();
+        else throw new FileNotFoundException();
+    }
     public void Dispose()
     {
         CleanUp(true);
@@ -58,6 +63,7 @@ class FileWorker(string path) : IDataWorker
         }
         _disposed = true;
     }
+    
     ~FileWorker()
     {
         CleanUp(false);

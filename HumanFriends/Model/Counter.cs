@@ -4,7 +4,7 @@ namespace HumanFriends.Model;
 class Counter : IDisposable
 {
     private readonly IDataWorker? _dataWorker;
-    public static int Id { get; private set; }
+    public int Id { get; private set; }
     private bool _disposed;
 
 
@@ -15,10 +15,10 @@ class Counter : IDisposable
         {
             if (mode == "file") _dataWorker = new FileWorker(path);
             _dataWorker?.Check();
-            // string temp = string.Empty;
-            // temp += _dataWorker?.Read();
-            // bool check = int.TryParse(temp, out int res);
-            // if (check) Id = res;
+            string temp = string.Empty;
+            temp += _dataWorker?.Read();
+            bool check = int.TryParse(temp, out int res);
+            if (check) Id = res;
             Id++;
             _dataWorker?.Write(Id.ToString());
             _dataWorker?.Dispose();
@@ -29,6 +29,8 @@ class Counter : IDisposable
             Console.WriteLine(e.StackTrace);
         }
     }
+
+    public void SetId(int id) => Id = id;
 
     public void Dispose()
     {
