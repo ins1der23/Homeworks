@@ -2,8 +2,7 @@ using HumanFriends.Model;
 
 namespace HumanFriends.Service;
 
-interface IClassParser 
+interface IClassParser
 {
-    bool CheckString(string someString);
     IBaseAnimal GetAnimal(string checkedString);
 }

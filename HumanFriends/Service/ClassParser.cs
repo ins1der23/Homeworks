@@ -2,7 +2,7 @@ using HumanFriends.Model;
 
 namespace HumanFriends.Service;
 
-class ClassParser
+class ClassParser : IClassParser
 {
     private string[] _parameters = [];
 

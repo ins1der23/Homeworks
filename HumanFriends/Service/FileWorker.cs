@@ -1,13 +1,13 @@
 namespace HumanFriends.Service;
 class FileWorker(string path) : IDataWorker
 {
-    private readonly string _path = path;
-    private readonly FileInfo _file = new(path);
+    private string _path = path;
+    private FileInfo _file = new(path);
     private StreamReader? _reader;
     private StreamWriter? _writer;
     private bool _disposed = false;
 
-    public void Check() // проверка наличия файла и его создание в случае отстутсвтия
+    public void CheckPath() // проверка наличия файла и его создание в случае отстутсвтия
     {
         try
         {
@@ -31,6 +31,21 @@ class FileWorker(string path) : IDataWorker
         return temp;
     }
 
+    public List<string> ReadToStrings() // чтение из файла в List<string>
+    {
+        List<string> temp = [];
+        if (_file.Exists)
+        {
+            using (_reader = new(_path))
+            {
+                string? line;
+                while ((line = _reader.ReadLine()) != null) temp.Add(line);
+            }
+        }
+        else throw new FileNotFoundException();
+        return temp;
+    }
+
     public void Write(string text, bool append = false) // запись в файл string
     {
         if (_file.Exists)
@@ -39,9 +54,12 @@ class FileWorker(string path) : IDataWorker
         else throw new FileNotFoundException();
     }
 
-    public void Delete() // удаление файла
+    public void Delete() // удаление файла (кроме файла с базой)
     {
-        if (_file.Exists) _file.Delete();
+        if (_file.Exists)
+        {
+            if (_path != Config.dbPath) _file.Delete();
+        }
         else throw new FileNotFoundException();
     }
     public void Dispose()
@@ -63,7 +81,7 @@ class FileWorker(string path) : IDataWorker
         }
         _disposed = true;
     }
-    
+
     ~FileWorker()
     {
         CleanUp(false);

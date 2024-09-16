@@ -27,9 +27,10 @@ abstract class Pet : IPet
 
     public Pet(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int id = 0)
     {
-        using Counter cnt = new();
+        using Counter cnt = Counter.GetInstance();
         // Id = id == 0 ? Counter.Id : id;
         if (id != 0) cnt.SetId(id);
+        
         Id = cnt.Id;
         Name = name;
         DoB = doB;
