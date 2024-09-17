@@ -1,19 +1,28 @@
 ﻿using HumanFriends.Model;
 using HumanFriends.Service;
 
-IDataWorker dbWorker = new FileWorker(Config.dbPath);
-dbWorker.CheckPath();
+IDataWorker dbWorker = new FileWorker(Settings.dbPath);
+IClassParser parser = new ClassParser();
+IDataBase dataBase = new DataBase();
 
 
-List<Commands> commands = [Commands.Sound, Commands.Sit];
-List<Commands> commands2 = [];
-DateTime date = new(2020, 2, 23);
+
+dbWorker.CheckPath(); // проверяем/создаем файл с базой
+dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
+Console.WriteLine(dataBase.ToString());
+
+
+
+
+// List<Commands> commands = [Commands.Sound, Commands.Sit];
+// List<Commands> commands2 = [];
+// DateTime date = new(2020, 2, 23);
 
 // IBaseAnimal dog1 = new Dog("Bob", date, true, (int)Features.Outdoor, commands2, true, (int)Breeds.Mastiff);
 // IBaseAnimal cat1 = new Cat("", 4);
 // IBaseAnimal dog2 = new Dog("John", 3, 6);
 
-IClassParser parser = new ClassParser();
+
 
 
 // IBaseAnimal dog2 = new Dog("John", date, true, (int)Features.Outdoor, commands2, true, (int)Breeds.Mastiff);
@@ -25,15 +34,10 @@ IClassParser parser = new ClassParser();
 // dog1.AddCommand(Commands.Fetch);
 // dog1.AddCommand(Commands.Pounce);
 
-List<string> dbList = dbWorker.ReadToStrings();
-
-
-List<IBaseAnimal> baseAnimals = [];
 
 
 
-dbList.ForEach(x => baseAnimals.Add(parser.GetAnimal(x)));
-baseAnimals.ForEach(x => Console.WriteLine(x));
+// baseAnimals.ForEach(x => Console.WriteLine(x));
 
 
 
@@ -44,9 +48,8 @@ baseAnimals.ForEach(x => Console.WriteLine(x));
 
 
 
-// dbWorker.Dispose();
-IDataWorker fileWorker = new FileWorker(Config.counterPath);
-dbWorker.Delete();
+dbWorker.Dispose();
+IDataWorker fileWorker = new FileWorker(Settings.counterPath);
 fileWorker.Delete();
 
 

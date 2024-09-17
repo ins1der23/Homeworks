@@ -58,7 +58,7 @@ class FileWorker(string path) : IDataWorker
     {
         if (_file.Exists)
         {
-            if (_path != Config.dbPath) _file.Delete();
+            if (_path != Settings.dbPath) _file.Delete();
         }
         else throw new FileNotFoundException();
     }

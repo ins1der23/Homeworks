@@ -1,6 +1,6 @@
 namespace HumanFriends.Model;
 
-class Dog : Pet
+class Cat : Pet
 {
     private Breeds breed;
     public Breeds Breed
@@ -15,10 +15,10 @@ class Dog : Pet
             else throw new EnumException();
         }
     }
-    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int breedId, int id = 0)
+    public Cat(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {
-        Kind = Kinds.Dog;
+        Kind = Kinds.Cat;
         Breed = (Breeds)breedId;
     }
 
@@ -35,8 +35,7 @@ class Dog : Pet
             return false;
         }
         Dog dog = (Dog)obj;
-        if (Id == dog.Id &&
-            Kind == dog.Kind &&
+        if (Kind == dog.Kind &&
             Name.Equals(dog.Name) &&
             DoB.Equals(dog.DoB) &&
             Vaccination == dog.Vaccination &&
@@ -50,7 +49,6 @@ class Dog : Pet
 
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
-
 
 
 }

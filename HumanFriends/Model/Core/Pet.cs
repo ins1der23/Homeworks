@@ -30,7 +30,7 @@ abstract class Pet : IPet
         using Counter cnt = Counter.GetInstance();
         // Id = id == 0 ? Counter.Id : id;
         if (id != 0) cnt.SetId(id);
-        
+
         Id = cnt.Id;
         Name = name;
         DoB = doB;
@@ -67,8 +67,7 @@ abstract class Pet : IPet
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode() +
-        Kind.GetHashCode() +
+        return Kind.GetHashCode() +
         Name.GetHashCode() +
         DoB.GetHashCode() +
         Vaccination.GetHashCode() +
@@ -77,5 +76,17 @@ abstract class Pet : IPet
         Happy.GetHashCode();
     }
 
-
+   
+    public int CompareTo(IBaseAnimal? other) // метод сравнения по DoB и Id
+    {
+        ArgumentNullException.ThrowIfNull(other);
+        if (DoB == other.DoB)
+        {
+            if (Id == other.Id) return 0;
+            else if (Id > other.Id) return 1;
+            else return -1;
+        }
+        if (DoB > other.DoB) return 1;
+        else return -1;
+    }
 }

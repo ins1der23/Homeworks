@@ -1,5 +1,5 @@
 namespace HumanFriends.Model;
-interface IBaseAnimal
+interface IBaseAnimal : IComparable<IBaseAnimal>
 {
 
     int Id { get; }
@@ -9,15 +9,11 @@ interface IBaseAnimal
     bool Vaccination { get; }
     Features Feature { get; }
     List<Commands> Commands { get; }
-    
+
 
     void Vaccinate();
     string CommandsToString();
     void AddCommand(Commands command) => Commands.Add(command);
     void ShowCommands() => Commands.ForEach(x => Console.WriteLine(x));
-
-    
-
-
-
+  
 }

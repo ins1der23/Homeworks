@@ -8,9 +8,9 @@ class Counter : IDisposable
     private readonly IDataWorker? _dataWorker;
     public int Id { get; private set; }
     private bool _disposed;
-    private Counter(string mode = "file") // создание Counter по умолчанию в файловом режиме
+    private Counter(string mode = "file") // создание Counter (по умолчанию в файловом режиме)
     {
-        string path = Config.counterPath;
+        string path = Settings.counterPath;
         try
         {
             if (mode == "file") _dataWorker = new FileWorker(path);
