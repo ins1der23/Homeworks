@@ -1,15 +1,21 @@
 ﻿using HumanFriends.Model;
 using HumanFriends.Service;
+using HumanFriends.View;
 
-IDataWorker dbWorker = new FileWorker(Settings.dbPath);
-IClassParser parser = new ClassParser();
-IDataBase dataBase = new DataBase();
+IView view = new ConsoleView();
+view.MainMenu();
 
 
 
-dbWorker.CheckPath(); // проверяем/создаем файл с базой
-dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
-Console.WriteLine(dataBase.ToString());
+// IDataWorker dbWorker = new FileWorker(Settings.dbPath);
+// IClassParser parser = new ClassParser();
+// IDataBase dataBase = new DataBase();
+
+
+
+// dbWorker.CheckPath(); // проверяем/создаем файл с базой
+// dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
+// Console.WriteLine(dataBase.ToString());
 
 
 
@@ -48,9 +54,9 @@ Console.WriteLine(dataBase.ToString());
 
 
 
-dbWorker.Dispose();
-IDataWorker fileWorker = new FileWorker(Settings.counterPath);
-fileWorker.Delete();
+// dbWorker.Dispose();
+// IDataWorker fileWorker = new FileWorker(Settings.counterPath);
+// fileWorker.Delete();
 
 
 

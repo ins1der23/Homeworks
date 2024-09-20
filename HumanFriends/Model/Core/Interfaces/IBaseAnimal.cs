@@ -8,12 +8,12 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
     DateTime DoB { get; }
     bool Vaccination { get; }
     Features Feature { get; }
-    List<Commands> Commands { get; }
+    List<AnimalCommnds> Commands { get; }
 
 
     void Vaccinate();
     string CommandsToString();
-    void AddCommand(Commands command) => Commands.Add(command);
+    void AddCommand(AnimalCommnds command) => Commands.Add(command);
     void ShowCommands() => Commands.ForEach(x => Console.WriteLine(x));
   
 }

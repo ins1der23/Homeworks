@@ -15,7 +15,7 @@ class Cat : Pet
             else throw new EnumException();
         }
     }
-    public Cat(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int breedId, int id = 0)
+    public Cat(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommnds> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kinds.Cat;

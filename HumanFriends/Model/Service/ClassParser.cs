@@ -27,16 +27,16 @@ class ClassParser : IClassParser
         };
     }
 
-    private Commands GetCommand(int commandId)
+    private AnimalCommnds GetCommand(int commandId)
     {
-        if (Enum.IsDefined(typeof(Commands), commandId)) return (Commands)commandId;
+        if (Enum.IsDefined(typeof(AnimalCommnds), commandId)) return (AnimalCommnds)commandId;
         else throw new EnumException();
     }
 
-    private List<Commands> GetCommands()
+    private List<AnimalCommnds> GetCommands()
     {
         string[] strings = _parameters[6].Split(",");
-        List<Commands> commands = [];
+        List<AnimalCommnds> commands = [];
         if (strings[0].Equals("")) return commands;
         try
         {
@@ -65,7 +65,7 @@ class ClassParser : IClassParser
             DateTime dob = Convert.ToDateTime(_parameters[3]);
             bool vaccination = Convert.ToBoolean(Convert.ToInt32(_parameters[4]));
             int featureId = Convert.ToInt32(_parameters[5]);
-            List<Commands> commands = GetCommands();
+            List<AnimalCommnds> commands = GetCommands();
             bool happy = false;
             if ((int)kind < 4) happy = Convert.ToBoolean(Convert.ToInt32(_parameters[7]));
             switch (kind)

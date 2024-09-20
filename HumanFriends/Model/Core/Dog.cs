@@ -15,14 +15,14 @@ class Dog : Pet
             else throw new EnumException();
         }
     }
-    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int breedId, int id = 0)
+    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommnds> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kinds.Dog;
         Breed = (Breeds)breedId;
     }
 
-    public override string ToString()
+       public override string ToString()
     {
         return base.ToString() + $";{(int)Breed}";
     }

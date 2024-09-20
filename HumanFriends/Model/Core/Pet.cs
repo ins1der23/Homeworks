@@ -21,12 +21,13 @@ abstract class Pet : IPet
             else throw new EnumException();
         }
     }
-    public List<Commands> Commands { get; private set; }
+    public List<AnimalCommnds> Commands { get; private set; }
     public bool Happy { get; private set; }
 
 
-    public Pet(string name, DateTime doB, bool vaccination, int featureId, List<Commands> commands, bool happy, int id = 0)
+    protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommnds> commands, bool happy, int id = 0)
     {
+        if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
         // Id = id == 0 ? Counter.Id : id;
         if (id != 0) cnt.SetId(id);
@@ -40,6 +41,7 @@ abstract class Pet : IPet
         Happy = happy;
     }
 
+   
     public void Caress() => Happy = true;
     public void Unhappy() => Happy = false;
 

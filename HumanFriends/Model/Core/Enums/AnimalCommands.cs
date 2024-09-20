@@ -1,5 +1,5 @@
 namespace HumanFriends.Model;
-enum Commands
+enum AnimalCommnds
 {
     Sit = 1,
     Stay,
