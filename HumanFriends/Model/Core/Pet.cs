@@ -4,12 +4,12 @@ namespace HumanFriends.Model;
 abstract class Pet : IPet
 {
     public int Id { get; private set; }
-    public Kinds Kind { get; protected set; }
+    public Kind Kind { get; protected set; }
     public string Name { get; private set; }
     public DateTime DoB { get; private set; }
     public bool Vaccination { get; private set; }
-    private Features feature;
-    public Features Feature
+    private Feature feature;
+    public Feature Feature
     {
         get
         {
@@ -17,15 +17,15 @@ abstract class Pet : IPet
         }
         private set
         {
-            if (Enum.IsDefined(typeof(Features), value)) feature = value;
+            if (Enum.IsDefined(typeof(Feature), value)) feature = value;
             else throw new EnumException();
         }
     }
-    public List<AnimalCommnds> Commands { get; private set; }
+    public List<AnimalCommand> Commands { get; private set; }
     public bool Happy { get; private set; }
 
 
-    protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommnds> commands, bool happy, int id = 0)
+    protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
@@ -36,7 +36,7 @@ abstract class Pet : IPet
         Name = name;
         DoB = doB;
         Vaccination = vaccination;
-        Feature = (Features)featureId;
+        Feature = (Feature)featureId;
         Commands = commands;
         Happy = happy;
     }

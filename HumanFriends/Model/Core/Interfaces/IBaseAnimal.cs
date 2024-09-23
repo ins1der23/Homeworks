@@ -3,17 +3,17 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
 {
 
     int Id { get; }
-    public Kinds Kind { get; }
+    public Kind Kind { get; }
     string Name { get; }
     DateTime DoB { get; }
     bool Vaccination { get; }
-    Features Feature { get; }
-    List<AnimalCommnds> Commands { get; }
+    Feature Feature { get; }
+    List<AnimalCommand> Commands { get; }
 
 
     void Vaccinate();
     string CommandsToString();
-    void AddCommand(AnimalCommnds command) => Commands.Add(command);
+    void AddCommand(AnimalCommand command) => Commands.Add(command);
     void ShowCommands() => Commands.ForEach(x => Console.WriteLine(x));
   
 }

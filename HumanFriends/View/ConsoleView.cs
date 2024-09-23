@@ -1,36 +1,76 @@
 using HumanFriends.Controller;
 using HumanFriends.Model;
-using HumanFriends.View;
 
-class ConsoleView : IView
+namespace HumanFriends.View;
+class ConsoleView(IText Language) : IView
 {
     private Menu? _menu;
-    private readonly IText _text = new TextRus();
+    private readonly IText _text = Language;
     private bool _clear;
-    private string _textString = string.Empty;
+    private int _choice;
+    private string _output = string.Empty;
+    private readonly List<string> _someList = [];
 
 
 
-    public CtrlCommands MainMenu()
+    public CtrlCommands MainMenu(out string sortingMode)
     {
+        Console.Clear();
         _menu = new Menu(_text.MainMenu, _text.MainMenuName);
-        int choice = MenuToChoice(_text.Choose, true);
-        return choice switch
+        sortingMode = string.Empty;
+        MenuToChoice(_text.Choose, true);
+        switch (_choice)
         {
-            1 => CtrlCommands.Get,
-            _ => CtrlCommands.Exit,
+            case 1:
+                sortingMode = SortMenu();
+                return CtrlCommands.Get;
+            default:
+                return CtrlCommands.Exit;
+        }
+    }
+
+    public CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal? animal)
+    {
+        Console.Clear();
+        AnimalShortStrgLst(animals);
+        animal = null;
+        if (_someList is null) return CtrlCommands.Exit;
+        _menu = new Menu(_someList, _text.MainMenuName);
+        MenuToChoice(_text.ChooseOrZero, false);
+        animal = animals[_choice];
+
+        return CtrlCommands.Exit;
+
+        // animal = new BaseAnimal();
+        // return CtrlCommands.Exit;
+
+    }
+
+    private string SortMenu() // меню выбора способа сортировки
+    {
+        Console.Clear();
+        _menu = new Menu(_text.SortMenu, _text.SortMenuName);
+        MenuToChoice(_text.ChooseOrZero, false);
+        return _choice switch
+        {
+            1 => "name",
+            2 => "date",
+            3 => "id",
+            _ => ""
         };
     }
 
-    public CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal animal)
+    private void AnimalShortStrgLst(List<IBaseAnimal> animals)
     {
-        throw new NotImplementedException();
+        _someList.Clear();
+        animals.ToList().ForEach(animal => _someList.Add(AnimalShortStrg(animal)));
     }
 
-
-
-
-
+    private string AnimalShortStrg(IBaseAnimal animal)
+    {
+        _output = $"| Id: {animal.Id} | {_text.KindTranslate(animal.Kind)} | {animal.Name,-5} | {animal.DoB.ToShortDateString()} | Привит: {_text.FlagTranslate(animal.Vaccination),-3} |";
+        return _output;
+    }
     private void ShowMenu() => Console.WriteLine(_menu);
 
     private void ShowString(string text, bool clear = false)
@@ -40,39 +80,33 @@ class ConsoleView : IView
         Console.WriteLine(text);
 
     }
-    private int GetInteger(string textString)
+    private void GetInteger(string textString)
     {
-        _textString = textString;
-        int num = 0;
-        bool flag = true;
+        bool flag;
         do
         {
-            Console.Write($"{_textString}: ");
-            flag = int.TryParse(Console.ReadLine(), out num) || num == 0;
+            Console.Write($"{textString}: ");
+            flag = int.TryParse(Console.ReadLine(), out _choice) || _choice == 0;
         } while (!flag);
-        return num;
     }
 
-    private int MenuToChoice(string invite, bool noNull, bool clear = true)
+    private void MenuToChoice(string invite, bool noNull, bool clear = true)
     {
         if (_menu is null) throw new NullReferenceException();
-        _clear = clear;
         bool flag = false;
-        int choice = 0;
         while (!flag)
         {
-            if (clear) Console.Clear();
+            if (_clear) Console.Clear();
             ShowMenu();
-            choice = GetInteger(invite);
+            GetInteger(invite);
             if (noNull)
             {
-                if (choice > 0 && choice <= _menu.Size) flag = true;
+                if (_choice > 0 && _choice <= _menu.Size) flag = true;
             }
             else
             {
-                if (choice >= 0 && choice <= _menu.Size) flag = true;
+                if (_choice >= 0 && _choice <= _menu.Size) flag = true;
             }
         }
-        return choice;
     }
 }

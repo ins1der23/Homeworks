@@ -2,8 +2,8 @@ namespace HumanFriends.Model;
 
 class Dog : Pet
 {
-    private Breeds breed;
-    public Breeds Breed
+    private Breed breed;
+    public Breed Breed
     {
         get
         {
@@ -11,15 +11,15 @@ class Dog : Pet
         }
         private set
         {
-            if (Enum.IsDefined(typeof(Breeds), value)) breed = value;
+            if (Enum.IsDefined(typeof(Breed), value)) breed = value;
             else throw new EnumException();
         }
     }
-    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommnds> commands, bool happy, int breedId, int id = 0)
+    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {
-        Kind = Kinds.Dog;
-        Breed = (Breeds)breedId;
+        Kind = Kind.Dog;
+        Breed = (Breed)breedId;
     }
 
        public override string ToString()

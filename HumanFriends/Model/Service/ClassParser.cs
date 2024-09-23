@@ -6,7 +6,7 @@ class ClassParser : IClassParser
 {
     private string[] _parameters = [];
 
-    private Kinds CheckAndGetKind(string someString) // определяем строку в нужный тип и проверяем на соответствие
+    private Kind CheckAndGetKind(string someString) // определяем строку в нужный тип и проверяем на соответствие
     {
         string[] strings = someString.Split(";");
         int kindId;
@@ -21,22 +21,22 @@ class ClassParser : IClassParser
         _parameters = strings;
         return kindId switch
         {
-            1 => strings.Length == 9 ? Kinds.Dog : throw new FormatException(),
-            2 => strings.Length == 9 ? Kinds.Cat : throw new FormatException(),
+            1 => strings.Length == 9 ? Kind.Dog : throw new FormatException(),
+            2 => strings.Length == 9 ? Kind.Cat : throw new FormatException(),
             _ => throw new FormatException()
         };
     }
 
-    private AnimalCommnds GetCommand(int commandId)
+    private AnimalCommand GetCommand(int commandId)
     {
-        if (Enum.IsDefined(typeof(AnimalCommnds), commandId)) return (AnimalCommnds)commandId;
+        if (Enum.IsDefined(typeof(AnimalCommand), commandId)) return (AnimalCommand)commandId;
         else throw new EnumException();
     }
 
-    private List<AnimalCommnds> GetCommands()
+    private List<AnimalCommand> GetCommands()
     {
         string[] strings = _parameters[6].Split(",");
-        List<AnimalCommnds> commands = [];
+        List<AnimalCommand> commands = [];
         if (strings[0].Equals("")) return commands;
         try
         {
@@ -57,7 +57,7 @@ class ClassParser : IClassParser
     public IBaseAnimal GetAnimal(string someString)
     {
         _parameters = [];
-        Kinds kind = CheckAndGetKind(someString);
+        Kind kind = CheckAndGetKind(someString);
         try
         {
             int id = Convert.ToInt32(_parameters[0]);
@@ -65,12 +65,12 @@ class ClassParser : IClassParser
             DateTime dob = Convert.ToDateTime(_parameters[3]);
             bool vaccination = Convert.ToBoolean(Convert.ToInt32(_parameters[4]));
             int featureId = Convert.ToInt32(_parameters[5]);
-            List<AnimalCommnds> commands = GetCommands();
+            List<AnimalCommand> commands = GetCommands();
             bool happy = false;
             if ((int)kind < 4) happy = Convert.ToBoolean(Convert.ToInt32(_parameters[7]));
             switch (kind)
             {
-                case Kinds.Dog:
+                case Kind.Dog:
                     int breedId = Convert.ToInt32(_parameters[5]);
                     return new Dog(name, dob, vaccination, featureId, commands, happy, breedId);
             }

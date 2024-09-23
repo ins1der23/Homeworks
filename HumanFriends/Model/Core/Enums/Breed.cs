@@ -1,5 +1,5 @@
 namespace HumanFriends.Model;
-enum Breeds
+enum Breed
 {
     Mastiff = 1,
     Spaniel,

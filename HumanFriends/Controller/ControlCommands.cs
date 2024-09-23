@@ -7,8 +7,4 @@ enum CtrlCommands
     Change,
     Delete,
     Exit
-
-
-
-
 }

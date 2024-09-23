@@ -1,9 +1,11 @@
-class Menu(string[] choices, string name)
+namespace HumanFriends.View;
+
+class Menu(List<string> choices, string name)
 {
     private readonly string _name = name;
-    private readonly string[] _choices = choices;
+    private readonly List<string> _choices = choices;
 
-    public int Size => _choices.Length;
+    public int Size => _choices.Count;
 
     private string HeaderDivider()
     {
@@ -15,8 +17,8 @@ class Menu(string[] choices, string name)
     {
         string output = string.Empty;
         string divider = HeaderDivider();
-        for (int i = 0; i < _choices.Length; i++)
-            output += $"  {i + 1,-5}{_choices[i]}\n";
+        for (int i = 0; i < _choices.Count; i++)
+            output += $"  {i + 1,-3}{_choices[i]}\n";
         return $"{_name}\n{divider}\n{output}";
     }
 }

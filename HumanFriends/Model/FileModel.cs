@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using HumanFriends.Model;
 using HumanFriends.Service;
 
@@ -15,7 +16,7 @@ class FileModel : IModel
     {
         dbWorker.CheckPath(); // проверяем/создаем файл с базой
         dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
-        Console.WriteLine(dataBase.ToString());
+
 
 
 
@@ -74,13 +75,16 @@ class FileModel : IModel
         throw new NotImplementedException();
     }
 
-    public IBaseAnimal GetAnimal(int animalId)
+    public IBaseAnimal GetAnimal(int animalId) => dataBase.GetById(animalId) ?? throw new NullReferenceException();
+    public List<IBaseAnimal> GetAnimals(string sortingMOde = "id")
     {
-        throw new NotImplementedException();
+        return sortingMOde switch
+        {
+            "id" => dataBase.DbList.OrderBy(x => x.Id).ToList() ?? throw new NullReferenceException(),
+            "date" => dataBase.DbList.OrderBy(x => x).ToList() ?? throw new NullReferenceException(),
+            "name" => dataBase.DbList.OrderBy(x => x.Name).ToList() ?? throw new NullReferenceException(),
+            _ => dataBase.DbList ?? throw new NullReferenceException(),
+        };
     }
 
-    public List<IBaseAnimal> GetAnimals()
-    {
-        throw new NotImplementedException();
-    }
 }

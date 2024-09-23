@@ -2,10 +2,13 @@
 using HumanFriends.Service;
 using HumanFriends.View;
 
-IView view = new ConsoleView();
-view.MainMenu();
 
+IText Russian = new TextRus();
+Controller main = new(Russian);
+main.Run();
 
+// IModel model = new FileModel();
+// List<IBaseAnimal> animals = model.GetAnimals();
 
 // IDataWorker dbWorker = new FileWorker(Settings.dbPath);
 // IClassParser parser = new ClassParser();

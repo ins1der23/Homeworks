@@ -1,5 +1,5 @@
 namespace HumanFriends.Model;
-enum Features
+enum Feature
 {
     
     Outdoor = 1,

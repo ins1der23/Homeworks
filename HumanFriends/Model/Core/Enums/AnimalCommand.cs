@@ -1,5 +1,5 @@
 namespace HumanFriends.Model;
-enum AnimalCommnds
+enum AnimalCommand
 {
     Sit = 1,
     Stay,
@@ -9,5 +9,12 @@ enum AnimalCommnds
     Pounce,
     Scratch,
     Roll,
-    Hide
+    Hide,
+    Pace,
+    Trot,
+    Canter,
+    Load,
+    Walk,
+    Run,
+    Kick
 }
