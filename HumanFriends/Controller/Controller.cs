@@ -15,21 +15,23 @@ class Controller(IText Language)
         bool flag = true;
         while (flag)
         {
-            CtrlCommands command = view.MainMenu(out string sortingMode);
+            CtrlCommands command = view.MainMenu();
             switch (command)
             {
                 case CtrlCommands.Get:
-                    if (sortingMode.Equals(string.Empty)) break;
+                    string? sortingMode = view.SortMenu();
+                    if (sortingMode is null) break;
                     List<IBaseAnimal> animals = model.GetAnimals(sortingMode);
                     command = view.ListMenu(animals, out IBaseAnimal? baseAnimal);
-                    if (baseAnimal is null) break;
-                    IBaseAnimal animal = baseAnimal;
+                    IBaseAnimal? animal = baseAnimal;
                     switch (command)
                     {
                         case CtrlCommands.Add:
+                            animal = view.AddAnimalMenu();
                             model.AddAnimal(animal);
                             break;
-                        case CtrlCommands.Delete:
+                        case CtrlCommands.Get:
+                            if (animal is null) break;
                             model.DelAnimal(animal);
                             break;
                         case CtrlCommands.Change:

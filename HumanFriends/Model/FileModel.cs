@@ -62,7 +62,10 @@ class FileModel : IModel
 
     public void AddAnimal(IBaseAnimal animal)
     {
-        throw new NotImplementedException();
+        Console.WriteLine(animal.ToString());
+        Console.ReadLine();
+        
+        
     }
 
     public IBaseAnimal ChangeAnimal(IBaseAnimal animal)

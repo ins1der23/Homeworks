@@ -2,6 +2,9 @@ namespace HumanFriends.Model;
 
 class Dog : Pet
 {
+
+    public static readonly List<Breed> breeds = [Breed.Mastiff, Breed.Spaniel, Breed.Dachshund];
+    public static readonly List<Feature> features = [Feature.Outdoor];
     private Breed breed;
     public Breed Breed
     {
@@ -11,18 +14,18 @@ class Dog : Pet
         }
         private set
         {
-            if (Enum.IsDefined(typeof(Breed), value)) breed = value;
+            if (Enum.IsDefined(typeof(Breed), value) && breeds.Contains(value)) breed = value;
             else throw new EnumException();
         }
     }
     public Dog(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int breedId, int id = 0)
-    : base(name, doB, vaccination, featureId, commands, happy, id)
+   : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kind.Dog;
         Breed = (Breed)breedId;
     }
 
-       public override string ToString()
+    public override string ToString()
     {
         return base.ToString() + $";{(int)Breed}";
     }

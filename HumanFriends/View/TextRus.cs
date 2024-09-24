@@ -5,14 +5,16 @@ class TextRus : IText
 {
     public List<string> MainMenu { get; }
     public string MainMenuName { get; }
-
     public string ListMenuName { get; }
-
     public List<string> SortMenu { get; }
     public string SortMenuName { get; }
+    public List<string> SimpleQstMenu { get; }
+
 
     public string Choose { get; }
-    public string ChooseOrZero { get; }
+    public string ChooseOrEmpty { get; }
+    public string EmptyToReturn { get; }
+    public string EmptyToNext { get; }
 
     public TextRus()
     {
@@ -24,10 +26,13 @@ class TextRus : IText
                     "По дате рождения",
                     "По id"];
         SortMenuName = "Сортировать список:";
+        SimpleQstMenu = ["Да", "Нет"];
 
 
         Choose = "Выберите пункт меню и нажмите ENTER";
-        ChooseOrZero = "Введите порядковый номер для выбора или оставьте поле пустым для возврата в главное меню и нажмите ENTER";
+        ChooseOrEmpty = "Выберите пункт меню для выбора и нажмите ENTER или оставьте поле пустым, если нет подходящего, и нажмите ENTER";
+        EmptyToReturn = "Введите пункт меню для выбора или оставьте поле пустым для возврата в главное меню и нажмите ENTER";
+        EmptyToNext = "Введите пункт меню для выбора или оставьте поле пустым для добавления животного и нажмите ENTER";
     }
 
     public string FlagTranslate(bool flag) => flag == true ? "Да" : "Нет";

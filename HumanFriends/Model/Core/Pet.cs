@@ -1,10 +1,25 @@
 
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace HumanFriends.Model;
 abstract class Pet : IPet
+
 {
+    public static readonly List<Kind> kinds = [Kind.Dog, Kind.Cat, Kind.Hamster];
     public int Id { get; private set; }
-    public Kind Kind { get; protected set; }
+    private Kind kind;
+    public Kind Kind
+    {
+        get
+        {
+            return kind;
+        }
+        protected set
+        {
+            if (Enum.IsDefined(typeof(Kind), value) && kinds.Contains(value)) kind = value;
+            else throw new EnumException();
+        }
+    }
     public string Name { get; private set; }
     public DateTime DoB { get; private set; }
     public bool Vaccination { get; private set; }
@@ -17,7 +32,7 @@ abstract class Pet : IPet
         }
         private set
         {
-            if (Enum.IsDefined(typeof(Feature), value)) feature = value;
+            if (Enum.IsDefined(typeof(Feature), value) || value == 0) feature = value;
             else throw new EnumException();
         }
     }
@@ -41,7 +56,7 @@ abstract class Pet : IPet
         Happy = happy;
     }
 
-   
+
     public void Caress() => Happy = true;
     public void Unhappy() => Happy = false;
 
@@ -78,7 +93,7 @@ abstract class Pet : IPet
         Happy.GetHashCode();
     }
 
-   
+
     public int CompareTo(IBaseAnimal? other) // метод сравнения по DoB и Id
     {
         ArgumentNullException.ThrowIfNull(other);

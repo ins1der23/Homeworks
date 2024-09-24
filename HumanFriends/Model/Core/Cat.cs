@@ -2,6 +2,7 @@ namespace HumanFriends.Model;
 
 class Cat : Pet
 {
+    public static readonly List<Breed> breeds = [Breed.VietnameseStreet, Breed.EnglishPopeyed, Breed.ScottishFold];
     private Breed breed;
     public Breed Breed
     {
@@ -11,10 +12,12 @@ class Cat : Pet
         }
         private set
         {
-            if (Enum.IsDefined(typeof(Breed), value)) breed = value;
+            if (Enum.IsDefined(typeof(Breed), value) && breeds.Contains(value)) breed = value;
             else throw new EnumException();
         }
     }
+
+
     public Cat(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {

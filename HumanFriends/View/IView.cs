@@ -5,6 +5,8 @@ namespace HumanFriends.View;
 
 interface IView
 {
-  CtrlCommands MainMenu(out string sortingMode);
+  CtrlCommands MainMenu();
   CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal? animal);
+  IBaseAnimal AddAnimalMenu();
+  string? SortMenu();
 }
