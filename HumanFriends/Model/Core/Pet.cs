@@ -39,6 +39,7 @@ abstract class Pet : IPet
     public List<AnimalCommand> Commands { get; private set; }
     public bool Happy { get; private set; }
 
+    
 
     protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
     {
@@ -71,8 +72,9 @@ abstract class Pet : IPet
         Console.WriteLine("Vaccination done");
     }
 
-    public string CommandsToString() => string.Join(",", Commands.Cast<int>().ToList());
 
+    public string CommandsToString() => string.Join(",", Commands.Cast<int>().ToList());
+   
     public override string ToString()
     {
 

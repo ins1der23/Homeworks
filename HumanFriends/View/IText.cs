@@ -9,11 +9,16 @@ interface IText
     string SortMenuName { get; }
     string ListMenuName { get; }
     List<string> SimpleQstMenu { get; }
+    List<string> ChgOrDelMenu { get; }
 
     string Choose { get; }
     string ChooseOrEmpty { get; }
     string EmptyToReturn { get; }
-    string EmptyToNext { get; }
+
+    public string Vaccinated { get; }
+    public string Commands { get; }
+    public string Happy { get; }
+    
 
     string FlagTranslate(bool flag);
     string KindTranslate(Kind kind);

@@ -67,7 +67,7 @@ class ClassParser : IClassParser
             int featureId = Convert.ToInt32(_parameters[5]);
             List<AnimalCommand> commands = GetCommands();
             bool happy = false;
-            if ((int)kind < 4) happy = Convert.ToBoolean(Convert.ToInt32(_parameters[7]));
+            if (Pet.kinds.Contains(kind)) happy = Convert.ToBoolean(Convert.ToInt32(_parameters[7]));
             switch (kind)
             {
                 case Kind.Dog:

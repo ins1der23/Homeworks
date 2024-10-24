@@ -26,20 +26,24 @@ class Controller(IText Language)
                     IBaseAnimal? animal = baseAnimal;
                     switch (command)
                     {
-                        case CtrlCommands.Add:
-                            animal = view.AddAnimalMenu();
-                            model.AddAnimal(animal);
-                            break;
-                        case CtrlCommands.Get:
+                        case CtrlCommands.Delete:
                             if (animal is null) break;
                             model.DelAnimal(animal);
                             break;
                         case CtrlCommands.Change:
+                            if (animal is null) break;
+                            animal = view.ChangeMenu(animal);
                             model.ChangeAnimal(animal);
                             break;
                         case CtrlCommands.Exit:
                             break;
                     }
+                    break;
+                case CtrlCommands.Find:
+                    break;
+                case CtrlCommands.Add:
+                    animal = view.AddAnimalMenu();
+                    model.AddAnimal(animal);
                     break;
                 case CtrlCommands.Exit:
                     flag = false;

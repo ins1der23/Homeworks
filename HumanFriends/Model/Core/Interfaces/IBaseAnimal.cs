@@ -10,10 +10,14 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
     Feature Feature { get; }
     List<AnimalCommand> Commands { get; }
 
-
     void Vaccinate();
     string CommandsToString();
-    void AddCommand(AnimalCommand command) => Commands.Add(command);
-    void ShowCommands() => Commands.ForEach(x => Console.WriteLine(x));
+
+    
+
+
+
+
+    
   
 }

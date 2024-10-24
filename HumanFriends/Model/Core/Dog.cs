@@ -53,6 +53,5 @@ class Dog : Pet
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
 
-
-
+    
 }

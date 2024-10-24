@@ -3,6 +3,7 @@ namespace HumanFriends.Model;
 class Cat : Pet
 {
     public static readonly List<Breed> breeds = [Breed.VietnameseStreet, Breed.EnglishPopeyed, Breed.ScottishFold];
+    public static readonly List<Feature> features = [Feature.Mousehunt];
     private Breed breed;
     public Breed Breed
     {

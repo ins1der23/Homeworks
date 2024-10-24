@@ -9,30 +9,41 @@ class TextRus : IText
     public List<string> SortMenu { get; }
     public string SortMenuName { get; }
     public List<string> SimpleQstMenu { get; }
+    public List<string> ChgOrDelMenu { get; }
 
 
     public string Choose { get; }
     public string ChooseOrEmpty { get; }
     public string EmptyToReturn { get; }
-    public string EmptyToNext { get; }
+
+
+    public string Vaccinated { get; }
+    public string Commands { get; }
+    public string Happy { get; }
+
+
+
 
     public TextRus()
     {
-        MainMenu = ["Показать список животных",
-                    "Выход"];
+        MainMenu = ["Показать список всех животных", "Найти животное", "Добавить животное", "Выход"];
         MainMenuName = "Главное меню";
         ListMenuName = "Список животных";
-        SortMenu = ["По имени животного",
-                    "По дате рождения",
-                    "По id"];
+        SortMenu = ["По имени животного", "По дате рождения", "По id"];
         SortMenuName = "Сортировать список:";
         SimpleQstMenu = ["Да", "Нет"];
-
-
+        ChgOrDelMenu = ["Изменить животное", "Удалить животное"];
         Choose = "Выберите пункт меню и нажмите ENTER";
-        ChooseOrEmpty = "Выберите пункт меню для выбора и нажмите ENTER или оставьте поле пустым, если нет подходящего, и нажмите ENTER";
-        EmptyToReturn = "Введите пункт меню для выбора или оставьте поле пустым для возврата в главное меню и нажмите ENTER";
-        EmptyToNext = "Введите пункт меню для выбора или оставьте поле пустым для добавления животного и нажмите ENTER";
+        ChooseOrEmpty = "Выберите пункт меню или оставьте поле пустым, если нет подходящего, и нажмите ENTER";
+        EmptyToReturn = "Выберите пункт меню или оставьте поле пустым для возврата в предыдущее меню и нажмите ENTER";
+        Vaccinated = "Привит";
+        Commands = "Выученные команды";
+        Happy = "Счастлив";
+
+
+
+
+
     }
 
     public string FlagTranslate(bool flag) => flag == true ? "Да" : "Нет";
@@ -59,7 +70,7 @@ class TextRus : IText
             Feature.Wheelrun => "Бегает в колесе",
             Feature.Ambler => "Иноходец",
             Feature.Twohumped => "Двугорбый",
-            Feature.Fighter => "Боей",
+            Feature.Fighter => "Боец",
             _ => string.Empty,
         };
     }
