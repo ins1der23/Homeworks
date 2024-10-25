@@ -81,11 +81,25 @@ class ConsoleView(IText Language) : IView
 
     public IBaseAnimal ChangeMenu(IBaseAnimal animal)
     {
+        int id = animal.Id;
         Kind kind = animal.Kind;
-        string name = GetName("Введите имя животного");
-        DateTime doB = GetDate("Введите дату рождения в в формате гггг-мм-дд ");
-        bool vaccination = SimpleQuestionMenu(_text.Vaccinated);
-        int featureId;
+        string name = NameMenu();
+        DateTime doB = DateMenu();
+        bool vaccination = VaccinationMenu();
+        int featureId = FeatureMenu(kind);
+        List<AnimalCommand> commands = AnimalCommandsMenu(animal.Commands);
+        bool happy = HappyMenu(kind);
+        switch (kind)
+        {
+            case Kind.Dog:
+                Dog dog = (Dog)animal;
+                int breedId = (int)dog.Breed;
+                return new Dog(name, doB, vaccination, featureId, commands, happy, breedId, id);
+
+        }
+
+
+
 
 
 
@@ -150,22 +164,14 @@ class ConsoleView(IText Language) : IView
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
         List<AnimalCommand> commands = AnimalCommandsMenu();
-        int breedId;
-        if (Pet.kinds.Contains(kind))
+        int breedId = BreedMenu(kind);
+        bool happy = HappyMenu(kind);
+        return kind switch
         {
-            bool happy = SimpleQuestionMenu("Счастлив?");
-            switch (kind)
-            {
-                case Kind.Dog:
-                    breedId = EnumMenu("Выберите породу животного", true, Dog.breeds);
-                    return new Dog(name, doB, vaccination, featureId, commands, happy, breedId);
-                default: throw new NotImplementedException();
-            }
-        }
-        else
-        {
-            throw new NotImplementedException();
-        }
+            Kind.Dog => new Dog(name, doB, vaccination, featureId, commands, happy, breedId),
+            Kind.Cat => new Cat(name, doB, vaccination, featureId, commands, happy, breedId),
+            _ => throw new NotImplementedException(),
+        };
     }
 
     private Kind KindMenu() => (Kind)EnumMenu<Kind>("Выберите тип животного", true);
@@ -173,10 +179,11 @@ class ConsoleView(IText Language) : IView
     private DateTime DateMenu() => GetDate("Введите дату рождения в в формате гггг-мм-дд ");
     private bool VaccinationMenu() => SimpleQuestionMenu(_text.Vaccinated);
 
-    private List<AnimalCommand> AnimalCommandsMenu()
+    private List<AnimalCommand> AnimalCommandsMenu(List<AnimalCommand>? old = null)
     {
         bool flag = true;
         List<AnimalCommand> commands = [];
+        if (old != null) commands = old;
         int commandId;
         while (flag)
         {
@@ -201,14 +208,17 @@ class ConsoleView(IText Language) : IView
             _ => 0
         };
     }
+    private bool HappyMenu(Kind kind) => Pet.kinds.Contains(kind) && SimpleQuestionMenu("Счастлив?");
 
-
-
-
-
-
-
-
+    private int BreedMenu(Kind kind)
+    {
+        return kind switch
+        {
+            Kind.Dog => EnumMenu("Выберите породу животного", true, Dog.breeds),
+            Kind.Cat => EnumMenu("Выберите породу животного", true, Cat.breeds),
+            _ => 0
+        };
+    }
 
     private bool SimpleQuestionMenu(string question, bool clear = true) // меню для вопроса да/нет
     {
@@ -298,6 +308,7 @@ class ConsoleView(IText Language) : IView
         do
         {
             Console.Write($"{textString}: ");
+            
             output = string.Empty + Console.ReadLine();
             if (output.Equals(string.Empty)) flag = false;
             else

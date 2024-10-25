@@ -54,5 +54,8 @@ class Cat : Pet
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
 
-
+    public override void Change(IBaseAnimal animal)
+    {
+        throw new NotImplementedException();
+    }
 }

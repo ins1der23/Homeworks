@@ -20,9 +20,9 @@ abstract class Pet : IPet
             else throw new EnumException();
         }
     }
-    public string Name { get; private set; }
-    public DateTime DoB { get; private set; }
-    public bool Vaccination { get; private set; }
+    public string Name { get; protected set; }
+    public DateTime DoB { get; protected set; }
+    public bool Vaccination { get; protected set; }
     private Feature feature;
     public Feature Feature
     {
@@ -30,25 +30,23 @@ abstract class Pet : IPet
         {
             return feature;
         }
-        private set
+        protected set
         {
             if (Enum.IsDefined(typeof(Feature), value) || value == 0) feature = value;
             else throw new EnumException();
         }
     }
-    public List<AnimalCommand> Commands { get; private set; }
-    public bool Happy { get; private set; }
+    public List<AnimalCommand> Commands { get; protected set; }
+    public bool Happy { get; protected set; }
 
-    
+
 
     protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
-        // Id = id == 0 ? Counter.Id : id;
+        Id = id == 0 ? cnt.Id : id;
         if (id != 0) cnt.SetId(id);
-
-        Id = cnt.Id;
         Name = name;
         DoB = doB;
         Vaccination = vaccination;
@@ -74,7 +72,7 @@ abstract class Pet : IPet
 
 
     public string CommandsToString() => string.Join(",", Commands.Cast<int>().ToList());
-   
+
     public override string ToString()
     {
 
@@ -108,4 +106,7 @@ abstract class Pet : IPet
         if (DoB > other.DoB) return 1;
         else return -1;
     }
+
+    public abstract void Change(IBaseAnimal animal);
+
 }

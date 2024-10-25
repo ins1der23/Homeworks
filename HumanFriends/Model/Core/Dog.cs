@@ -53,5 +53,15 @@ class Dog : Pet
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
 
-    
+    public override void Change(IBaseAnimal animal)
+    {
+        if (animal is not Dog dog) throw new ParametersException();
+        Name = dog.Name != string.Empty ? dog.Name : Name;
+        DoB = dog.DoB;
+        Vaccination = dog.Vaccination;
+        Feature = dog.Feature;
+        Commands = dog.Commands;
+        Happy = dog.Happy;
+        Breed = dog.breed;
+    }
 }

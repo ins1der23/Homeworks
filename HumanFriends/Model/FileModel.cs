@@ -56,21 +56,28 @@ class FileModel : IModel
 
 
         dbWorker.Dispose();
-        IDataWorker fileWorker = new FileWorker(Settings.counterPath);
-        fileWorker.Delete();
+        // IDataWorker fileWorker = new FileWorker(Settings.counterPath);
+        // fileWorker.Delete();
     }
 
     public void AddAnimal(IBaseAnimal animal)
     {
-        Console.WriteLine(animal.ToString());
+        dataBase.AddAnimal(animal);
+        
+        Console.WriteLine(dataBase.ToString());
         Console.ReadLine();
-        
-        
+
+
     }
 
-    public IBaseAnimal ChangeAnimal(IBaseAnimal animal)
+    public void ChangeAnimal(IBaseAnimal animal)  // метод изменения животного и записи в файл измененных данных 
     {
-        throw new NotImplementedException();
+        dataBase.ChangeAnimal(animal);
+       
+        Console.WriteLine(dataBase.ToString());
+        Console.ReadLine();
+
+
     }
 
     public void DelAnimal(IBaseAnimal animal)

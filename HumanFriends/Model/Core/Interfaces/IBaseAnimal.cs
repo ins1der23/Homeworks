@@ -12,6 +12,7 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
 
     void Vaccinate();
     string CommandsToString();
+    void Change(IBaseAnimal animal);
 
     
 

@@ -10,8 +10,8 @@ class Controller(IText Language)
     private IView view = new ConsoleView(Language);
     private IModel model = new FileModel();
     public void Run()
-
     {
+        Console.InputEncoding = System.Text.Encoding.GetEncoding("utf-16");
         bool flag = true;
         while (flag)
         {

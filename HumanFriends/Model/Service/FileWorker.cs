@@ -1,5 +1,5 @@
 namespace HumanFriends.Service;
-class FileWorker(string path) : IDataWorker
+class FileWorker(string path) : IDataWorker // класс для работы файлами
 {
     private string _path = path;
     private FileInfo _file = new(path);
