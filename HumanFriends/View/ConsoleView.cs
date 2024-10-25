@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using HumanFriends.Controller;
 using HumanFriends.Model;
 
@@ -21,7 +20,7 @@ class ConsoleView(IText Language) : IView
         {
             if (_clear) Console.Clear();
             Console.WriteLine(_menu);
-            GetInteger(invite);
+            _choice = Utils.GetInteger(invite);
             if (noNull)
             {
                 if (_choice > 0 && _choice <= _menu.Size) flag = true;
@@ -41,6 +40,7 @@ class ConsoleView(IText Language) : IView
         return _choice switch
         {
             1 => CtrlCommands.Get,
+            2 => CtrlCommands.Find,
             3 => CtrlCommands.Add,
             _ => CtrlCommands.Exit,
         };
@@ -142,7 +142,7 @@ class ConsoleView(IText Language) : IView
 
 
 
-    public string? SortMenu() // меню выбора способа сортировки
+    public string SortMenu() // меню выбора способа сортировки
     {
         Console.Clear();
         _menu = new Menu(_text.SortMenu, _text.SortMenuName);
@@ -151,8 +151,7 @@ class ConsoleView(IText Language) : IView
         {
             1 => "name",
             2 => "date",
-            3 => "id",
-            _ => null,
+            _ => "id"
         };
     }
 
@@ -174,9 +173,17 @@ class ConsoleView(IText Language) : IView
         };
     }
 
+    public string SearchMenu() // меню добавления животного
+    {
+        return Utils.GetString("Введите текст для поиска");
+    }
+
+
+
+
     private Kind KindMenu() => (Kind)EnumMenu<Kind>("Выберите тип животного", true);
-    private string NameMenu() => GetName("Введите имя животного");
-    private DateTime DateMenu() => GetDate("Введите дату рождения в в формате гггг-мм-дд ");
+    private string NameMenu() => Utils.GetString("Введите имя животного");
+    private DateTime DateMenu() => Utils.GetDate("Введите дату рождения в в формате гггг-мм-дд ");
     private bool VaccinationMenu() => SimpleQuestionMenu(_text.Vaccinated);
 
     private List<AnimalCommand> AnimalCommandsMenu(List<AnimalCommand>? old = null)
@@ -192,8 +199,8 @@ class ConsoleView(IText Language) : IView
             flag = SimpleQuestionMenu("Добавить команды:", false);
             if (flag)
             {
-                commandId = EnumMenu<AnimalCommand>("Выберите команду", true);
-                commands.Add((AnimalCommand)commandId);
+                commandId = EnumMenu<AnimalCommand>("Выберите команду или оставьте поле пустым для возврата", false);
+                if (commandId != 0) commands.Add((AnimalCommand)commandId);
             }
         }
         return commands;
@@ -232,7 +239,7 @@ class ConsoleView(IText Language) : IView
     private int EnumMenu<T>(string header, bool noNull, List<T>? choices = null) where T : Enum // меню для выбора из Enum, возвращает int представление Enum
     {
         Console.Clear();
-        if (choices == null) _menu = new Menu(EnumToStrgLst(GetValues<T>()), header);
+        if (choices == null) _menu = new Menu(EnumToStrgLst(Utils.GetValues<T>()), header);
         else _menu = new Menu(EnumToStrgLst(choices), header);
         if (noNull) MenuToChoice(_text.Choose, noNull);
         else MenuToChoice(_text.ChooseOrEmpty, noNull);
@@ -241,7 +248,7 @@ class ConsoleView(IText Language) : IView
 
 
 
-    List<string> EnumToStrgLst<T>(List<T> enums) where T : Enum // обобщенный метод перевода Enum животных
+    private List<string> EnumToStrgLst<T>(List<T> enums) where T : Enum // обобщенный метод перевода Enum животных
     {
         List<string> outptut = [];
         foreach (var item in enums)
@@ -268,72 +275,4 @@ class ConsoleView(IText Language) : IView
     {
         return $"| Id: {animal.Id} | {_text.KindTranslate(animal.Kind)} | {animal.Name,-5} | {animal.DoB.ToShortDateString()} | {_text.Vaccinated}: {_text.FlagTranslate(animal.Vaccination),-3} |";
     }
-
-
-
-
-
-
-    private void ShowString(string text, bool clear = false)
-    {
-        _clear = clear;
-        if (_clear) Console.Clear();
-        Console.WriteLine(text);
-    }
-
-
-
-
-
-
-
-    private List<T> GetValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList<T>(); // преобразование Enum в список 
-
-    private void GetInteger(string textString) // присвоение int значения _choice с клавиатуры
-    {
-        bool flag;
-        do
-        {
-            Console.Write($"{textString}: ");
-            flag = int.TryParse(Console.ReadLine(), out _choice) || _choice == 0;
-            Console.Clear();
-        } while (!flag);
-    }
-
-    private string GetName(string textString) // получение заполненной string c именем  животного с клавиатуры
-    {
-        Console.Clear();
-        string output;
-        bool flag;
-        do
-        {
-            Console.Write($"{textString}: ");
-            
-            output = string.Empty + Console.ReadLine();
-            if (output.Equals(string.Empty)) flag = false;
-            else
-            {
-                flag = true;
-                foreach (char ch in output)
-                {
-                    if (!char.IsLetter(ch)) flag = false;
-                }
-            }
-        } while (!flag);
-        return output;
-    }
-
-    private DateTime GetDate(string text)
-    {
-        Console.Clear();
-        DateTime date = new();
-        bool flag = true;
-        do
-        {
-            Console.Write($"{text}: ");
-            flag = DateTime.TryParse(Console.ReadLine(), out date);
-        } while (!flag);
-        return date;
-    }
-
 }

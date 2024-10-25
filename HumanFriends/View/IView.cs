@@ -9,5 +9,7 @@ interface IView
   CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal? animal);
   IBaseAnimal ChangeMenu(IBaseAnimal animal);
   IBaseAnimal AddAnimalMenu();
-  string? SortMenu();
+  string SearchMenu();
+  string SortMenu();
+
 }

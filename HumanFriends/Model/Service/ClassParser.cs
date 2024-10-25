@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using HumanFriends.Model;
 
 namespace HumanFriends.Service;
@@ -71,7 +72,7 @@ class ClassParser : IClassParser
             switch (kind)
             {
                 case Kind.Dog:
-                    int breedId = Convert.ToInt32(_parameters[5]);
+                    int breedId = Convert.ToInt32(_parameters[8]);
                     return new Dog(name, dob, vaccination, featureId, commands, happy, breedId);
             }
         }

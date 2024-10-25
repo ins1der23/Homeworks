@@ -1,7 +1,7 @@
 using HumanFriends.Service;
 namespace HumanFriends.Model;
 
-class Counter : IDisposable
+class Counter : IDisposable // класс для счетчика животных, текущий номер создаваемого животного хранится во временном файле
 {
 
     private static Counter? _counter;

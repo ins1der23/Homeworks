@@ -14,87 +14,78 @@ class FileModel : IModel
 
     public FileModel()
     {
-        dbWorker.CheckPath(); // проверяем/создаем файл с базой
-        dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
-
-
-
-
-
-        // List<Commands> commands = [Commands.Sound, Commands.Sit];
-        // List<Commands> commands2 = [];
-        // DateTime date = new(2020, 2, 23);
-
-        // IBaseAnimal dog1 = new Dog("Bob", date, true, (int)Features.Outdoor, commands2, true, (int)Breeds.Mastiff);
-        // IBaseAnimal cat1 = new Cat("", 4);
-        // IBaseAnimal dog2 = new Dog("John", 3, 6);
-
-
-
-
-        // IBaseAnimal dog2 = new Dog("John", date, true, (int)Features.Outdoor, commands2, true, (int)Breeds.Mastiff);
-        // IBaseAnimal dog3 = new Dog("Cake", date, true, (int)Features.Outdoor, commands2, true, (int)Breeds.Mastiff);
-
-        // string dbString = string.Empty;
-
-        // dbString = dog1.ToString() + "\n" + dog2.ToString() + "\n" + dog3.ToString();
-        // dog1.AddCommand(Commands.Fetch);
-        // dog1.AddCommand(Commands.Pounce);
-
-
-
-
-        // baseAnimals.ForEach(x => Console.WriteLine(x));
-
-
-
-
-
-        // Console.WriteLine(dbString);
-
-
-
-
+        try
+        {
+            dbWorker.CheckPath(); // проверяем/создаем файл с базой
+            dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            FileWorker fileWorker = new(Settings.counterPath); //удаляем временные файлы
+            fileWorker.Delete();
+            fileWorker.Dispose();
+            throw;
+        }
         dbWorker.Dispose();
-        // IDataWorker fileWorker = new FileWorker(Settings.counterPath);
-        // fileWorker.Delete();
     }
 
     public void AddAnimal(IBaseAnimal animal)
     {
         dataBase.AddAnimal(animal);
-        
-        Console.WriteLine(dataBase.ToString());
-        Console.ReadLine();
-
-
+        try
+        {
+            dbWorker.Write(dataBase.ToString() ?? "");
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            FileWorker fileWorker = new(Settings.counterPath); //удаляем временные файлы
+            fileWorker.Delete();
+            fileWorker.Dispose();
+            throw;
+        }
     }
 
     public void ChangeAnimal(IBaseAnimal animal)  // метод изменения животного и записи в файл измененных данных 
     {
         dataBase.ChangeAnimal(animal);
-       
-        Console.WriteLine(dataBase.ToString());
-        Console.ReadLine();
-
-
+        try
+        {
+            dbWorker.Write(dataBase.ToString() ?? "");
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            FileWorker fileWorker = new(Settings.counterPath); //удаляем временные файлы
+            fileWorker.Delete();
+            fileWorker.Dispose();
+            throw;
+        }
     }
 
     public void DelAnimal(IBaseAnimal animal)
     {
-        throw new NotImplementedException();
+        dataBase.DelAnimal(animal);
+        try
+        {
+            dbWorker.Write(dataBase.ToString() ?? "");
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            FileWorker fileWorker = new(Settings.counterPath); //удаляем временные файлы
+            fileWorker.Delete();
+            fileWorker.Dispose();
+            throw;
+        }
     }
 
     public IBaseAnimal GetAnimal(int animalId) => dataBase.GetById(animalId) ?? throw new NullReferenceException();
-    public List<IBaseAnimal> GetAnimals(string sortingMOde = "id")
-    {
-        return sortingMOde switch
-        {
-            "id" => dataBase.DbList.OrderBy(x => x.Id).ToList() ?? throw new NullReferenceException(),
-            "date" => dataBase.DbList.OrderBy(x => x).ToList() ?? throw new NullReferenceException(),
-            "name" => dataBase.DbList.OrderBy(x => x.Name).ToList() ?? throw new NullReferenceException(),
-            _ => dataBase.DbList ?? throw new NullReferenceException(),
-        };
-    }
+    public List<IBaseAnimal> GetAnimals(string searchString = "", string sortingMode = "name") => dataBase.GetAnimals(searchString, sortingMode);
 
 }
