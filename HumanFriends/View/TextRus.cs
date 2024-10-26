@@ -1,7 +1,7 @@
 using HumanFriends.Model;
 
 namespace HumanFriends.View;
-class TextRus : IText
+class TextRus : IText // класс для русского интерфейса
 {
     public List<string> MainMenu { get; }
     public string MainMenuName { get; }

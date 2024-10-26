@@ -1,5 +1,8 @@
-static class Utils
+static class Utils // статические утилиты используемые в программе
 {
+
+
+
 
     public static List<T> GetValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList<T>(); // преобразование Enum в список 
     public static int GetInteger(string textString) // получение int значения с клавиатуры

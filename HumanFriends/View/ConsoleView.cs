@@ -95,6 +95,12 @@ class ConsoleView(IText Language) : IView
                 Dog dog = (Dog)animal;
                 int breedId = (int)dog.Breed;
                 return new Dog(name, doB, vaccination, featureId, commands, happy, breedId, id);
+            case Kind.Cat:
+                Cat cat = (Cat)animal;
+                breedId = (int)cat.Breed;
+                return new Cat(name, doB, vaccination, featureId, commands, happy, breedId, id);
+            case Kind.Hamster:
+                return new Hamster(name, doB, vaccination, featureId, commands, happy, id);
 
         }
 
@@ -119,22 +125,30 @@ class ConsoleView(IText Language) : IView
 
         if (animal is Pet)
         {
-
-            if (animal.GetType() == typeof(Dog))
+            switch (animal.Kind)
             {
-                Dog dog = (Dog)animal;
-                string happy = dog.Happy ? _text.Happy : "";
-                outptut += $"{_text.BreedTranslate(dog.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                case Kind.Dog:
+                    Dog dog = (Dog)animal;
+                    string happy = dog.Happy ? _text.Happy : "";
+                    outptut += $"{_text.BreedTranslate(dog.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    break;
+                case Kind.Cat:
+                    Cat cat = (Cat)animal;
+                    happy = cat.Happy ? _text.Happy : "";
+                    outptut += $"{_text.BreedTranslate(cat.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    break;
+                case Kind.Hamster:
+                    Hamster hamster = (Hamster)animal;
+                    happy = hamster.Happy ? _text.Happy : "";
+                    outptut += $"{_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    break;
             }
+
         }
         else
         {
 
         }
-
-
-
-
         return outptut;
     }
 
@@ -162,6 +176,11 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
+        
+        Console.WriteLine(featureId);
+        Console.ReadLine();
+        
+        
         List<AnimalCommand> commands = AnimalCommandsMenu();
         int breedId = BreedMenu(kind);
         bool happy = HappyMenu(kind);
@@ -169,6 +188,7 @@ class ConsoleView(IText Language) : IView
         {
             Kind.Dog => new Dog(name, doB, vaccination, featureId, commands, happy, breedId),
             Kind.Cat => new Cat(name, doB, vaccination, featureId, commands, happy, breedId),
+            Kind.Hamster => new Hamster(name, doB, vaccination, featureId, commands, happy),
             _ => throw new NotImplementedException(),
         };
     }
@@ -212,6 +232,7 @@ class ConsoleView(IText Language) : IView
         {
             Kind.Dog => EnumMenu("Выберите свойство животного", false, Dog.features),
             Kind.Cat => EnumMenu("Выберите свойство животного", false, Cat.features),
+            Kind.Hamster => EnumMenu("Выберите свойство животного", false, Hamster.features),
             _ => 0
         };
     }
@@ -261,8 +282,6 @@ class ConsoleView(IText Language) : IView
         }
         return outptut;
     }
-
-
 
     private List<string> AnimalShortStrgLst(List<IBaseAnimal> animals) // преобразование List<IBaseAnimal> в List<string> с оcновной инофрмацией о животном
     {

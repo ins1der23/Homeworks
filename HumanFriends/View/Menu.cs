@@ -1,6 +1,6 @@
 namespace HumanFriends.View;
 
-class Menu(List<string> choices, string name)
+class Menu(List<string> choices, string name)  //класс для построения унифицированных меню
 {
     private readonly string _name = name;
     private readonly List<string> _choices = choices;

@@ -24,6 +24,7 @@ class ClassParser : IClassParser
         {
             1 => strings.Length == 9 ? Kind.Dog : throw new FormatException(),
             2 => strings.Length == 9 ? Kind.Cat : throw new FormatException(),
+            3 => strings.Length == 8 ? Kind.Hamster : throw new FormatException(),
             _ => throw new FormatException()
         };
     }
@@ -73,7 +74,12 @@ class ClassParser : IClassParser
             {
                 case Kind.Dog:
                     int breedId = Convert.ToInt32(_parameters[8]);
-                    return new Dog(name, dob, vaccination, featureId, commands, happy, breedId);
+                    return new Dog(name, dob, vaccination, featureId, commands, happy, breedId, id);
+                case Kind.Cat:
+                    breedId = Convert.ToInt32(_parameters[8]);
+                    return new Cat(name, dob, vaccination, featureId, commands, happy, breedId, id);
+                case Kind.Hamster:
+                    return new Hamster(name, dob, vaccination, featureId, commands, happy, id);
             }
         }
         catch (System.Exception)

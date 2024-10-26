@@ -36,7 +36,15 @@ class Counter : IDisposable // класс для счетчика животны
         return _counter;
     }
 
-    public void SetId(int id) => Id = id;
+    public void SetId(int id)
+    {
+        if (id >= Id)
+        {
+            Id = id;
+            _dataWorker?.Write(Id.ToString());
+            _dataWorker?.Dispose();
+        }
+    }
 
     public void Dispose()
     {

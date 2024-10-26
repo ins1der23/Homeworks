@@ -2,7 +2,6 @@ namespace HumanFriends.Model;
 
 class Dog : Pet
 {
-
     public static readonly List<Breed> breeds = [Breed.Mastiff, Breed.Spaniel, Breed.Dachshund];
     public static readonly List<Feature> features = [Feature.Outdoor];
     private Breed breed;

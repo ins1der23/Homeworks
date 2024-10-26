@@ -17,8 +17,6 @@ class Cat : Pet
             else throw new EnumException();
         }
     }
-
-
     public Cat(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int breedId, int id = 0)
     : base(name, doB, vaccination, featureId, commands, happy, id)
     {
@@ -38,24 +36,29 @@ class Cat : Pet
         {
             return false;
         }
-        Dog dog = (Dog)obj;
-        if (Kind == dog.Kind &&
-            Name.Equals(dog.Name) &&
-            DoB.Equals(dog.DoB) &&
-            Vaccination == dog.Vaccination &&
-            Feature.Equals(dog.Feature) &&
-            Commands.Equals(dog.Commands) &&
-            Breed.Equals(dog.Breed))
+        Cat cat = (Cat)obj;
+        if (Kind == cat.Kind &&
+            Name.Equals(cat.Name) &&
+            DoB.Equals(cat.DoB) &&
+            Vaccination == cat.Vaccination &&
+            Feature.Equals(cat.Feature) &&
+            Commands.Equals(cat.Commands) &&
+            Breed.Equals(cat.Breed))
             return true;
         return false;
-
     }
 
     // override object.GetHashCode
     public override int GetHashCode() => base.GetHashCode() + Breed.GetHashCode();
-
     public override void Change(IBaseAnimal animal)
     {
-        throw new NotImplementedException();
+        if (animal is not Cat cat) throw new ParametersException();
+        Name = cat.Name != string.Empty ? cat.Name : Name;
+        DoB = cat.DoB;
+        Vaccination = cat.Vaccination;
+        Feature = cat.Feature;
+        Commands = cat.Commands;
+        Happy = cat.Happy;
+        Breed = cat.breed;
     }
 }
