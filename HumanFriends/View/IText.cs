@@ -15,9 +15,18 @@ interface IText
     string ChooseOrEmpty { get; }
     string EmptyToReturn { get; }
 
-    public string Vaccinated { get; }
-    public string Commands { get; }
-    public string Happy { get; }
+    string Vaccinated { get; }
+    string Commands { get; }
+    string Happy { get; }
+
+    string SearchInput { get; }
+    string ChooseKind { get; }
+    string InputName { get; }
+    string InputDoB { get; }
+    string AddCommands { get; }
+    string ChooseCommand { get; }
+    string ChooseFeature { get; }
+    string ChooseBreed { get; }
     
 
     string FlagTranslate(bool flag);

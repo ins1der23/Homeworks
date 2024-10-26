@@ -176,11 +176,11 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
-        
+
         Console.WriteLine(featureId);
         Console.ReadLine();
-        
-        
+
+
         List<AnimalCommand> commands = AnimalCommandsMenu();
         int breedId = BreedMenu(kind);
         bool happy = HappyMenu(kind);
@@ -195,15 +195,15 @@ class ConsoleView(IText Language) : IView
 
     public string SearchMenu() // меню добавления животного
     {
-        return Utils.GetString("Введите текст для поиска");
+        return Utils.GetString(_text.SearchInput);
     }
 
 
 
 
-    private Kind KindMenu() => (Kind)EnumMenu<Kind>("Выберите тип животного", true);
-    private string NameMenu() => Utils.GetString("Введите имя животного");
-    private DateTime DateMenu() => Utils.GetDate("Введите дату рождения в в формате гггг-мм-дд ");
+    private Kind KindMenu() => (Kind)EnumMenu<Kind>(_text.ChooseKind, true);
+    private string NameMenu() => Utils.GetString(_text.InputName);
+    private DateTime DateMenu() => Utils.GetDate(_text.InputDoB);
     private bool VaccinationMenu() => SimpleQuestionMenu(_text.Vaccinated);
 
     private List<AnimalCommand> AnimalCommandsMenu(List<AnimalCommand>? old = null)
@@ -216,10 +216,10 @@ class ConsoleView(IText Language) : IView
         {
             Console.Clear();
             commands.ForEach(x => Console.WriteLine(_text.CommandTranslate(x)));
-            flag = SimpleQuestionMenu("Добавить команды:", false);
+            flag = SimpleQuestionMenu(_text.AddCommands, false);
             if (flag)
             {
-                commandId = EnumMenu<AnimalCommand>("Выберите команду или оставьте поле пустым для возврата", false);
+                commandId = EnumMenu<AnimalCommand>(_text.ChooseCommand, false);
                 if (commandId != 0) commands.Add((AnimalCommand)commandId);
             }
         }
@@ -228,23 +228,38 @@ class ConsoleView(IText Language) : IView
 
     private int FeatureMenu(Kind kind)
     {
-        return kind switch
+        switch (kind)
         {
-            Kind.Dog => EnumMenu("Выберите свойство животного", false, Dog.features),
-            Kind.Cat => EnumMenu("Выберите свойство животного", false, Cat.features),
-            Kind.Hamster => EnumMenu("Выберите свойство животного", false, Hamster.features),
-            _ => 0
+            case Kind.Dog:
+                _choice = EnumMenu(_text.ChooseFeature, false, Dog.features);
+                int featureId = (_choice != 0) ? (int)Dog.features[_choice - 1] : 0;
+                return featureId;
+            case Kind.Cat:
+                _choice = EnumMenu(_text.ChooseFeature, false, Cat.features);
+                featureId = (_choice != 0) ? (int)Cat.features[_choice - 1] : 0;
+                return featureId;
+            case Kind.Hamster:
+                _choice = EnumMenu(_text.ChooseFeature, false, Hamster.features);
+                featureId = (_choice != 0) ? (int)Hamster.features[_choice - 1] : 0;
+                return featureId;
+            default: return 0;
         };
     }
-    private bool HappyMenu(Kind kind) => Pet.kinds.Contains(kind) && SimpleQuestionMenu("Счастлив?");
+    private bool HappyMenu(Kind kind) => Pet.kinds.Contains(kind) && SimpleQuestionMenu(_text.Happy);
 
     private int BreedMenu(Kind kind)
     {
-        return kind switch
+        switch (kind)
         {
-            Kind.Dog => EnumMenu("Выберите породу животного", true, Dog.breeds),
-            Kind.Cat => EnumMenu("Выберите породу животного", true, Cat.breeds),
-            _ => 0
+            case Kind.Dog:
+                _choice = EnumMenu(_text.ChooseBreed, true, Dog.breeds);
+                int breedId = (int)Dog.breeds[_choice - 1];
+                return breedId;
+            case Kind.Cat:
+                _choice = EnumMenu(_text.ChooseBreed, true, Cat.breeds);
+                breedId = (int)Cat.breeds[_choice - 1];
+                return breedId;
+            default: return 0;
         };
     }
 
