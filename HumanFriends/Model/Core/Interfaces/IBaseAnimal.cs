@@ -10,7 +10,7 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
     Feature Feature { get; }
     List<AnimalCommand> Commands { get; }
 
-    void Vaccinate();
+    bool Vaccinate();
     string CommandsToString();
     void Change(IBaseAnimal animal);
 

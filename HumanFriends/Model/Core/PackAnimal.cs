@@ -1,11 +1,10 @@
 
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+
 namespace HumanFriends.Model;
-abstract class Pet : IPet
+abstract class PackAnimal : IPackAnimal
 
 {
-    public static readonly List<Kind> kinds = [Kind.Dog, Kind.Cat, Kind.Hamster];
+    public static readonly List<Kind> kinds = [Kind.Horse, Kind.Camel, Kind.Donkey];
     public int Id { get; private set; }
     private Kind kind;
     public Kind Kind
@@ -37,11 +36,36 @@ abstract class Pet : IPet
         }
     }
     public List<AnimalCommand> Commands { get; protected set; }
-    public bool Happy { get; protected set; }
 
+    private int maxLoad;
+    public int MaxLoad
+    {
+        get
+        {
+            return maxLoad;
+        }
+        protected set
+        {
+            if (value > 0) maxLoad = value;
+            else throw new ParametersException();
+        }
+    }
 
+    private int currentLoad;
+    public int CurrentLoad
+    {
+        get
+        {
+            return currentLoad;
+        }
+        protected set
+        {
+            if (value > 0 && value <= maxLoad) currentLoad = value;
+            else throw new ParametersException();
+        }
+    }
 
-    protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
+    protected PackAnimal(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
@@ -52,10 +76,20 @@ abstract class Pet : IPet
         Vaccination = vaccination;
         Feature = (Feature)featureId;
         Commands = commands;
-        Happy = happy;
+        CurrentLoad = currentLoad;
     }
-    public void Caress() => Happy = true;
-    public void Unhappy() => Happy = false;
+
+    public bool Load(int weight)
+    {
+        if (weight < 0) throw new ParametersException();
+        if (weight <= maxLoad - currentLoad)
+        {
+            currentLoad += weight;
+            return true;
+        }
+        else return false;
+    }
+
 
     public bool Vaccinate()
     {
@@ -70,7 +104,7 @@ abstract class Pet : IPet
     public override string ToString()
     {
 
-        return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{Convert.ToInt32(Happy)}";
+        return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{CurrentLoad};";
     }
 
 
@@ -84,7 +118,8 @@ abstract class Pet : IPet
         Vaccination.GetHashCode() +
         feature.GetHashCode() +
         Commands.GetHashCode() +
-        Happy.GetHashCode();
+        MaxLoad.GetHashCode() +
+        CurrentLoad.GetHashCode();
     }
 
 
