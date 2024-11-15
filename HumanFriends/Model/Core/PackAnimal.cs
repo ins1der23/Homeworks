@@ -1,5 +1,3 @@
-
-
 namespace HumanFriends.Model;
 abstract class PackAnimal : IPackAnimal
 
@@ -65,7 +63,7 @@ abstract class PackAnimal : IPackAnimal
         }
     }
 
-    protected PackAnimal(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad, int id = 0)
+    protected PackAnimal(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad = 0, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();

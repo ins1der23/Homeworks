@@ -32,7 +32,7 @@ class ConsoleView(IText Language) : IView
         }
     }
 
-    public CtrlCommands MainMenu()
+    public CtrlCommands MainMenu() // главное меню
     {
         Console.Clear();
         _menu = new Menu(_text.MainMenu, _text.MainMenuName);
@@ -46,7 +46,7 @@ class ConsoleView(IText Language) : IView
         };
     }
 
-    public CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal? animal)
+    public CtrlCommands ListMenu(List<IBaseAnimal> animals, out IBaseAnimal? animal) // меню для списка животных
     {
         Console.Clear();
         AnimalShortStrgLst(animals);
@@ -63,7 +63,7 @@ class ConsoleView(IText Language) : IView
         }
     }
 
-    private CtrlCommands ChgOrDelMenu(IBaseAnimal animal)
+    private CtrlCommands ChgOrDelMenu(IBaseAnimal animal) // менюи для выбора изменения или удаления
     {
         Console.Clear();
 
@@ -79,7 +79,7 @@ class ConsoleView(IText Language) : IView
         };
     }
 
-    public IBaseAnimal ChangeMenu(IBaseAnimal animal)
+    public IBaseAnimal ChangeMenu(IBaseAnimal animal) // консольный интерфейс изменения животного
     {
         int id = animal.Id;
         Kind kind = animal.Kind;
@@ -89,31 +89,49 @@ class ConsoleView(IText Language) : IView
         int featureId = FeatureMenu(kind);
         List<AnimalCommand> commands = AnimalCommandsMenu(animal.Commands);
         bool happy = HappyMenu(kind);
+        int currentLoad = LoadMenu(animal);
+        int breedId = 0;
         switch (kind)
         {
             case Kind.Dog:
-                Dog dog = (Dog)animal;
-                int breedId = (int)dog.Breed;
+                if (animal is Dog dog) breedId = (int)dog.Breed;
                 return new Dog(name, doB, vaccination, featureId, commands, happy, breedId, id);
             case Kind.Cat:
-                Cat cat = (Cat)animal;
-                breedId = (int)cat.Breed;
+                if (animal is Cat cat) breedId = (int)cat.Breed;
                 return new Cat(name, doB, vaccination, featureId, commands, happy, breedId, id);
             case Kind.Hamster:
                 return new Hamster(name, doB, vaccination, featureId, commands, happy, id);
-
+            case Kind.Horse:
+                if (animal is Horse horse) breedId = (int)horse.Breed;
+                return new Horse(name, doB, vaccination, featureId, commands, breedId, currentLoad, id);
+            case Kind.Camel:
+                return new Camel(name, doB, vaccination, featureId, commands, currentLoad, id);
+            case Kind.Donkey:
+                return new Camel(name, doB, vaccination, featureId, commands, currentLoad, id);
+            default:
+                return animal;
         }
-
-
-
-
-
-
-
-        return animal;
     }
 
 
+    private int LoadMenu(IBaseAnimal animal) // меню ввода текущей загрузки животного
+    {
+
+        int maxLoad;
+        int currentLoad = 0;
+        if (animal is IPackAnimal iPackAnimal)
+        {
+            maxLoad = iPackAnimal.MaxLoad;
+            bool flag = true;
+            while (flag)
+            {
+                currentLoad = Utils.GetInteger($"Введите текущую загрузку животного от 0 до {maxLoad}");
+                if (currentLoad >= 0 && currentLoad <= maxLoad) flag = false;
+                else Console.WriteLine("Введены неверные данные");
+            }
+        }
+        return currentLoad;
+    }
 
 
     private string AnimalLongStrg(IBaseAnimal animal) // получение из IBaseAnimal строки с оcновной информацией о животном
@@ -176,11 +194,8 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
-
         Console.WriteLine(featureId);
         Console.ReadLine();
-
-
         List<AnimalCommand> commands = AnimalCommandsMenu();
         int breedId = BreedMenu(kind);
         bool happy = HappyMenu(kind);
@@ -189,16 +204,17 @@ class ConsoleView(IText Language) : IView
             Kind.Dog => new Dog(name, doB, vaccination, featureId, commands, happy, breedId),
             Kind.Cat => new Cat(name, doB, vaccination, featureId, commands, happy, breedId),
             Kind.Hamster => new Hamster(name, doB, vaccination, featureId, commands, happy),
+            Kind.Horse => new Horse(name, doB, vaccination, featureId, commands, breedId),
+            Kind.Camel => new Camel(name, doB, vaccination, featureId, commands),
+            Kind.Donkey => new Donkey(name, doB, vaccination, featureId, commands),
             _ => throw new NotImplementedException(),
         };
     }
 
-    public string SearchMenu() // меню добавления животного
+    public string SearchMenu() // меню поиска животного
     {
         return Utils.GetString(_text.SearchInput);
     }
-
-
 
 
     private Kind KindMenu() => (Kind)EnumMenu<Kind>(_text.ChooseKind, true);
@@ -242,6 +258,18 @@ class ConsoleView(IText Language) : IView
                 _choice = EnumMenu(_text.ChooseFeature, false, Hamster.features);
                 featureId = (_choice != 0) ? (int)Hamster.features[_choice - 1] : 0;
                 return featureId;
+            case Kind.Horse:
+                _choice = EnumMenu(_text.ChooseFeature, false, Horse.features);
+                featureId = (_choice != 0) ? (int)Horse.features[_choice - 1] : 0;
+                return featureId;
+            case Kind.Camel:
+                _choice = EnumMenu(_text.ChooseFeature, false, Camel.features);
+                featureId = (_choice != 0) ? (int)Camel.features[_choice - 1] : 0;
+                return featureId;
+            case Kind.Donkey:
+                _choice = EnumMenu(_text.ChooseFeature, false, Donkey.features);
+                featureId = (_choice != 0) ? (int)Donkey.features[_choice - 1] : 0;
+                return featureId;
             default: return 0;
         };
     }
@@ -258,6 +286,10 @@ class ConsoleView(IText Language) : IView
             case Kind.Cat:
                 _choice = EnumMenu(_text.ChooseBreed, true, Cat.breeds);
                 breedId = (int)Cat.breeds[_choice - 1];
+                return breedId;
+            case Kind.Horse:
+                _choice = EnumMenu(_text.ChooseBreed, true, Horse.breeds);
+                breedId = (int)Horse.breeds[_choice - 1];
                 return breedId;
             default: return 0;
         };
