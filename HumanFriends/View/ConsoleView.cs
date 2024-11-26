@@ -6,19 +6,18 @@ class ConsoleView(IText Language) : IView
 {
     private Menu? _menu;
     private readonly IText _text = Language;
-    private bool _clear;
     private int _choice;
 
     private readonly List<string> _someList = []; // список с пунктами  меню
 
 
-    private void MenuToChoice(string invite, bool noNull, bool clear = true) // основной метод вывода меню и получения от пользователя выбора 
+    private void MenuToChoice(string invite, bool noNull, bool clear = false) // основной метод вывода меню и получения от пользователя выбора 
     {
         if (_menu is null) throw new NullReferenceException();
         bool flag = false;
         while (!flag)
         {
-            if (_clear) Console.Clear();
+            if (clear) Console.Clear();
             Console.WriteLine(_menu);
             _choice = Utils.GetInteger(invite);
             if (noNull)
@@ -63,7 +62,7 @@ class ConsoleView(IText Language) : IView
         }
     }
 
-    private CtrlCommands ChgOrDelMenu(IBaseAnimal animal) // менюи для выбора изменения или удаления
+    private CtrlCommands ChgOrDelMenu(IBaseAnimal animal) // меню для выбора изменения или удаления
     {
         Console.Clear();
 
@@ -107,7 +106,7 @@ class ConsoleView(IText Language) : IView
             case Kind.Camel:
                 return new Camel(name, doB, vaccination, featureId, commands, currentLoad, id);
             case Kind.Donkey:
-                return new Camel(name, doB, vaccination, featureId, commands, currentLoad, id);
+                return new Donkey(name, doB, vaccination, featureId, commands, currentLoad, id);
             default:
                 return animal;
         }
@@ -138,34 +137,52 @@ class ConsoleView(IText Language) : IView
     {
         string commands = string.Join(",", EnumToStrgLst(animal.Commands));
         string vaccination = animal.Vaccination ? _text.Vaccinated : "";
-
         string outptut = $"Id: {animal.Id}, {_text.KindTranslate(animal.Kind)}, {animal.Name,-5}, {animal.DoB.ToShortDateString()}, {vaccination}\n";
-
         if (animal is Pet)
         {
+            string happy;
             switch (animal.Kind)
             {
                 case Kind.Dog:
-                    Dog dog = (Dog)animal;
-                    string happy = dog.Happy ? _text.Happy : "";
-                    outptut += $"{_text.BreedTranslate(dog.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    if (animal is Dog dog)
+                    {
+                        happy = dog.Happy ? _text.Happy : _text.Unhappy;
+                        outptut += $"{_text.BreedTranslate(dog.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    }
                     break;
                 case Kind.Cat:
-                    Cat cat = (Cat)animal;
-                    happy = cat.Happy ? _text.Happy : "";
-                    outptut += $"{_text.BreedTranslate(cat.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    if (animal is Cat cat)
+                    {
+                        happy = cat.Happy ? _text.Happy : _text.Unhappy;
+                        outptut += $"{_text.BreedTranslate(cat.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    }
                     break;
                 case Kind.Hamster:
-                    Hamster hamster = (Hamster)animal;
-                    happy = hamster.Happy ? _text.Happy : "";
-                    outptut += $"{_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    if (animal is Hamster hamster)
+                    {
+                        happy = hamster.Happy ? _text.Happy : _text.Unhappy;
+                        outptut += $"{_text.FeatureTranslate(animal.Feature)}, {happy}\n{_text.Commands}: {commands}";
+                    }
                     break;
             }
-
         }
-        else
+        else if (animal is PackAnimal)
         {
-
+            switch (animal.Kind)
+            {
+                case Kind.Horse:
+                    if (animal is Horse horse)
+                        outptut += $"{_text.BreedTranslate(horse.Breed)}, {_text.FeatureTranslate(animal.Feature)}, {_text.CurrentLoad}{horse.CurrentLoad}\n{_text.Commands}: {commands}";
+                    break;
+                case Kind.Camel:
+                    if (animal is Camel camel)
+                        outptut += $"{_text.FeatureTranslate(animal.Feature)}, {_text.CurrentLoad}{camel.CurrentLoad}\n{_text.Commands}: {commands}";
+                    break;
+                case Kind.Donkey:
+                    if (animal is Donkey donkey)
+                        outptut += $"{_text.FeatureTranslate(animal.Feature)}, {_text.CurrentLoad}{donkey.CurrentLoad}\n{_text.Commands}: {commands}";
+                    break;
+            }
         }
         return outptut;
     }
@@ -194,8 +211,6 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
-        Console.WriteLine(featureId);
-        Console.ReadLine();
         List<AnimalCommand> commands = AnimalCommandsMenu();
         int breedId = BreedMenu(kind);
         bool happy = HappyMenu(kind);

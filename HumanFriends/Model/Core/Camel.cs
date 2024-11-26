@@ -7,7 +7,7 @@ class Camel : PackAnimal
     public Camel(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad = 0, int id = 0)
    : base(name, doB, vaccination, featureId, commands, currentLoad, id)
     {
-        Kind = Kind.Horse;
+        Kind = Kind.Camel;
         MaxLoad = 80;
     }
 

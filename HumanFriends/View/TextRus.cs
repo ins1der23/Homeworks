@@ -20,6 +20,7 @@ class TextRus : IText // класс для русского интерфейса
     public string Vaccinated { get; }
     public string Commands { get; }
     public string Happy { get; }
+    public string Unhappy { get; }
     public string SearchInput { get; }
     public string ChooseKind { get; }
     public string InputName { get; }
@@ -28,6 +29,7 @@ class TextRus : IText // класс для русского интерфейса
     public string ChooseCommand { get; }
     public string ChooseFeature { get; }
     public string ChooseBreed { get; }
+    public string CurrentLoad { get; }
 
 
 
@@ -48,6 +50,7 @@ class TextRus : IText // класс для русского интерфейса
         Vaccinated = "Привит";
         Commands = "Выученные команды";
         Happy = "Счастлив";
+        Unhappy = "Несчастлив";
         SearchInput = "Введите текст для поиска";
         ChooseKind = "Выберите тип животного";
         InputName = "Введите имя животного";
@@ -56,6 +59,8 @@ class TextRus : IText // класс для русского интерфейса
         ChooseCommand = "Выберите команду или оставьте поле пустым для возврата";
         ChooseFeature = "Выберите свойство животного";
         ChooseBreed = "Выберите породу животного";
+        CurrentLoad = "Загрузка животного: ";
+
 
 
 

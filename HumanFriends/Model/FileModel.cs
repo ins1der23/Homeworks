@@ -16,6 +16,9 @@ class FileModel : IModel
     {
         try
         {
+            FileWorker fileWorker = new(Settings.counterPath); //удаляем временные файлы прошлых запусков
+            fileWorker.Delete();
+            fileWorker.Dispose();
             dbWorker.CheckPath(); // проверяем/создаем файл с базой
             dbWorker.ReadToStrings().ForEach(x => dataBase.AddAnimal(parser.GetAnimal(x))); // заполняем dataBase с диска
         }
@@ -33,9 +36,9 @@ class FileModel : IModel
 
     public void AddAnimal(IBaseAnimal animal)
     {
-        dataBase.AddAnimal(animal);
         try
         {
+            dataBase.AddAnimal(animal);
             dbWorker.Write(dataBase.ToString() ?? "");
         }
         catch (System.Exception ex)
@@ -51,9 +54,9 @@ class FileModel : IModel
 
     public void ChangeAnimal(IBaseAnimal animal)  // метод изменения животного и записи в файл измененных данных 
     {
-        dataBase.ChangeAnimal(animal);
         try
         {
+            dataBase.ChangeAnimal(animal);
             dbWorker.Write(dataBase.ToString() ?? "");
         }
         catch (System.Exception ex)
@@ -69,9 +72,9 @@ class FileModel : IModel
 
     public void DelAnimal(IBaseAnimal animal)
     {
-        dataBase.DelAnimal(animal);
         try
         {
+            dataBase.DelAnimal(animal);
             dbWorker.Write(dataBase.ToString() ?? "");
         }
         catch (System.Exception ex)

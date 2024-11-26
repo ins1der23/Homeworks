@@ -18,7 +18,7 @@ interface IText
     string Vaccinated { get; }
     string Commands { get; }
     string Happy { get; }
-
+    string Unhappy { get; }
     string SearchInput { get; }
     string ChooseKind { get; }
     string InputName { get; }
@@ -27,7 +27,7 @@ interface IText
     string ChooseCommand { get; }
     string ChooseFeature { get; }
     string ChooseBreed { get; }
-    
+    string CurrentLoad { get; }
 
     string FlagTranslate(bool flag);
     string KindTranslate(Kind kind);

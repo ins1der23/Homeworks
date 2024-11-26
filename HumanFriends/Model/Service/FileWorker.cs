@@ -9,16 +9,9 @@ class FileWorker(string path) : IDataWorker // класс для работы ф
 
     public void CheckPath() // проверка наличия файла и его создание в случае отстутсвтия
     {
-        try
-        {
-            if (!_file.Exists)
-                using (_file.Create())
-                    Console.WriteLine($"{_path} is created");
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
+        if (!_file.Exists)
+            using (_file.Create())
+                Console.WriteLine($"{_path} is created");
     }
 
     public string Read() // чтение из файла в string
@@ -27,7 +20,6 @@ class FileWorker(string path) : IDataWorker // класс для работы ф
         if (_file.Exists)
             using (_reader = new(_path))
                 temp += _reader.ReadLine();
-        else throw new FileNotFoundException();
         return temp;
     }
 
@@ -42,7 +34,6 @@ class FileWorker(string path) : IDataWorker // класс для работы ф
                 while ((line = _reader.ReadLine()) != null) temp.Add(line);
             }
         }
-        else throw new FileNotFoundException();
         return temp;
     }
 
@@ -51,16 +42,12 @@ class FileWorker(string path) : IDataWorker // класс для работы ф
         if (_file.Exists)
             using (_writer = new(_path, append))
                 _writer.WriteLine(text);
-        else throw new FileNotFoundException();
     }
 
     public void Delete() // удаление файла (кроме файла с базой)
     {
-        if (_file.Exists)
-        {
-            if (_path != Settings.dbPath) _file.Delete();
-        }
-        else throw new FileNotFoundException();
+        if (_file.Exists && path != Settings.dbPath)
+            _file.Delete();
     }
     public void Dispose()
     {

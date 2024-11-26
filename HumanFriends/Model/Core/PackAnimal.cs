@@ -58,7 +58,7 @@ abstract class PackAnimal : IPackAnimal
         }
         protected set
         {
-            if (value > 0 && value <= maxLoad) currentLoad = value;
+            if (value >= 0 && value <= maxLoad) currentLoad = value;
             else throw new ParametersException();
         }
     }
@@ -102,7 +102,7 @@ abstract class PackAnimal : IPackAnimal
     public override string ToString()
     {
 
-        return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{CurrentLoad};";
+        return $"{Id};{(int)Kind};{Name};{DoB.ToShortDateString()};{Convert.ToInt32(Vaccination)};{(int)Feature};{CommandsToString()};{CurrentLoad}";
     }
 
 

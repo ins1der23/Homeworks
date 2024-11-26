@@ -12,7 +12,6 @@ class Controller(IText Language)
     public void Run()
     {
         Console.InputEncoding = System.Text.Encoding.GetEncoding("utf-16");
-
         bool flag = true;
         while (flag)
         {
