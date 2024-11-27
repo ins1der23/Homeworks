@@ -52,6 +52,8 @@ class FileModel : IModel
         }
     }
 
+   
+
     public void ChangeAnimal(IBaseAnimal animal)  // метод изменения животного и записи в файл измененных данных 
     {
         try

@@ -36,12 +36,12 @@ abstract class Pet : IPet
             else throw new EnumException();
         }
     }
-    public List<AnimalCommand> Commands { get; protected set; }
+    public HashSet<AnimalCommand> Commands { get; set; }
     public bool Happy { get; protected set; }
 
 
 
-    protected Pet(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
+    protected Pet(string name, DateTime doB, bool vaccination, int featureId,HashSet<AnimalCommand> commands, bool happy, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();

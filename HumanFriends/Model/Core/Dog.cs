@@ -17,7 +17,7 @@ class Dog : Pet
             else throw new EnumException();
         }
     }
-    public Dog(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int breedId, int id = 0)
+    public Dog(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, bool happy, int breedId, int id = 0)
    : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kind.Dog;

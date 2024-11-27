@@ -4,12 +4,11 @@ class Donkey : PackAnimal
 {
     public static readonly List<Feature> features = [Feature.Fighter];
 
-    public Donkey(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad = 0, int id = 0)
+    public Donkey(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, int currentLoad = 0, int id = 0)
    : base(name, doB, vaccination, featureId, commands, currentLoad, id)
     {
         Kind = Kind.Donkey;
         MaxLoad = 70;
-
     }
 
     public override string ToString()

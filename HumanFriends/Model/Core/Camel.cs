@@ -4,7 +4,7 @@ class Camel : PackAnimal
 {
     public static readonly List<Feature> features = [Feature.Twohumped];
 
-    public Camel(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad = 0, int id = 0)
+    public Camel(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, int currentLoad = 0, int id = 0)
    : base(name, doB, vaccination, featureId, commands, currentLoad, id)
     {
         Kind = Kind.Camel;

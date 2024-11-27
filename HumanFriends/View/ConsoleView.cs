@@ -58,22 +58,21 @@ class ConsoleView(IText Language) : IView
             if (_choice == 0) return CtrlCommands.Exit;
             animal = animals[_choice - 1];
             CtrlCommands command = ChgOrDelMenu(animal);
-            if (command is CtrlCommands.Change || command is CtrlCommands.Delete) return command;
+            return command;
         }
     }
 
     private CtrlCommands ChgOrDelMenu(IBaseAnimal animal) // меню для выбора изменения или удаления
     {
         Console.Clear();
-
         Console.WriteLine(AnimalLongStrg(animal));
-
         _menu = new Menu(_text.ChgOrDelMenu, "");
         MenuToChoice(_text.EmptyToReturn, false);
         return _choice switch
         {
             1 => CtrlCommands.Change,
-            2 => CtrlCommands.Delete,
+            2 => CtrlCommands.Add,
+            3 => CtrlCommands.Delete,
             _ => CtrlCommands.Exit
         };
     }
@@ -86,7 +85,7 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
-        List<AnimalCommand> commands = AnimalCommandsMenu(animal.Commands);
+        HashSet<AnimalCommand> commands = animal.Commands;
         bool happy = HappyMenu(kind);
         int currentLoad = LoadMenu(animal);
         int breedId = 0;
@@ -112,30 +111,18 @@ class ConsoleView(IText Language) : IView
         }
     }
 
-
-    private int LoadMenu(IBaseAnimal animal) // меню ввода текущей загрузки животного
+    public IBaseAnimal AddCommandsMenu(IBaseAnimal animal)
     {
-
-        int maxLoad;
-        int currentLoad = 0;
-        if (animal is IPackAnimal iPackAnimal)
-        {
-            maxLoad = iPackAnimal.MaxLoad;
-            bool flag = true;
-            while (flag)
-            {
-                currentLoad = Utils.GetInteger($"Введите текущую загрузку животного от 0 до {maxLoad}");
-                if (currentLoad >= 0 && currentLoad <= maxLoad) flag = false;
-                else Console.WriteLine("Введены неверные данные");
-            }
-        }
-        return currentLoad;
+        HashSet<AnimalCommand> commands = AnimalCommandsMenu(animal.Commands);
+        animal.Commands = commands;
+        return animal;
     }
+
 
 
     private string AnimalLongStrg(IBaseAnimal animal) // получение из IBaseAnimal строки с оcновной информацией о животном
     {
-        string commands = string.Join(",", EnumToStrgLst(animal.Commands));
+        string commands = string.Join(",", EnumToStrgLst(animal.Commands.ToList()));
         string vaccination = animal.Vaccination ? _text.Vaccinated : "";
         string outptut = $"Id: {animal.Id}, {_text.KindTranslate(animal.Kind)}, {animal.Name,-5}, {animal.DoB.ToShortDateString()}, {vaccination}\n";
         if (animal is Pet)
@@ -211,20 +198,35 @@ class ConsoleView(IText Language) : IView
         DateTime doB = DateMenu();
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
-        List<AnimalCommand> commands = AnimalCommandsMenu();
+        HashSet<AnimalCommand> commands = AnimalCommandsMenu();
         int breedId = BreedMenu(kind);
         bool happy = HappyMenu(kind);
-        return kind switch
+        switch (kind)
         {
-            Kind.Dog => new Dog(name, doB, vaccination, featureId, commands, happy, breedId),
-            Kind.Cat => new Cat(name, doB, vaccination, featureId, commands, happy, breedId),
-            Kind.Hamster => new Hamster(name, doB, vaccination, featureId, commands, happy),
-            Kind.Horse => new Horse(name, doB, vaccination, featureId, commands, breedId),
-            Kind.Camel => new Camel(name, doB, vaccination, featureId, commands),
-            Kind.Donkey => new Donkey(name, doB, vaccination, featureId, commands),
-            _ => throw new NotImplementedException(),
-        };
+            case Kind.Dog:
+                return new Dog(name, doB, vaccination, featureId, commands, happy, breedId);
+            case Kind.Cat:
+                return new Cat(name, doB, vaccination, featureId, commands, happy, breedId);
+            case Kind.Hamster:
+                return new Hamster(name, doB, vaccination, featureId, commands, happy);
+            case Kind.Horse:
+                Horse horse = new(name, doB, vaccination, featureId, commands, breedId);
+                horse.CurrentLoad = LoadMenu(horse);
+                return horse;
+            case Kind.Camel:
+                Camel camel = new(name, doB, vaccination, featureId, commands);
+                camel.CurrentLoad = LoadMenu(camel);
+                return camel;
+            case Kind.Donkey:
+                Donkey donkey = new(name, doB, vaccination, featureId, commands);
+                donkey.CurrentLoad = LoadMenu(donkey);
+                return donkey;
+            default:
+                throw new ParametersException();
+        }
     }
+
+
 
     public string SearchMenu() // меню поиска животного
     {
@@ -237,16 +239,19 @@ class ConsoleView(IText Language) : IView
     private DateTime DateMenu() => Utils.GetDate(_text.InputDoB);
     private bool VaccinationMenu() => SimpleQuestionMenu(_text.Vaccinated);
 
-    private List<AnimalCommand> AnimalCommandsMenu(List<AnimalCommand>? old = null)
+    private HashSet<AnimalCommand> AnimalCommandsMenu(HashSet<AnimalCommand>? old = null)
     {
         bool flag = true;
-        List<AnimalCommand> commands = [];
+        HashSet<AnimalCommand> commands = [];
         if (old != null) commands = old;
         int commandId;
         while (flag)
         {
             Console.Clear();
-            commands.ForEach(x => Console.WriteLine(_text.CommandTranslate(x)));
+            foreach (var command in commands)
+            {
+                Console.WriteLine(_text.CommandTranslate(command));
+            }
             flag = SimpleQuestionMenu(_text.AddCommands, false);
             if (flag)
             {
@@ -308,6 +313,25 @@ class ConsoleView(IText Language) : IView
                 return breedId;
             default: return 0;
         };
+    }
+
+    private int LoadMenu(IBaseAnimal animal) // меню ввода текущей загрузки животного
+    {
+
+        int maxLoad;
+        int currentLoad = 0;
+        if (animal is IPackAnimal iPackAnimal)
+        {
+            maxLoad = iPackAnimal.MaxLoad;
+            bool flag = true;
+            while (flag)
+            {
+                currentLoad = Utils.GetInteger($"{_text.InputLoad}{maxLoad}");
+                if (currentLoad >= 0 && currentLoad <= maxLoad) flag = false;
+                else Console.WriteLine($"{_text.WrongInput}");
+            }
+        }
+        return currentLoad;
     }
 
     private bool SimpleQuestionMenu(string question, bool clear = true) // меню для вопроса да/нет

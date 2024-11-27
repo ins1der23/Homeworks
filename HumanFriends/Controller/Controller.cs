@@ -51,6 +51,11 @@ class Controller(IText Language)
                 if (animal is null) break;
                 model.DelAnimal(animal);
                 break;
+            case CtrlCommands.Add:
+                if (animal is null) break;
+                animal = view.AddCommandsMenu(animal);
+                model.ChangeAnimal(animal);
+                break;
             case CtrlCommands.Change:
                 if (animal is null) break;
                 animal = view.ChangeMenu(animal);

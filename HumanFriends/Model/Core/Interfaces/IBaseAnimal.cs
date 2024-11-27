@@ -8,17 +8,17 @@ interface IBaseAnimal : IComparable<IBaseAnimal>
     DateTime DoB { get; }
     bool Vaccination { get; }
     Feature Feature { get; }
-    List<AnimalCommand> Commands { get; }
+    HashSet<AnimalCommand> Commands { get; set; }
 
     bool Vaccinate();
     string CommandsToString();
     void Change(IBaseAnimal animal);
 
-    
 
 
 
 
-    
-  
+
+
+
 }

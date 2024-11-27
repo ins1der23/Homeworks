@@ -17,7 +17,7 @@ class Horse : PackAnimal
             else throw new EnumException();
         }
     }
-    public Horse(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int breedId, int currentLoad = 0, int id = 0)
+    public Horse(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, int breedId, int currentLoad = 0, int id = 0)
    : base(name, doB, vaccination, featureId, commands, currentLoad, id)
     {
         Kind = Kind.Horse;

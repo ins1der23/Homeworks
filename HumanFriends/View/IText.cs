@@ -28,6 +28,8 @@ interface IText
     string ChooseFeature { get; }
     string ChooseBreed { get; }
     string CurrentLoad { get; }
+    string InputLoad { get; }
+    string WrongInput { get; }
 
     string FlagTranslate(bool flag);
     string KindTranslate(Kind kind);

@@ -33,7 +33,7 @@ abstract class PackAnimal : IPackAnimal
             else throw new EnumException();
         }
     }
-    public List<AnimalCommand> Commands { get; protected set; }
+    public HashSet<AnimalCommand> Commands { get; set; }
 
     private int maxLoad;
     public int MaxLoad
@@ -56,14 +56,14 @@ abstract class PackAnimal : IPackAnimal
         {
             return currentLoad;
         }
-        protected set
+        set
         {
             if (value >= 0 && value <= maxLoad) currentLoad = value;
             else throw new ParametersException();
         }
     }
 
-    protected PackAnimal(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, int currentLoad = 0, int id = 0)
+    protected PackAnimal(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, int currentLoad = 0, int id = 0)
     {
         if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
@@ -74,6 +74,7 @@ abstract class PackAnimal : IPackAnimal
         Vaccination = vaccination;
         Feature = (Feature)featureId;
         Commands = commands;
+        MaxLoad = 100;
         CurrentLoad = currentLoad;
     }
 

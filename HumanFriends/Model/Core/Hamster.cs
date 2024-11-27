@@ -4,7 +4,7 @@ class Hamster : Pet
 {
     public static readonly List<Feature> features = [Feature.Wheelrun];
 
-    public Hamster(string name, DateTime doB, bool vaccination, int featureId, List<AnimalCommand> commands, bool happy, int id = 0)
+    public Hamster(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, bool happy, int id = 0)
    : base(name, doB, vaccination, featureId, commands, happy, id)
     {
         Kind = Kind.Hamster;

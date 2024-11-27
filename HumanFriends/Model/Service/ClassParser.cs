@@ -38,10 +38,10 @@ class ClassParser : IClassParser
         else throw new EnumException();
     }
 
-    private List<AnimalCommand> GetCommands()
+    private HashSet<AnimalCommand> GetCommands()
     {
         string[] strings = _parameters[6].Split(",");
-        List<AnimalCommand> commands = [];
+        HashSet<AnimalCommand> commands = [];
         if (strings[0].Equals("")) return commands;
         try
         {
@@ -70,7 +70,7 @@ class ClassParser : IClassParser
             DateTime dob = Convert.ToDateTime(_parameters[3]);
             bool vaccination = Convert.ToBoolean(Convert.ToInt32(_parameters[4]));
             int featureId = Convert.ToInt32(_parameters[5]);
-            List<AnimalCommand> commands = GetCommands();
+            HashSet<AnimalCommand> commands = GetCommands();
             bool happy = false;
             if (Pet.kinds.Contains(kind)) happy = Convert.ToBoolean(Convert.ToInt32(_parameters[7]));
             int currentLoad = 0;

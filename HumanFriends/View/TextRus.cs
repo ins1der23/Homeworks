@@ -30,7 +30,8 @@ class TextRus : IText // класс для русского интерфейса
     public string ChooseFeature { get; }
     public string ChooseBreed { get; }
     public string CurrentLoad { get; }
-
+    public string InputLoad { get; }
+    public string WrongInput { get; }
 
 
 
@@ -43,7 +44,7 @@ class TextRus : IText // класс для русского интерфейса
         SortMenu = ["По имени животного", "По дате рождения", "По id"];
         SortMenuName = "Сортировать список:";
         SimpleQstMenu = ["Да", "Нет"];
-        ChgOrDelMenu = ["Изменить животное", "Удалить животное"];
+        ChgOrDelMenu = ["Изменить данные о животном", "Добавить комманды", "Удалить животное"];
         Choose = "Выберите пункт меню и нажмите ENTER";
         ChooseOrEmpty = "Выберите пункт меню или оставьте поле пустым, если нет подходящего, и нажмите ENTER";
         EmptyToReturn = "Выберите пункт меню или оставьте поле пустым для возврата в предыдущее меню и нажмите ENTER";
@@ -60,6 +61,8 @@ class TextRus : IText // класс для русского интерфейса
         ChooseFeature = "Выберите свойство животного";
         ChooseBreed = "Выберите породу животного";
         CurrentLoad = "Загрузка животного: ";
+        InputLoad = "Введите текущую загрузку животного от 0 до ";
+        WrongInput = "Введены неверные данные";
 
 
 
