@@ -17,42 +17,39 @@ static class Utils // статические утилиты используем
         } while (!flag);
         return choice;
     }
-    
-    
-    public static DateTime GetDate(string text)
-    {
-        Console.Clear();
-        DateTime date = new();
-        bool flag = true;
-        do
-        {
-            Console.Write($"{text}: ");
-            flag = DateTime.TryParse(Console.ReadLine(), out date);
-        } while (!flag);
-        return date;
-    }
 
-     public static string GetString(string textString) // получение заполненной string с клавиатуры
+
+    public static DateTime GetDate(string textString, bool allowEmpty = false)
     {
         Console.Clear();
         string output;
+        DateTime date = DateTime.MinValue;
         bool flag;
         do
         {
             Console.Write($"{textString}: ");
-
             output = string.Empty + Console.ReadLine();
-            if (output.Equals(string.Empty)) flag = false;
-            else
+            if (allowEmpty && output.Equals(string.Empty)) flag = true;
+            else flag = DateTime.TryParse(output, out date);
+        } while (!flag);
+        return date;
+    }
+
+    public static string GetString(string textString, bool allowEmpty = false) // получение string с клавиатуры c возможностбъю выбора получения пустой строки
+    {
+        Console.Clear();
+        string output;
+        bool flag = true;
+        do
+        {
+            Console.Write($"{textString}: ");
+            output = string.Empty + Console.ReadLine();
+            if (!allowEmpty && output.Equals(string.Empty)) flag = false;
+            foreach (char ch in output)
             {
-                flag = true;
-                foreach (char ch in output)
-                {
-                    if (!char.IsLetter(ch)) flag = false;
-                }
+                if (!char.IsLetter(ch)) flag = false;
             }
         } while (!flag);
         return output;
     }
-
 }

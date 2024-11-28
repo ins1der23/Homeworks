@@ -54,7 +54,7 @@ class Cat : Pet
     {
         if (animal is not Cat cat) throw new ParametersException();
         Name = cat.Name != string.Empty ? cat.Name : Name;
-        DoB = cat.DoB;
+        DoB = cat.DoB == DateTime.MinValue ? DoB : cat.DoB;
         Vaccination = cat.Vaccination;
         Feature = cat.Feature;
         Commands = cat.Commands;

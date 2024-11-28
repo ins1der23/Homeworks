@@ -81,8 +81,8 @@ class ConsoleView(IText Language) : IView
     {
         int id = animal.Id;
         Kind kind = animal.Kind;
-        string name = NameMenu();
-        DateTime doB = DateMenu();
+        string name = NameMenu(true);
+        DateTime doB = DateMenu(true);
         bool vaccination = VaccinationMenu();
         int featureId = FeatureMenu(kind);
         HashSet<AnimalCommand> commands = animal.Commands;
@@ -235,8 +235,16 @@ class ConsoleView(IText Language) : IView
 
 
     private Kind KindMenu() => (Kind)EnumMenu<Kind>(_text.ChooseKind, true);
-    private string NameMenu() => Utils.GetString(_text.InputName);
-    private DateTime DateMenu() => Utils.GetDate(_text.InputDoB);
+    private string NameMenu(bool changing = false)
+    {
+        if (changing) return Utils.GetString(_text.ChangeName, true);
+        else return Utils.GetString(_text.InputName);
+    }
+    private DateTime DateMenu(bool changing = false)
+    {
+        if (changing) return Utils.GetDate(_text.ChangeDoB, true);
+        else return Utils.GetDate(_text.InputDoB);
+    } 
     private bool VaccinationMenu() => SimpleQuestionMenu(_text.Vaccinated);
 
     private HashSet<AnimalCommand> AnimalCommandsMenu(HashSet<AnimalCommand>? old = null)

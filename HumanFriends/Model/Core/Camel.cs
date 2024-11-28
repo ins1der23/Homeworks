@@ -44,7 +44,7 @@ class Camel : PackAnimal
     {
         if (animal is not Camel camel) throw new ParametersException();
         Name = camel.Name != string.Empty ? camel.Name : Name;
-        DoB = camel.DoB;
+        DoB = camel.DoB == DateTime.MinValue ? DoB : camel.DoB;
         Vaccination = camel.Vaccination;
         Feature = camel.Feature;
         Commands = camel.Commands;

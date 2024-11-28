@@ -21,7 +21,20 @@ abstract class Pet : IPet
         }
     }
     public string Name { get; protected set; }
-    public DateTime DoB { get; protected set; }
+    private DateTime dob;
+    public DateTime DoB
+    {
+        get
+        {
+            return dob;
+        }
+
+        protected set
+        {
+            dob = value <= DateTime.Today ? value : DateTime.Today;
+        }
+    }
+
     public bool Vaccination { get; protected set; }
     private Feature feature;
     public Feature Feature
@@ -41,9 +54,8 @@ abstract class Pet : IPet
 
 
 
-    protected Pet(string name, DateTime doB, bool vaccination, int featureId,HashSet<AnimalCommand> commands, bool happy, int id = 0)
+    protected Pet(string name, DateTime doB, bool vaccination, int featureId, HashSet<AnimalCommand> commands, bool happy, int id = 0)
     {
-        if (string.IsNullOrEmpty(name) || doB > DateTime.Today) throw new ParametersException();
         using Counter cnt = Counter.GetInstance();
         Id = id == 0 ? cnt.Id : id;
         if (id != 0) cnt.SetId(id);

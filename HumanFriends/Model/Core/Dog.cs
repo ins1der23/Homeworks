@@ -55,8 +55,8 @@ class Dog : Pet
     public override void Change(IBaseAnimal animal)
     {
         if (animal is not Dog dog) throw new ParametersException();
-        Name = dog.Name != string.Empty ? dog.Name : Name;
-        DoB = dog.DoB;
+        Name = dog.Name.Equals(string.Empty) ? Name : dog.Name;
+        DoB = dog.DoB == DateTime.MinValue ? DoB : dog.DoB;
         Vaccination = dog.Vaccination;
         Feature = dog.Feature;
         Commands = dog.Commands;

@@ -59,7 +59,7 @@ class Horse : PackAnimal
     {
         if (animal is not Horse horse) throw new ParametersException();
         Name = horse.Name != string.Empty ? horse.Name : Name;
-        DoB = horse.DoB;
+        DoB = horse.DoB == DateTime.MinValue ? DoB : horse.DoB;
         Vaccination = horse.Vaccination;
         Feature = horse.Feature;
         Commands = horse.Commands;

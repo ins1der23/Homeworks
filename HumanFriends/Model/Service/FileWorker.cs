@@ -1,11 +1,11 @@
 namespace HumanFriends.Service;
 class FileWorker(string path) : IDataWorker // класс для работы файлами
 {
-    private string _path = path;
-    private FileInfo _file = new(path);
+    private readonly string _path = path;
+    private readonly FileInfo _file = new(path);
+    private bool _disposed = false;
     private StreamReader? _reader;
     private StreamWriter? _writer;
-    private bool _disposed = false;
 
     public void CheckPath() // проверка наличия файла и его создание в случае отстутсвтия
     {
@@ -46,7 +46,7 @@ class FileWorker(string path) : IDataWorker // класс для работы ф
 
     public void Delete() // удаление файла (кроме файла с базой)
     {
-        if (_file.Exists && path != Settings.dbPath)
+        if (_file.Exists && _path != Settings.dbPath)
             _file.Delete();
     }
     public void Dispose()

@@ -41,7 +41,7 @@ class Hamster : Pet
     {
         if (animal is not Hamster hamster) throw new ParametersException();
         Name = hamster.Name != string.Empty ? hamster.Name : Name;
-        DoB = hamster.DoB;
+        DoB = hamster.DoB == DateTime.MinValue ? DoB : hamster.DoB;
         Vaccination = hamster.Vaccination;
         Feature = hamster.Feature;
         Commands = hamster.Commands;

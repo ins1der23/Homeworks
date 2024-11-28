@@ -24,7 +24,9 @@ class TextRus : IText // класс для русского интерфейса
     public string SearchInput { get; }
     public string ChooseKind { get; }
     public string InputName { get; }
+    public string ChangeName { get; }
     public string InputDoB { get; }
+    public string ChangeDoB { get; }
     public string AddCommands { get; }
     public string ChooseCommand { get; }
     public string ChooseFeature { get; }
@@ -44,7 +46,7 @@ class TextRus : IText // класс для русского интерфейса
         SortMenu = ["По имени животного", "По дате рождения", "По id"];
         SortMenuName = "Сортировать список:";
         SimpleQstMenu = ["Да", "Нет"];
-        ChgOrDelMenu = ["Изменить данные о животном", "Добавить комманды", "Удалить животное"];
+        ChgOrDelMenu = ["Изменить данные животного", "Добавить комманды", "Удалить животное"];
         Choose = "Выберите пункт меню и нажмите ENTER";
         ChooseOrEmpty = "Выберите пункт меню или оставьте поле пустым, если нет подходящего, и нажмите ENTER";
         EmptyToReturn = "Выберите пункт меню или оставьте поле пустым для возврата в предыдущее меню и нажмите ENTER";
@@ -55,7 +57,9 @@ class TextRus : IText // класс для русского интерфейса
         SearchInput = "Введите текст для поиска";
         ChooseKind = "Выберите тип животного";
         InputName = "Введите имя животного";
-        InputDoB = "Введите дату рождения в в формате гггг-мм-дд ";
+        ChangeName = "Введите новое имя или оставьте поле путым, если не хотите менять ";
+        InputDoB = "Введите дату рождения в формате гггг-мм-дд ";
+        ChangeDoB = "Введите новую дату рождения в формате гггг-мм-дд ли оставьте поле путым, если не хотите менять";
         AddCommands = "Добавить команды:";
         ChooseCommand = "Выберите команду или оставьте поле пустым для возврата";
         ChooseFeature = "Выберите свойство животного";
@@ -110,7 +114,7 @@ class TextRus : IText // класс для русского интерфейса
             Breed.VietnameseStreet => "Вьетнамский уличный",
             Breed.EnglishPopeyed => "Английский лупоглазый",
             Breed.ScottishFold => "Шотландский вислоухий",
-            Breed.Arabic => "Арбаская",
+            Breed.Arabic => "Арабская",
             Breed.Donskaya => "Донская",
             Breed.Pony => "Пони",
             _ => string.Empty,

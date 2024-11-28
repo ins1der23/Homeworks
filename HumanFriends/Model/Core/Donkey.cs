@@ -44,7 +44,7 @@ class Donkey : PackAnimal
     {
         if (animal is not Donkey donkey) throw new ParametersException();
         Name = donkey.Name != string.Empty ? donkey.Name : Name;
-        DoB = donkey.DoB;
+        DoB = donkey.DoB == DateTime.MinValue ? DoB : donkey.DoB;
         Vaccination = donkey.Vaccination;
         Feature = donkey.Feature;
         Commands = donkey.Commands;

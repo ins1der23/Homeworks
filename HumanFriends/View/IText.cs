@@ -22,7 +22,9 @@ interface IText
     string SearchInput { get; }
     string ChooseKind { get; }
     string InputName { get; }
+    string ChangeName { get; }
     string InputDoB { get; }
+    string ChangeDoB { get; }
     string AddCommands { get; }
     string ChooseCommand { get; }
     string ChooseFeature { get; }
